@@ -43,6 +43,12 @@ class ThemesController extends AppController {
 			$theme_id = $this->request->data ['Themes'];
 			$data_component = $this->request->data ['Datacomponent'];
 			echo "Debug--> " . $theme_id . "  <>" . $data_component;
+			
+			$results = $this->Themes->find()->where(['Themes_ID'=>$theme_id])->contain('degrees')->first();
+			$this->set ( 'theme', $results );
+			$this->set ( '_serialize', [
+					'theme'
+			] );
 		}
     		
     		
