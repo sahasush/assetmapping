@@ -1,0 +1,22 @@
+<div class="related row">
+        <div class="column large-12">
+        <h4 class="subheader"><?= __('Faculty') ?></h4>
+        <?php if (!empty($labsCenter->faculty)): ?>
+            <ul>
+                <?php foreach ($labsCenter->faculty as $user): ?>
+                    <li><?= h($user->->Faculty_Fname) ?> (<?= h($user->->Faculty_Lname) ?>)</li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Nobody has been invited to attend this event</p>
+        <?php endif; ?>
+        </div>
+    </div>  
+	
+	
+	/**$labsCenter = $this->LabsCenters->get($id, [
+            'contain' => []
+        ]);
+
+        $this->set('labsCenter', $labsCenter);
+        $this->set('_serialize', ['labsCenter']);*/
