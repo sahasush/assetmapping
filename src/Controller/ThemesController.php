@@ -37,6 +37,13 @@ class ThemesController extends AppController {
 				'themes' 
 		] );
 	}
+	
+	public function findByTheme($theme){
+	
+		return $this->Cities->get($theme , ['contain' => ['degrees']]);
+	}
+	
+	
 	public function searchResults() {
 		if ($this->request->is ( 'post' )) {
 			
@@ -44,15 +51,25 @@ class ThemesController extends AppController {
 			$data_component = $this->request->data ['Datacomponent'];
 			echo "Debug--> " . $theme_id . "  <>" . $data_component;
 			
-			$results = $this->Themes->find()->where(['Themes_ID'=>$theme_id])->contain('degrees')->first();
-			$this->set ( 'theme', $results );
-			$this->set ( '_serialize', [
-					'theme'
-			] );
+			$results = $this->Themes->find ()->where ( [ 
+				'Themes_ID' => $theme_id
+		] )->contain ( 'degrees' )->first ();
+			
+			echo "Results";
+			
+		
+			$this->set ( 'theme', $results  );
+			$this->set ( 'component',$data_component  );
+			$this->set ( '_serialize', [	'theme'	] );
+			
+			
 		}
     		
     		
 	}
+	
+	
+	
 	
 	/**
 	 * View method

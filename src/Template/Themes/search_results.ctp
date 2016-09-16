@@ -1,34 +1,50 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-1 medium-1 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Theme'), ['action' => 'edit', $theme->Themes_ID]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Theme'), ['action' => 'delete', $theme->Themes_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $theme->Themes_ID)]) ?> </li>
-        <li><?= $this->Html->link(__('List Themes'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Theme'), ['action' => 'add']) ?> </li>
+         <li><?= $this->Html->link(__('List Themes'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('Search Theme'), ['action' => 'search']) ?> </li>
     </ul>
 </nav>
-<div class="themes view large-9 medium-8 columns content">
-    <h3><?= h($theme->Themes_ID) ?></h3>
-    <table class="vertical-table">
+<div class="themes index large-11 medium-10 columns content">
+    <h3><?= __('Search Results') ?></h3>
+     <br>Showing Resutls for Theme <b><?= h($theme->Theme) ?> </b>and component  <b><?=$component  ?> </b>
+
+    <table cellpadding="0" cellspacing="0">
+        
+     <thead>
         <tr>
-            <th><?= __('Theme') ?></th>
-            <td><?= h($theme->Theme) ?></td>
+            <th><?= __('Program Name') ?></th>    
+             <th><?= __('Degree Level') ?></th>         
+              
+              <th><?= __('Other') ?></th>    
+                
         </tr>
-        <tr>
-            <th><?= __('Themes ID') ?></th>
-            <td><?= $this->Number->format($theme->Themes_ID) ?></td>
-        </tr>
-        <tr>
-         <th><?= __('Degree Level') ?></th>
+        </thead>
+        <tbody>
+
+          
+        
         <?php if (!empty($theme->degrees)): ?>
-         <td>
+        
                 <?php foreach ($theme->degrees as $degree): ?>
-                    <li><?= h($degree->Degree_Level) ?> </li>
+                 <tr>
+                    <td><?= h($degree->Program_Name) ?></td>                   
+                   <td><?= h($degree->Degree_Level) ?></td>
+                                     
+                   <td><?= h($degree->Other) ?></td>
+                   
+                   </tr>
                 <?php endforeach; ?>
-            </td>
+            
             <?php else: ?>
             <p>None</p>
         <?php endif; ?>
-            </tr>
+        </td>
+            
+            </tbody>
     </table>
+    
+    
+    
+         
 </div>
