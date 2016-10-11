@@ -41,6 +41,26 @@ class ThemesTable extends Table
         		'targetForeignKey' => 'Degrees_ID',
         		'joinTable' => 'Themes_Degrees_Junction'
         ]);
+        
+        //Added by sush
+        
+        $this->belongsToMany('courses', [
+        		'alias' => 'Course',
+        		'foreignKey' => 'Themes_ID',
+        		'targetForeignKey' => 'Courses_ID',
+        		'joinTable' => 'Themes_Courses_Junction'
+        ]);
+        
+        //Added by sush
+        
+        $this->belongsToMany('labs_centers', [
+        		'alias' => 'Labs',
+        		'foreignKey' => 'Themes_ID',
+        		'targetForeignKey' => 'Labs_Centers_ID',
+        		'joinTable' => 'Themes_Centers_Junction'
+        ]);
+        
+        //End
     }
 
     /**

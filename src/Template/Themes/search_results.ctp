@@ -1,14 +1,27 @@
+
+ 
+  
 <nav class="large-1 medium-1 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
          <li><?= $this->Html->link(__('List Themes'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('Search Theme'), ['action' => 'search']) ?> </li>
     </ul>
+    
+       <h3>dsdsdsda</h3>
+    
+    <div class="dropdown">
+ 
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
 </nav>
 <div class="themes index large-11 medium-10 columns content">
     <h3><?= __('Search Results') ?></h3>
      <br>Showing Resutls for Theme <b><?= h($theme->Theme) ?> </b>and component  <b><?=$component  ?> </b>
 
+    <?php if (!empty($theme->degrees)): ?>
     <table cellpadding="0" cellspacing="0">
         
      <thead>
@@ -24,7 +37,7 @@
 
           
         
-        <?php if (!empty($theme->degrees)): ?>
+    
         
                 <?php foreach ($theme->degrees as $degree): ?>
                  <tr>
@@ -36,15 +49,76 @@
                    </tr>
                 <?php endforeach; ?>
             
-            <?php else: ?>
-            <p>None</p>
-        <?php endif; ?>
+                
         </td>
             
             </tbody>
     </table>
+     <?php endif; ?>
     
+    <?php if (!empty($theme->courses)): ?>
+    <table cellpadding="0" cellspacing="0">
+        
+     <thead>
+        <tr>
+            <th><?= __('Course Title') ?></th>    
+             <th><?= __('Course Number') ?></th>    
+              <th><?= __('Course Abbr') ?></th>    
+              <th><?= __('Units') ?></th>      
+           
+                
+        </tr>
+        </thead>
+        <tbody>
+
+          
+        
     
+        
+                <?php foreach ($theme->courses as $course): ?>
+                 <tr>
+                    <td><?= h($course->Course_Title) ?></td>                   
+                   <td><?= h($course->Course_Number) ?></td>
+                   <td><?= h($course->Course_Abbr) ?></td>
+                    <td><?= h($course->Units) ?></td>
+                   </tr>
+                <?php endforeach; ?>
+            
+        
+       
+        </td>
+            
+            </tbody>
+    </table>
+     <?php endif; ?>
+     <!-- Display Labs Centers -->
+     <?php if (!empty($theme->labs_centers)): ?>
+      <table cellpadding="0" cellspacing="0">
+        
+     <thead>
+        <tr>
+            <th><?= __('Center Type') ?></th>    
+             <th><?= __('Center Name') ?></th>    
+              <th><?= __('Research Area') ?></th>    
+              <th><?= __('Address') ?></th>    
+              <th><?= __('Web_URL') ?></th>             
+          </tr>
+        </thead>
+        <tbody>
+                <?php foreach ($theme->labs_centers as $center): ?>
+                 <tr>
+                    <td><?= h($center->Center_Type) ?></td>                   
+                   <td><?= h($center->Center_Name) ?></td>
+                   <td><?= h($center->Research_Area) ?></td>
+                    <td><?= h($center->Address_1.','. $center->Building_Room.', ' . $center->Address_2) ?></td>
+                     <td><?= h($center->Web_URL) ?></td>
+                   </tr>
+                <?php endforeach; ?>
+                </tbody>
+    </table>
+     <?php endif; ?>
+     
     
-         
+     
+     
 </div>

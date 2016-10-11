@@ -55,6 +55,10 @@ Router::scope('/', function (RouteBuilder $routes) {
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    
+  //  $routes->connect('/admin/EasyMenus/add', ['plugin' => 'EasyMenus', 'controller' => 'EasyMenus' ,  'action' => 'add', 'prefix' => 'Admin']);
+    $routes->connect('/admin/Users/login', ['plugin' => 'EasyMenus', 'controller' => 'EasyMenus' ,  'action' => 'add', 'prefix' => 'Admin']);
+
 
     /**
      * Connect catchall routes for all controllers.

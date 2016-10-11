@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use EasyMenus\Controller\Component\EasyMenusComComponent;
 
 /**
  * Application Controller
@@ -45,6 +46,7 @@ class AppController extends Controller
     {
         parent::initialize();
         $this->loadComponent('Flash');
+        $this->loadComponent('EasyMenus.EasyMenusCom');
 		 $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
@@ -54,9 +56,11 @@ class AppController extends Controller
                     ]
                 ]
             ],
+		 		
             'loginAction' => [
                 'controller' => 'Users',
-                'action' => 'login'
+                'action' => 'login',
+            
             ]
         ]);
 		
@@ -64,6 +68,7 @@ class AppController extends Controller
         // Allow the display action so our pages controller
         // continues to work.
         $this->Auth->allow(['display']);
+      
         
         
         
@@ -86,7 +91,7 @@ class AppController extends Controller
     }
 	public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['index', 'view', 'display']);
+        $this->Auth->allow(['index', 'view', 'display','add']);
     }
     
     

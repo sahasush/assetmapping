@@ -44,25 +44,38 @@ class ThemesController extends AppController {
 	}
 	
 	
-	public function searchResults() {
-		if ($this->request->is ( 'post' )) {
+public function searchResults()
+	{
+	if ($this->request->is('post'))
+		{
+		$theme_id = $this->request->data['Themes'];
+		$data_component = $this->request->data['Datacomponent'];
+		echo "Debug--> " . $theme_id . "  <>" . $data_component;
+		$resultsDegree = null;
+		$resultsCourses = null;
+		$resultsCenters = null;
+		if ($data_component == 'degree')
+			{
+			echo "/nMatch found/n";
+			$resultsDegree = $this->Themes->find()->where(['Themes_ID' => $theme_id])->contain('degrees')->first();
+			$this->set('theme', $resultsDegree);
+			}
+		  else if ($data_component == 'courses')
+			{
+			echo "<br />Match found for courses";
+			$resultsCourses = $this->Themes->find()->where(['Themes_ID' => $theme_id])->contain('courses')->first();
+			$this->set('theme', $resultsCourses);
+			}
+		  else if ($data_component == 'centers')
+			{
+			echo "<br />Match found for labs";
+			$resultsCenters = $this->Themes->find()->where(['Themes_ID' => $theme_id])->contain('labs_centers')->first();
 			
-			$theme_id = $this->request->data ['Themes'];
-			$data_component = $this->request->data ['Datacomponent'];
-			echo "Debug--> " . $theme_id . "  <>" . $data_component;
-			
-			$results = $this->Themes->find ()->where ( [ 
-				'Themes_ID' => $theme_id
-		] )->contain ( 'degrees' )->first ();
-			
-			echo "Results";
-			
-		
-			$this->set ( 'theme', $results  );
-			$this->set ( 'component',$data_component  );
-			$this->set ( '_serialize', [	'theme'	] );
-			
-			
+			$this->set('theme', $resultsCenters);
+			}
+
+		$this->set('component', $data_component);
+		$this->set('_serialize', ['theme']);
 		}
     		
     		

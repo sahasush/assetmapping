@@ -28,11 +28,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
+    <?= $this->Html->css('custom.css');?>
 
-    
-    <?= $this->Html->script('/webroot/js/thirdparty/chosen/chosen.jquery.js'); ?>
-        <?= $this->Html->script('/webroot/js/thirdparty/chosen/chosen.jquery.min.js'); ?>
-        
+    <?=$this->Element('EasyMenus.easymenu')?>
         
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>

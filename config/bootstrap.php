@@ -61,6 +61,8 @@ use Cake\Routing\DispatcherFactory;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
 
+
+
 /**
  * Read configuration file and inject configuration into various
  * CakePHP classes.
@@ -209,10 +211,11 @@ Type::build('datetime')
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
-
+Type::map('json', 'App\Database\Type\JsonType');
 Plugin::load('Migrations');
 Plugin::load('Search');
 Plugin::load('Crud');
+Plugin::load('EasyMenus', ['bootstrap' => false, 'routes' => true]);
 
 
 //Added by Sush

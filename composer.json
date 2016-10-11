@@ -11,7 +11,11 @@
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "*",
         "friendsofcake/search": "^2.1",
-        "friendsofcake/crud": "^4.3"
+        "friendsofcake/crud": "^4.3",
+        "elboletaire/twbs-cake-plugin": "~3.0",
+        "twbs/bootstrap": "~3.0",
+        "components/jquery": "2.*",
+        "markhatchell/cakephp3-easy-menus": "dev-master"
     },
     "require-dev": {
         "psy/psysh": "@stable",
