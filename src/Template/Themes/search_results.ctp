@@ -1,29 +1,19 @@
-
  
   
-<nav class="large-1 medium-1 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+<nav class="posleft">
+    <ul >
+         <li class="list-inline"><?= __('Select One') ?></li>
          <li><?= $this->Html->link(__('List Themes'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('Search Theme'), ['action' => 'search']) ?> </li>
     </ul>
     
-       <h3>dsdsdsda</h3>
-    
-    <div class="dropdown">
- 
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
 </nav>
-<div class="themes index large-11 medium-10 columns content">
+<div class="container">
     <h3><?= __('Search Results') ?></h3>
      <br>Showing Resutls for Theme <b><?= h($theme->Theme) ?> </b>and component  <b><?=$component  ?> </b>
 
     <?php if (!empty($theme->degrees)): ?>
-    <table cellpadding="0" cellspacing="0">
-        
+   <table class = "table table-bordered">        
      <thead>
         <tr>
             <th><?= __('Program Name') ?></th>    
@@ -35,10 +25,6 @@
         </thead>
         <tbody>
 
-          
-        
-    
-        
                 <?php foreach ($theme->degrees as $degree): ?>
                  <tr>
                     <td><?= h($degree->Program_Name) ?></td>                   
@@ -57,7 +43,7 @@
      <?php endif; ?>
     
     <?php if (!empty($theme->courses)): ?>
-    <table cellpadding="0" cellspacing="0">
+    <table class = "table table-bordered">
         
      <thead>
         <tr>
@@ -93,7 +79,7 @@
      <?php endif; ?>
      <!-- Display Labs Centers -->
      <?php if (!empty($theme->labs_centers)): ?>
-      <table cellpadding="0" cellspacing="0">
+    <table class = "table table-bordered">        
         
      <thead>
         <tr>

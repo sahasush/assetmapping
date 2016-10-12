@@ -1,17 +1,15 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-   <ul class="side-nav">
-      <li class="heading"><?= __('Actions') ?></li>
-      <li><?= $this->Html->link(__('New Faculty'), ['action' => 'add']) ?></li>
-   </ul>
-   <?= $this->Form->create(); ?>
-   <b> please enter name to search </b>
-   <?= $this->Form->input('name') ?>
-   <?= $this->Form->button('Filter', ['type' => 'submit']) ?>
-   <?= $this->Html->link('Reset', ['action' => 'index']) ?>
-   <?= $this->Form->end()?>
-</nav>
-<?php  echo $this->Html->script('scripts');?>
-<div class="themes index large-9 medium-8 columns content">
+
+<div class="posleft">
+<ul>
+        <li class="list-inline"><?= __('Select One') ?></li>
+         <li><?= $this->Html->link(__('List Themes'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('Search Theme'), ['action' => 'search']) ?> </li>
+    </ul>
+
+</div>
+
+<div class="container">
+
 <h3><?= __('Themes') ?></h3>
 <?= $this->Form->create(null, ['url' => ['controller' => 'Themes', 'action' => 'searchResults']]); ?>
 
@@ -38,4 +36,5 @@
    <?= $this->Form->button('Reset', ['type' => 'reset']); ?>
   
    <?= $this->Form->end()?>
+  
 </div>

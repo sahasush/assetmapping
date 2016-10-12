@@ -215,7 +215,7 @@ Type::map('json', 'App\Database\Type\JsonType');
 Plugin::load('Migrations');
 Plugin::load('Search');
 Plugin::load('Crud');
-Plugin::load('EasyMenus', ['bootstrap' => false, 'routes' => true]);
+Plugin::load('Twit');
 
 
 //Added by Sush

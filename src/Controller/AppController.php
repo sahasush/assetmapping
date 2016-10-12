@@ -32,6 +32,8 @@ class AppController extends Controller
     //Custom --start
 	use \Crud\Controller\ControllerTrait;
 	
+	
+	
 	//end 
 	/**
      * Initialization hook method.
@@ -46,7 +48,7 @@ class AppController extends Controller
     {
         parent::initialize();
         $this->loadComponent('Flash');
-        $this->loadComponent('EasyMenus.EasyMenusCom');
+      
 		 $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
@@ -64,7 +66,6 @@ class AppController extends Controller
             ]
         ]);
 		
-
         // Allow the display action so our pages controller
         // continues to work.
         $this->Auth->allow(['display']);
@@ -88,6 +89,10 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+        
+        //$this->viewBuilder()->theme('Modern'); -- This is for deafault
+        $this->viewBuilder()->theme('Twit');
+        
     }
 	public function beforeFilter(Event $event)
     {
