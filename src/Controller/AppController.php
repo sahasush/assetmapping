@@ -53,17 +53,19 @@ class AppController extends Controller
             'authenticate' => [
                 'Form' => [
                     'fields' => [
-                        'username' => 'email',
+                        'username' => 'username',
                         'password' => 'password'
                     ]
                 ]
             ],
-		 		
-            'loginAction' => [
+		    'loginAction' => [
                 'controller' => 'Users',
                 'action' => 'login',
-            
-            ]
+             ],
+		 		'loginRedirect' => [
+		 				'controller' => 'Themes',
+		 				'action' => 'index'
+		 		],
         ]);
 		
         // Allow the display action so our pages controller
@@ -96,8 +98,13 @@ class AppController extends Controller
     }
 	public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['index', 'view', 'display','add']);
+
+    	$this->Auth->allow(['index', 'view', 'display','add']);
+    	
+    	
     }
+    
+    
     
     
 }

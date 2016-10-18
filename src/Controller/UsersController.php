@@ -2,6 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry ;
+
 
 /**
  * Users Controller
@@ -34,7 +37,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => []
+            'contain' => ['roles']
         ]);
 
         $this->set('user', $user);
@@ -118,14 +121,55 @@ class UsersController extends AppController
             
           
             if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+                $this->Auth->setUser($user);    
+                //Get roles
+                
+          //      $id   = $user['id'];          
+               
+                $session = $this->request->session();                 
+                $role=$this->getUserRoles($user);               
+               $session->write('User.role', $role);               
+                //End
+               return $this->redirect($this->Auth->redirectUrl());
             }
             
             
             $this->Flash->error(__('Invalid username or password, try again'));
         }
     }
+    private function getUserRoles($user)
+    {
+    	$users = TableRegistry::get('Users');
+    	$rname="";
+    	$priority=10;
+    	$counter=0;
+    	$query = $users->find()
+    	->contain(['roles'])
+    	->where(['users.id' => $user['id']])
+    	->limit(1);
+    	
+    	foreach ($query as $row) {
+    		// Each row is now an instance of our Article class.
+    		echo $row->id;
+    		
+    		if (!empty($row->roles)){
+    			foreach ($row->roles as $role){
+    				$counter=$counter+1;
+    				if($counter ==1 ){
+    					$priority=$role->priority;
+    				}else{
+    					$priority=min(	$priority,$role->priority);
+    				}
+    			}
+    		}
+    		
+    	}   	
+    	
+    	return $priority;
+    }
+    
+    
+ 
 public function initialize()
 {
     parent::initialize();

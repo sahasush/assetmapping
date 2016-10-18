@@ -1,15 +1,19 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+
+<h1>TEST <?=implode(" ",$colnames); ?></h1>
+<nav ass="posleft">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Theme'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="themes index large-9 medium-8 columns content">
+<div class="container">
     <h3><?= __('Themes') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+    <table class = "table table-bordered">
         <thead>
             <tr>
+             <?php if (in_array("theme_id", $colnames)): ?>
                 <th><?= $this->Paginator->sort('Themes_ID') ?></th>
+                 <?php endif; ?>
                 <th><?= $this->Paginator->sort('Theme') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -17,7 +21,10 @@
         <tbody>
             <?php foreach ($themes as $theme): ?>
             <tr>
+                
+                 <?php if (in_array("theme_id", $colnames)): ?>                
                 <td><?= $this->Number->format($theme->Themes_ID) ?></td>
+                 <?php endif; ?>
                 <td><?= h($theme->Theme) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $theme->Themes_ID]) ?>

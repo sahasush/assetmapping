@@ -37,6 +37,13 @@ class UsersTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        
+        $this->belongsToMany('roles', [
+        		'alias' => 'Roles',
+        		'foreignKey' => 'id',
+        		'targetForeignKey' => 'roles_id',
+        		'joinTable' => 'Users_Role_Junction'
+        ]);
     }
 
     /**
@@ -63,6 +70,9 @@ class UsersTable extends Table
         $validator
             ->email('email')
             ->allowEmpty('email');
+
+        $validator
+            ->allowEmpty('fullname');
 
         return $validator;
     }

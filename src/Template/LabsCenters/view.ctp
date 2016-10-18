@@ -1,27 +1,27 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="posleft">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+        <li ><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Labs Center'), ['action' => 'edit', $labsCenter->Labs_Centers_ID]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Labs Center'), ['action' => 'delete', $labsCenter->Labs_Centers_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $labsCenter->Labs_Centers_ID)]) ?> </li>
         <li><?= $this->Html->link(__('List Labs Centers'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Labs Center'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="labsCenters view large-9 medium-8 columns content">
+<div class="container">
 
-    <h3><?= h($labsCenter->Labs_Centers_ID) ?></h3>
-    <table class="vertical-table">
+    <h3>Lab Center ID:<?= h($labsCenter->Labs_Centers_ID) ?></h3>
+    <table class="table table-reflow">
 	<div style="word-wrap: break-word; width: 800px">
         <tr>
-            <th><?= __('Center Type') ?></th>
+            <th scope="row"><?= __('Center Type') ?></th>
             <td><?= h($labsCenter->Center_Type) ?></td>
         </tr>
         <tr>
-            <th><?= __('Center Name') ?></th>
+            <th scope="row"><?= __('Center Name') ?></th>
             <td><?= h($labsCenter->Center_Name) ?></td>
         </tr>
         <tr>
-            <th><?= __('Estbl Yr') ?></th>
+            <th scope="row"><?= __('Estbl Yr') ?></th>
             <td><?= h($labsCenter->Estbl_Yr) ?></td>
         </tr>
         <tr>
@@ -137,17 +137,19 @@
             <td><?= $this->Number->format($labsCenter->Departments_ID) ?></td>
         <tr>
 		 <th><?= __('Faculty Name') ?></th>
+		 <td>
         <?php if (!empty($labsCenter->faculty)): ?>
 		
 		
-            <td>
+           
                 <?php foreach ($labsCenter->faculty as $user): ?>
                     <li><?= h($user->Faculty_Fname) ?> <?= h($user->Faculty_Lname) ?></li>
                 <?php endforeach; ?>
-            </td>
+            
         <?php else: ?>
-            <p>Nobody has been invited to attend this event</p>
+            <p>No data found</p>
         <?php endif; ?>
+        </td>
 		</tr>
 		</div>
 		

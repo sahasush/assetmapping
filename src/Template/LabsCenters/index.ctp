@@ -1,12 +1,12 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="posleft">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+        <li ><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Labs Center'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="labsCenters index large-9 medium-8 columns content">
+<div class="container">
     <h3><?= __('Labs Centers') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+   <table class = "table table-bordered">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('Labs_Centers_ID') ?></th>

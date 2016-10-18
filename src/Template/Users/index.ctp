@@ -1,17 +1,20 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="postleft">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+        <li ><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="users index large-9 medium-8 columns content">
+<div class="container">
     <h3><?= __('Users') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+   <table class = "table table-bordered">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
+                 <th><?= $this->Paginator->sort('fullname') ?></th>
+                 <th><?= $this->Paginator->sort('username') ?></th>
+                 <th><?= $this->Paginator->sort('password') ?></th>
                 <th><?= $this->Paginator->sort('email') ?></th>
-                <th><?= $this->Paginator->sort('password') ?></th>
+                
                 <th><?= $this->Paginator->sort('created') ?></th>
                 <th><?= $this->Paginator->sort('modified') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
@@ -21,8 +24,10 @@
             <?php foreach ($users as $user): ?>
             <tr>
                 <td><?= $this->Number->format($user->id) ?></td>
-                <td><?= h($user->email) ?></td>
-                <td><?= h($user->password) ?></td>
+                 <td><?= h($user->fullname) ?></td>
+                 <td><?= h($user->username) ?></td>
+                 <td><?= h($user->password) ?></td>
+                <td><?= h($user->email) ?></td>                
                 <td><?= h($user->created) ?></td>
                 <td><?= h($user->modified) ?></td>
                 <td class="actions">
