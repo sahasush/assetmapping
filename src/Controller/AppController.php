@@ -63,8 +63,8 @@ class AppController extends Controller
                 'action' => 'login',
              ],
 		 		'loginRedirect' => [
-		 				'controller' => 'Themes',
-		 				'action' => 'index'
+		 				'controller' => 'Users',
+		 				'action' => 'home'
 		 		],
         ]);
 		

@@ -14,27 +14,42 @@
 <?= $this->Form->create(null, ['url' => ['controller' => 'Themes', 'action' => 'searchResults']]); ?>
 
 
-<table cellpadding="0" cellspacing="0">
+<table class='table borderless'>
    <tbody>
       <tr>
          <td>
-            <?=$this->Form->input('Themes', array('type' => 'select','options'=> $themes)); ?>    
+          <!-- <div class="form-group"> -->
+          
+          
+            <?=$this->Form->input('Themes', array('type' => 'select','options'=> $themes,'class' => 'selectpicker','data-live-search'=>'true')); ?>    
+       
             </td>
             <td>  
+            
+              <div class="input select">
             <label for="datacomponents">Data Components</label>           
-            <select name="Datacomponent" id="Datacomponent">
+            <select  class="selectpicker" data-live-search="true" name="Datacomponent" id="Datacomponent">
                <option value="degree">Degrees</option>
                <option value="courses">Courses</option>
                <option value="centers">Labs/Centers</option>
                <option value="faculty">Faculty</option>
             </select>
+           
+            </div>
             </td>
       </tr>
+      <tr>
+      <td>
+        <?= $this->Form->button('Search', ['type' => 'submit']) ?>
+        </td>
+        <td>
+   <?= $this->Form->button('Reset', ['type' => 'reset']); ?>
+  </td>
+   <?= $this->Form->end()?>
+   
+   </tr>
    </tbody>
 </table>
-   <?= $this->Form->button('Search', ['type' => 'submit']) ?>
-   <?= $this->Form->button('Reset', ['type' => 'reset']); ?>
-  
-   <?= $this->Form->end()?>
+ 
   
 </div>

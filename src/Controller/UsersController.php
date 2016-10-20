@@ -27,6 +27,16 @@ class UsersController extends AppController
         $this->set('_serialize', ['users']);
     }
 
+    
+    public function home()
+    {
+    	//Do nothing
+    }
+    
+    public function query()
+    {
+    	//Do nothing
+    }
     /**
      * View method
      *
