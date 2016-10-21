@@ -211,7 +211,7 @@ class ThemesController extends AppController {
 		$role = $session->read ( 'User.role' );
 		// Start a new query.
 		$results = $tblcolPer->find()->select(['col_name'])->where(['table_name '  =>  'themes'])->where(['role_id' => $role]);
-	    $this->log("Test1111",'debug');
+	    
 		foreach ($results as $result) {
 			
 			$this->log("colname::".$result->col_name,'debug');

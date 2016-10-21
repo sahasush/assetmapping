@@ -14,9 +14,9 @@
 <?= $this->Form->create(null, ['url' => ['controller' => 'Themes', 'action' => 'searchResults']]); ?>
 
 
-<table class='table borderless'>
+<table class='table borderless' cellpadding="10" >
    <tbody>
-      <tr>
+      <tr >
          <td>
           <!-- <div class="form-group"> -->
           
@@ -38,12 +38,15 @@
             </div>
             </td>
       </tr>
-      <tr>
+      <tr >
+     
       <td>
+      <br>
         <?= $this->Form->button('Search', ['type' => 'submit']) ?>
-        </td>
-        <td>
+      
+             
    <?= $this->Form->button('Reset', ['type' => 'reset']); ?>
+   
   </td>
    <?= $this->Form->end()?>
    
