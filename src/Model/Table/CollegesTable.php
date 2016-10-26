@@ -33,6 +33,13 @@ class CollegesTable extends Table
         $this->table('colleges');
         $this->displayField('Colleges_ID');
         $this->primaryKey('Colleges_ID');
+        
+        
+        $this->hasMany('departments', [
+        		'alias' => 'Departments',
+        		'foreignKey' => 'College_ID',
+        
+        ]);
     }
 
     /**

@@ -202,7 +202,16 @@ class UniversitiesController extends AppController {
 				'valueField' => 'College' 
 		] );
 		
-		// Colleges
+		// Find departments
+		
+		// Find Colleges
+		$values = TableRegistry::get ( 'Departments' );
+		
+		$departments = $values->find ( 'list', [
+				'keyField' => 'Departments_ID',
+				'valueField' => 'Department'
+		] );
+		
 		
 		$this->set ( compact ( 'universities' ) );
 		$this->set ( '_serialize', [ 
@@ -212,6 +221,11 @@ class UniversitiesController extends AppController {
 		$this->set ( compact ( 'colleges' ) );
 		$this->set ( '_serialize', [ 
 				'colleges' 
+		] );
+		
+		$this->set ( compact ( 'departments' ) );
+		$this->set ( '_serialize', [
+				'departments'
 		] );
 	}
 	public function get_by_colleges($id = null) {
@@ -259,10 +273,50 @@ class UniversitiesController extends AppController {
 				'keyField' => 'College_ID',
 				'valueField' => 'College' 
 		] )->where ( [ 
-				'Colleges.University_ID >' => '2' 
+				'Colleges.University_ID >' => $id
 		] );
 		
+		$colleges->distinct(['College']);
 		$this->set ( compact ( 'colleges' ) );
 		$this->set ( '_serialize', 'colleges' );
+	}
+	
+	/**
+	 * My own convention was to suffix AJAX only actions with "_ajax".
+	 * Not really necessary, but can maybe distinguish such actions from
+	 * the normal ones.
+	 *
+	 * This method provides the AJAX data chained_dropdowns() needs.
+	 *
+	 * @return void
+	 */
+	public function collegeDeptAjax() {
+		$this->request->allowMethod ( 'ajax' );
+		$id = $this->request->query ( 'college_id' );
+		if (! $id) {
+			throw new NotFoundException ();
+		}
+	
+		$this->viewBuilder ()->className ( 'Ajax.Ajax' );
+		//$this->loadModel ( 'Departments' );
+		
+		
+		
+		
+		$depts = TableRegistry::get('Departments');
+		
+	
+	
+		$departments = $depts->find ( 'list', [
+				'keyField' => 'Departments_ID',
+				'valueField' => 'Department'
+		] )->where ( [
+				'Departments.Colleges_ID' => $id
+		] );
+		
+		$num =$departments->count();
+	
+		$this->set ( compact ( 'departments' ) );
+		$this->set ( '_serialize', 'departments' );
 	}
 }
