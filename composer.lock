@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6f99d0a571604f01345930283f39ae47",
-    "content-hash": "ff4b615661bac40e00518715262a667d",
+    "hash": "e29679194d0a86fa1e12233618fa52ad",
+    "content-hash": "ec7c441b3d9ba74fd803dad0135faa12",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -385,6 +385,55 @@
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
             "time": "2016-05-25 06:43:59"
+        },
+        {
+            "name": "dereuromark/cakephp-ajax",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dereuromark/cakephp-ajax.git",
+                "reference": "db76b730106d00037094eef8cdd3020af30c32a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-ajax/zipball/db76b730106d00037094eef8cdd3020af30c32a4",
+                "reference": "db76b730106d00037094eef8cdd3020af30c32a4",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "~3.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "dereuromark/cakephp-tools": "dev-master"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Ajax\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Scherer",
+                    "homepage": "http://www.dereuromark.de",
+                    "role": "Author"
+                }
+            ],
+            "description": "A CakePHP plugin that makes working with AJAX a piece of cake.",
+            "homepage": "https://github.com/dereuromark/cakephp-ajax",
+            "keywords": [
+                "ajax",
+                "asynchronous",
+                "cakephp",
+                "plugin",
+                "view"
+            ],
+            "time": "2015-10-29 00:10:14"
         },
         {
             "name": "elboletaire/less-cake-plugin",

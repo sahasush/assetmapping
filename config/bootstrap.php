@@ -62,6 +62,7 @@ use Cake\Network\Request;
 use Cake\Routing\DispatcherFactory;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
+use Cake\Routing\Router;
 
 
 
@@ -218,11 +219,20 @@ Plugin::load('Migrations');
 Plugin::load('Search');
 Plugin::load('Crud');
 Plugin::load('Twit');
+Plugin::load('Ajax');
 
 
-//Added by Sush
-
-//Plugin::load('Admin', ['routes' => true, 'autoload' => true]);
 Plugin::loadAll();
+
+DispatcherFactory::add('Asset');
+DispatcherFactory::add('Routing');
+DispatcherFactory::add('ControllerFactory');
+
+Router::extensions(['json', 'xml', 'csv', 'rss', 'pdf']);
+
+
+
+class_alias('Cake\Core\Configure', 'Configure');
+
 
 

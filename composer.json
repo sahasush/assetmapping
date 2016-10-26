@@ -15,7 +15,8 @@
         "elboletaire/twbs-cake-plugin": "~3.0",
         "twbs/bootstrap": "~3.0",
         "components/jquery": "2.*",
-        "markhatchell/cakephp3-easy-menus": "dev-master"
+        "markhatchell/cakephp3-easy-menus": "dev-master",
+        "dereuromark/cakephp-ajax": "^1.0"
     },
     "require-dev": {
         "psy/psysh": "@stable",

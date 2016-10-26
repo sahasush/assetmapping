@@ -43,6 +43,8 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
+
+
 Router::scope('/', function (RouteBuilder $routes) {
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
@@ -59,6 +61,9 @@ Router::scope('/', function (RouteBuilder $routes) {
   //  $routes->connect('/admin/EasyMenus/add', ['plugin' => 'EasyMenus', 'controller' => 'EasyMenus' ,  'action' => 'add', 'prefix' => 'Admin']);
     $routes->connect('/admin/Users/login', ['plugin' => 'EasyMenus', 'controller' => 'EasyMenus' ,  'action' => 'add', 'prefix' => 'Admin']);
 
+    
+    
+    //End custom
 
     /**
      * Connect catchall routes for all controllers.

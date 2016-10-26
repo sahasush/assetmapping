@@ -72,7 +72,8 @@ class AppController extends Controller
         // continues to work.
         $this->Auth->allow(['display']);
       
-        
+        //For Ajax and Json
+        $this->loadComponent('RequestHandler');
         
         
 		
@@ -100,6 +101,7 @@ class AppController extends Controller
     {
 
     	$this->Auth->allow(['index', 'view', 'display','add']);
+
     	
     	
     }
