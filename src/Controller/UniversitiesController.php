@@ -200,8 +200,8 @@ class UniversitiesController extends AppController {
 		$colleges = $values->find ( 'list', [ 
 				'keyField' => 'College_ID',
 				'valueField' => 'College' 
-		] );
-		
+		] )->order(['College' => 'ASC']);;;
+		$colleges->distinct(['College']);
 		// Find departments
 		
 		// Find Colleges
@@ -210,8 +210,8 @@ class UniversitiesController extends AppController {
 		$departments = $values->find ( 'list', [
 				'keyField' => 'Departments_ID',
 				'valueField' => 'Department'
-		] );
-		
+		] )->order(['Department' => 'ASC']);
+		$departments->distinct(['Department']);
 		
 		$this->set ( compact ( 'universities' ) );
 		$this->set ( '_serialize', [ 
@@ -274,7 +274,8 @@ class UniversitiesController extends AppController {
 				'valueField' => 'College' 
 		] )->where ( [ 
 				'Colleges.University_ID >' => $id
-		] );
+		] )
+			->order(['College' => 'ASC']);
 		
 		$colleges->distinct(['College']);
 		$this->set ( compact ( 'colleges' ) );
@@ -310,11 +311,12 @@ class UniversitiesController extends AppController {
 		$departments = $depts->find ( 'list', [
 				'keyField' => 'Departments_ID',
 				'valueField' => 'Department'
-		] )->where ( [
-				'Departments.Colleges_ID' => $id
-		] );
+		] )->where ( ['Departments.Colleges_ID' => $id] )
+		->order(['Department' => 'ASC']);
+		
 		
 		$num =$departments->count();
+		$departments->distinct(['Department']);
 	
 		$this->set ( compact ( 'departments' ) );
 		$this->set ( '_serialize', 'departments' );

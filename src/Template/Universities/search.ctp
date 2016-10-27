@@ -137,10 +137,12 @@ $(function() {
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			},
+
+			
 			success: function(response) {
 				if (response.content) {
 					$('#departments').html(response.content);
-					alert(response.content);
+				
 					
 				}
 			},
