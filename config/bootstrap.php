@@ -234,5 +234,7 @@ Router::extensions(['json', 'xml', 'csv', 'rss', 'pdf']);
 
 class_alias('Cake\Core\Configure', 'Configure');
 
+Configure::load('configs');
+
 
 

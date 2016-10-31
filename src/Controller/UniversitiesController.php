@@ -197,12 +197,12 @@ class UniversitiesController extends AppController {
 		// Find Colleges
 		$values = TableRegistry::get ( 'Colleges' );
 		
+	
 		$colleges = $values->find ( 'list', [ 
 				'keyField' => 'College_ID',
 				'valueField' => 'College' 
-		] )->order(['College' => 'ASC']);;;
+		] )->order(['College' => 'ASC']);
 		$colleges->distinct(['College']);
-		// Find departments
 		
 		// Find Colleges
 		$values = TableRegistry::get ( 'Departments' );
@@ -213,15 +213,31 @@ class UniversitiesController extends AppController {
 		] )->order(['Department' => 'ASC']);
 		$departments->distinct(['Department']);
 		
+		
+		
+		//Test debug
+		
+		
+		$test = $values->find ( 'list', [
+				'keyField' => 'Departments_ID',
+				'valueField' => 'Department'
+		] )->where ( ['Departments.Colleges_ID = ' => '26'] )
+		->order(['Department' => 'ASC']);
+		$this->log("query::".$test,'debug');
+			
+		
+		//Test debug end
 		$this->set ( compact ( 'universities' ) );
 		$this->set ( '_serialize', [ 
 				'universities' 
 		] );
 		
+		
 		$this->set ( compact ( 'colleges' ) );
 		$this->set ( '_serialize', [ 
 				'colleges' 
 		] );
+	
 		
 		$this->set ( compact ( 'departments' ) );
 		$this->set ( '_serialize', [
@@ -270,14 +286,17 @@ class UniversitiesController extends AppController {
 		$this->loadModel ( 'Colleges' );
 		
 		$colleges = $this->Colleges->find ( 'list', [ 
-				'keyField' => 'College_ID',
+				'keyField' => 'Colleges_ID',
 				'valueField' => 'College' 
 		] )->where ( [ 
-				'Colleges.University_ID >' => $id
+				'University_ID =' => $id
 		] )
 			->order(['College' => 'ASC']);
 		
+	
 		$colleges->distinct(['College']);
+		
+	$num =$colleges->count();
 		$this->set ( compact ( 'colleges' ) );
 		$this->set ( '_serialize', 'colleges' );
 	}
@@ -301,18 +320,15 @@ class UniversitiesController extends AppController {
 		$this->viewBuilder ()->className ( 'Ajax.Ajax' );
 		//$this->loadModel ( 'Departments' );
 		
-		
-		
-		
 		$depts = TableRegistry::get('Departments');
 		
-	
-	
 		$departments = $depts->find ( 'list', [
 				'keyField' => 'Departments_ID',
 				'valueField' => 'Department'
-		] )->where ( ['Departments.Colleges_ID' => $id] )
+		] )->where ( ['Departments.Colleges_ID = ' => $id] )
 		->order(['Department' => 'ASC']);
+		
+		
 		
 		
 		$num =$departments->count();
@@ -321,4 +337,63 @@ class UniversitiesController extends AppController {
 		$this->set ( compact ( 'departments' ) );
 		$this->set ( '_serialize', 'departments' );
 	}
+	
+	/**
+	 *  Returns the results of the selections
+	 * 
+	 */
+	
+	public function searchResults() {
+		if ($this->request->is ( 'post' )) {
+			//Get the request ids
+			$university_id = $this->request->data ['university_id'];
+			$college_id = $this->request->data ['college_id'];
+			$department_id = $this->request->data ['department_id'];
+			
+			
+			$data_component = $this->request->data ['Datacomponent'];
+			echo "Debug--> " . $university_id  . "  <>" . $data_component;
+			$resultsDegree = null;
+			$resultsCourses = null;
+			$resultsCenters = null;
+			if ($data_component == 'degree') {
+				echo "/nMatch found/n";
+				$resultsDegree = $this->Themes->find ()->where ( [
+						'Themes_ID' => $theme_id
+				] )->contain ( 'degrees' )->first ();
+				$this->set ( 'theme', $resultsDegree );
+			} else if ($data_component == 'courses') {
+				echo "<br />Match found for courses".$department_id;
+				
+				$values = TableRegistry::get ( 'Courses' );
+				
+				
+				$results = $values->find ('all')
+				->where(['Courses.Departments_ID =' => $department_id])	;
+				
+			//	$results = $courses->toArray();
+				
+				
+				
+				
+				//end debug
+				
+				$this->set ( 'results', $results);
+				
+			} else if ($data_component == 'centers') {
+				echo "<br />Match found for labs";
+				$resultsCenters = $this->Themes->find ()->where ( [
+						'Themes_ID' => $theme_id
+				] )->contain ( 'labs_centers' )->first ();
+	
+				$this->set ( 'results', $resultsCenters );
+			}
+				
+			$this->set ( 'component', $data_component );
+			$this->set ( '_serialize', [
+					'results'
+			] );
+		}
+	}
+	
 }

@@ -10,9 +10,9 @@
 </div>
 
 <div class="container">
-	<form class="form-horizontal">
+
 		<h3><?= __('Universities') ?></h3>
-<?= $this->Form->create(); ?>
+<?= $this->Form->create(null, ['url' => ['controller' => 'Universities', 'action' => 'searchResults' ], 'class' =>'form-horizontal']); ?>
 
 
          <div class="form-group">              
@@ -38,12 +38,16 @@
 								$deptempty = $departments->toArray () ? Configure::read ( 'Select.defaultBefore' ) . __ ( 'pleaseSelect' ) . Configure::read ( 'Select.defaultAfter' ) : [ 
 										'0' => Configure::read ( 'Select.naBefore' ) . __ ( 'noOptionAvailable' ) . Configure::read ( 'Select.naAfter' ) 
 								];
-								// echo $this->Form->input('university_id', ['id' => 'universities', 'rel' => $url]);
+								
+								
+								
 								
 								?>
 		 <label class="control-label col-sm-2" for="university">University</label>
 			<div class="col-sm-10">	
 			<?=  $this->Form->input('university_id', array('label' => false,'type' => 'select','options'=> $universities,'class' => 'selectpicker','data-live-search'=>'true','id' => 'universities', 'rel' => $url));?>
+			
+			
 			</div>
 		</div>
      <div class="form-group">    
@@ -67,9 +71,10 @@
 				 <select
 					class="selectpicker" data-live-search="true" name="Datacomponent"
 					id="Datacomponent">
+					<option value="courses">Courses</option>
+					<option value="degrees">Degrees</option>
 					<option value="equipment">Equipment</option>
-					<option value="faculty">Faculty</option>
-						<option value="grants">Grants</option>
+					<option value="faculty">Faculty</option>						
 					<option value="centers">Labs/Centers</option>
 					
 				</select>
