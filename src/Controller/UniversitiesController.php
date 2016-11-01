@@ -8,6 +8,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use Cake\Core\Configure;
 
+
 /**
  * Universities Controller
  *
@@ -352,34 +353,50 @@ class UniversitiesController extends AppController {
 			
 			
 			$data_component = $this->request->data ['Datacomponent'];
-			echo "Debug--> " . $university_id  . "  <>" . $data_component;
+			
 			$resultsDegree = null;
 			$resultsCourses = null;
 			$resultsCenters = null;
-			if ($data_component == 'degree') {
-				echo "/nMatch found/n";
-				$resultsDegree = $this->Themes->find ()->where ( [
-						'Themes_ID' => $theme_id
-				] )->contain ( 'degrees' )->first ();
-				$this->set ( 'theme', $resultsDegree );
+			if ($data_component == 'degrees') {
+				
+				$tbl = TableRegistry::get ( 'Degrees' );
+				
+				/**$data = $tbl->find()
+				->join([
+						'table' => 'dept_degrees_junction',
+						'alias' => 'p',
+						'type' => 'INNER',
+						'where'=>(['p.deptartments_ID' => $department_id])
+						'conditions' => array('p.degrees_id=Degrees.Degrees_ID')
+						
+				]);*/
+				
+			$data=	$tbl
+				->find('all')
+				->leftJoin('dept_degrees_junction', 'dept_degrees_junction.degrees_id=Degrees.Degrees_ID')
+				->where(['dept_degrees_junction.deptartments_ID' => $department_id]);
+					
+			     $total = $data->count();
+			
+				
+				$this->log("query::".$total,'debug');
+					
+				
+				$this->set ( 'degrees', $data);
+				$this->set ( '_serialize', [
+						'degrees'
+				] );
+				
 			} else if ($data_component == 'courses') {
 				echo "<br />Match found for courses".$department_id;
 				
 				$values = TableRegistry::get ( 'Courses' );
-				
-				
 				$results = $values->find ('all')
 				->where(['Courses.Departments_ID =' => $department_id])	;
-				
-			//	$results = $courses->toArray();
-				
-				
-				
-				
-				//end debug
-				
 				$this->set ( 'results', $results);
-				
+				$this->set ( '_serialize', [
+						'results'
+				] );
 			} else if ($data_component == 'centers') {
 				echo "<br />Match found for labs";
 				$resultsCenters = $this->Themes->find ()->where ( [
@@ -390,9 +407,7 @@ class UniversitiesController extends AppController {
 			}
 				
 			$this->set ( 'component', $data_component );
-			$this->set ( '_serialize', [
-					'results'
-			] );
+			
 		}
 	}
 	

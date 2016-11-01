@@ -33,6 +33,13 @@ class DegreesTable extends Table
         $this->table('degrees');
         $this->displayField('Degrees_ID');
         $this->primaryKey('Degrees_ID');
+        
+        $this->belongsToMany('Departments', [
+        		'alias' => 'departments',
+        		'foreignKey' => 'Degrees_ID',
+        		'targetForeignKey' => 'Departments_ID',
+        		'joinTable' => 'Dept_Degrees_Junction'
+        ]);
     }
 
     /**
