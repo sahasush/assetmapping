@@ -13,7 +13,11 @@
      <br>Showing Resutls for Theme <b><?= h($theme->Theme) ?> </b>and component  <b><?=$component  ?> </b>
 
     <?php if (!empty($theme->degrees)): ?>
-   <table class = "table table-bordered">        
+    
+    
+  
+   <table class = "table table-bordered">    
+   
      <thead>
         <tr>
             <th><?= __('Program Name') ?></th>    
@@ -34,10 +38,7 @@
                    
                    </tr>
                 <?php endforeach; ?>
-            
-                
-        </td>
-            
+            </td>
             </tbody>
     </table>
      <?php endif; ?>

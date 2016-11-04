@@ -7,7 +7,10 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use Cake\Core\Configure;
-
+use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Text;
+use Cake\Database\Statement\PDOStatement;
+use Cake\Database\Connection;
 
 /**
  * Universities Controller
@@ -198,51 +201,55 @@ class UniversitiesController extends AppController {
 		// Find Colleges
 		$values = TableRegistry::get ( 'Colleges' );
 		
-	
 		$colleges = $values->find ( 'list', [ 
 				'keyField' => 'College_ID',
 				'valueField' => 'College' 
-		] )->order(['College' => 'ASC']);
-		$colleges->distinct(['College']);
+		] )->order ( [ 
+				'College' => 'ASC' 
+		] );
+		$colleges->distinct ( [ 
+				'College' 
+		] );
 		
 		// Find Colleges
 		$values = TableRegistry::get ( 'Departments' );
 		
-		$departments = $values->find ( 'list', [
+		$departments = $values->find ( 'list', [ 
 				'keyField' => 'Departments_ID',
-				'valueField' => 'Department'
-		] )->order(['Department' => 'ASC']);
-		$departments->distinct(['Department']);
+				'valueField' => 'Department' 
+		] )->order ( [ 
+				'Department' => 'ASC' 
+		] );
+		$departments->distinct ( [ 
+				'Department' 
+		] );
 		
+		// Test debug
 		
-		
-		//Test debug
-		
-		
-		$test = $values->find ( 'list', [
+		$test = $values->find ( 'list', [ 
 				'keyField' => 'Departments_ID',
-				'valueField' => 'Department'
-		] )->where ( ['Departments.Colleges_ID = ' => '26'] )
-		->order(['Department' => 'ASC']);
-		$this->log("query::".$test,'debug');
-			
+				'valueField' => 'Department' 
+		] )->where ( [ 
+				'Departments.Colleges_ID = ' => '26' 
+		] )->order ( [ 
+				'Department' => 'ASC' 
+		] );
+		$this->log ( "query::" . $test, 'debug' );
 		
-		//Test debug end
+		// Test debug end
 		$this->set ( compact ( 'universities' ) );
 		$this->set ( '_serialize', [ 
 				'universities' 
 		] );
 		
-		
 		$this->set ( compact ( 'colleges' ) );
 		$this->set ( '_serialize', [ 
 				'colleges' 
 		] );
-	
 		
 		$this->set ( compact ( 'departments' ) );
-		$this->set ( '_serialize', [
-				'departments'
+		$this->set ( '_serialize', [ 
+				'departments' 
 		] );
 	}
 	public function get_by_colleges($id = null) {
@@ -259,8 +266,7 @@ class UniversitiesController extends AppController {
 				'fields' => 'college',
 				
 				'recursive' => - 1 
-		)
-		 );
+		) );
 		
 		$this->set ( 'colleges', $subcategories );
 		
@@ -290,14 +296,16 @@ class UniversitiesController extends AppController {
 				'keyField' => 'Colleges_ID',
 				'valueField' => 'College' 
 		] )->where ( [ 
-				'University_ID =' => $id
-		] )
-			->order(['College' => 'ASC']);
+				'University_ID =' => $id 
+		] )->order ( [ 
+				'College' => 'ASC' 
+		] );
 		
-	
-		$colleges->distinct(['College']);
+		$colleges->distinct ( [ 
+				'College' 
+		] );
 		
-	$num =$colleges->count();
+		$num = $colleges->count ();
 		$this->set ( compact ( 'colleges' ) );
 		$this->set ( '_serialize', 'colleges' );
 	}
@@ -317,98 +325,99 @@ class UniversitiesController extends AppController {
 		if (! $id) {
 			throw new NotFoundException ();
 		}
-	
+		
 		$this->viewBuilder ()->className ( 'Ajax.Ajax' );
-		//$this->loadModel ( 'Departments' );
+		// $this->loadModel ( 'Departments' );
 		
-		$depts = TableRegistry::get('Departments');
+		$depts = TableRegistry::get ( 'Departments' );
 		
-		$departments = $depts->find ( 'list', [
+		$departments = $depts->find ( 'list', [ 
 				'keyField' => 'Departments_ID',
-				'valueField' => 'Department'
-		] )->where ( ['Departments.Colleges_ID = ' => $id] )
-		->order(['Department' => 'ASC']);
+				'valueField' => 'Department' 
+		] )->where ( [ 
+				'Departments.Colleges_ID = ' => $id 
+		] )->order ( [ 
+				'Department' => 'ASC' 
+		] );
 		
+		$num = $departments->count ();
+		$departments->distinct ( [ 
+				'Department' 
+		] );
 		
-		
-		
-		$num =$departments->count();
-		$departments->distinct(['Department']);
-	
 		$this->set ( compact ( 'departments' ) );
 		$this->set ( '_serialize', 'departments' );
 	}
 	
 	/**
-	 *  Returns the results of the selections
-	 * 
+	 * Returns the results of the selections
 	 */
-	
 	public function searchResults() {
 		if ($this->request->is ( 'post' )) {
-			//Get the request ids
+			// Get the request ids
 			$university_id = $this->request->data ['university_id'];
 			$college_id = $this->request->data ['college_id'];
 			$department_id = $this->request->data ['department_id'];
-			
 			
 			$data_component = $this->request->data ['Datacomponent'];
 			
 			$resultsDegree = null;
 			$resultsCourses = null;
 			$resultsCenters = null;
+			
+			// Find relative themes
+			$conn = ConnectionManager::get ( 'default' );
 			if ($data_component == 'degrees') {
 				
 				$tbl = TableRegistry::get ( 'Degrees' );
 				
-				/**$data = $tbl->find()
-				->join([
-						'table' => 'dept_degrees_junction',
-						'alias' => 'p',
-						'type' => 'INNER',
-						'where'=>(['p.deptartments_ID' => $department_id])
-						'conditions' => array('p.degrees_id=Degrees.Degrees_ID')
-						
-				]);*/
-				
-			$data=	$tbl
-				->find('all')
-				->leftJoin('dept_degrees_junction', 'dept_degrees_junction.degrees_id=Degrees.Degrees_ID')
-				->where(['dept_degrees_junction.deptartments_ID' => $department_id]);
-					
-			     $total = $data->count();
-			
-				
-				$this->log("query::".$total,'debug');
-					
-				
-				$this->set ( 'degrees', $data);
-				$this->set ( '_serialize', [
-						'degrees'
+				$data = $tbl->find ( 'all' )->leftJoin ( 'dept_degrees_junction', 'dept_degrees_junction.degrees_id=Degrees.Degrees_ID' )->where ( [ 
+						'dept_degrees_junction.deptartments_ID' => $department_id 
 				] );
 				
+				$total = $data->count ();				
+				
+				
+				$deptdata = $conn->execute ( 'select thm.theme as theme,d.Program_Name,dept.Department,u.University,c.College from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and ddj.deptartments_id=:dept and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID', [ 
+						'dept' => $department_id 
+				] )->fetchAll ( 'assoc' );
+				
+				$this->log ( "query::" . $data, 'debug' );
+				// $this->log("raw sql::".(Text::toList($sql)),'debug');
+				
+				$this->set ( 'deptdata', $deptdata );
+				$this->set ( '_serialize', [ 
+						'deptdata' 
+				] );
+				
+				$this->set ( 'degrees', $data );
+				$this->set ( '_serialize', [ 
+						'degrees' 
+				] );
 			} else if ($data_component == 'courses') {
-				echo "<br />Match found for courses".$department_id;
+				
 				
 				$values = TableRegistry::get ( 'Courses' );
-				$results = $values->find ('all')
-				->where(['Courses.Departments_ID =' => $department_id])	;
-				$this->set ( 'results', $results);
-				$this->set ( '_serialize', [
-						'results'
+				$results = $values->find ( 'all' )->where ( [ 
+						'Courses.Departments_ID =' => $department_id 
 				] );
-			} else if ($data_component == 'centers') {
-				echo "<br />Match found for labs";
-				$resultsCenters = $this->Themes->find ()->where ( [
-						'Themes_ID' => $theme_id
-				] )->contain ( 'labs_centers' )->first ();
-	
-				$this->set ( 'results', $resultsCenters );
-			}
+				$this->set ( 'courses', $results );
+				$this->set ( '_serialize', [ 
+						'courses' 
+				] );
 				
-			$this->set ( 'component', $data_component );
+				// Get dept Data
+				$deptdata = $conn->execute ( 'select  distinct (co.course_title),thm.theme as theme,dept.Department,u.University,c.College from themes thm,themes_courses_junction dc ,courses co,departments dept,universities u,colleges c where  thm.themes_ID=dc.themes_id and co.departments_id=dept.Departments_ID  and dept.departments_id=78 and  u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID' )->fetchAll ( 'assoc' );
+				
 			
+				
+				$this->set ( 'deptdata', $deptdata );
+				$this->set ( '_serialize', [ 
+						'deptdata' 
+				] );
+			} 
+			
+			$this->set ( 'component', $data_component );
 		}
 	}
-	
 }
