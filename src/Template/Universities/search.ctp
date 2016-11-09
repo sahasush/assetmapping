@@ -1,5 +1,5 @@
 
-<div class="posleft">
+<div class="posright">
 	<ul>
 		<li class="list-inline"><?= __('Select One') ?></li>
 		<li><?= $this->Html->link(__('New University'), ['action' => 'add']) ?></li>

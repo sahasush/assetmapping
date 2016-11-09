@@ -17,6 +17,8 @@ $cakeDescription = '';
         echo $this->Html->css('bootstrap.min.css');
         echo $this->Html->css('bootstrap-select.css');
         echo $this->Html->css('bootstrap-select.min.css');
+        echo $this->Html->css('tableformat.css');
+         
      
         echo $this->Html->css('starter-template.css');
        
@@ -46,15 +48,14 @@ $cakeDescription = '';
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Search by<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Page 1-1</a></li>
-          <li><a href="#">Page 1-2</a></li>
-          <li><a href="#">Page 1-3</a></li>
+          <li><a href="/theme/search">Theme</a></li>
+          <li><a href="/universities/search">CSU/College/Department</a></li>
+          <li><a href="/faculty#">Faculty</a></li>
         </ul>
       </li>
-      <li><a href="#">Page 2</a></li>
-      <li><a href="/users/logout">Logout</a></li>
+       <li><a href="/users/logout">Logout</a></li>
     </ul>
   </div>
 </nav>

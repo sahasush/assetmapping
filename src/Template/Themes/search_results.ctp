@@ -1,6 +1,7 @@
- 
+
+<div class="container-fluid"> 
   
-<nav class="posleft">
+<nav class="posright">
     <ul >
          <li class="list-inline"><?= __('Select One') ?></li>
          <li><?= $this->Html->link(__('List Themes'), ['action' => 'index']) ?> </li>
@@ -8,33 +9,39 @@
     </ul>
     
 </nav>
-<div class="container">
     <h3><?= __('Search Results') ?></h3>
      <br>Showing Resutls for Theme <b><?= h($theme->Theme) ?> </b>and component  <b><?=$component  ?> </b>
 
-    <?php if (!empty($theme->degrees)): ?>
+    
+     
+     <!--  Theme dept degree data -->
+     <?php if (!empty($deptdata)): ?>
     
     
   
-   <table class = "table table-bordered">    
+  <table data-toggle="table"  data-sort-name="theme" data-sort-order="asc">
    
      <thead>
         <tr>
-            <th><?= __('Program Name') ?></th>    
-             <th><?= __('Degree Level') ?></th>         
-              
-              <th><?= __('Other') ?></th>    
-                
-        </tr>
+            <th data-field="theme"  data-sortable="true"><?= __('Theme') ?></th>    
+            <th data-field="university"  data-sortable="true"><?= __('University') ?></th>    
+            <th data-field="college"  data-sortable="true"><?= __('College') ?></th>    
+             <th data-field="theme"  data-sortable="true"><?= __('Department') ?></th>    
+                <th data-field="degree_level"  data-sortable="true"><?= __('Degree Level') ?></th>   
+              <th data-field="program_name"  data-sortable="true"><?= __('Program Name') ?></th>   
+              </tr> 
         </thead>
         <tbody>
 
-                <?php foreach ($theme->degrees as $degree): ?>
+                <?php foreach ($deptdata as $key=>$values): ?>
                  <tr>
-                    <td><?= h($degree->Program_Name) ?></td>                   
-                   <td><?= h($degree->Degree_Level) ?></td>
-                                     
-                   <td><?= h($degree->Other) ?></td>
+                 <td><?= h($values['theme'] )?></td>
+                 <td><?= h($values['University']) ?></td>    
+                 <td><?= h($values['College']) ?></td>  
+                 <td><?= h($values['Department']) ?></td>  
+                  <td><?= h($values['Degree_Level']) ?></td>
+                 <td><?= h($values['Program_Name']) ?></td>               
+                  
                    
                    </tr>
                 <?php endforeach; ?>
@@ -44,11 +51,11 @@
      <?php endif; ?>
     
     <?php if (!empty($theme->courses)): ?>
-    <table class = "table table-bordered">
+    <table data-toggle="table"  data-sort-name="course_title" data-sort-order="asc">
         
      <thead>
         <tr>
-            <th><?= __('Course Title') ?></th>    
+            <th data-field="course_title" data-sortable="true"><?= __('Course Title') ?></th>    
              <th><?= __('Course Number') ?></th>    
               <th><?= __('Course Abbr') ?></th>    
               <th><?= __('Units') ?></th>      
@@ -80,11 +87,11 @@
      <?php endif; ?>
      <!-- Display Labs Centers -->
      <?php if (!empty($theme->labs_centers)): ?>
-    <table class = "table table-bordered">        
+    <table  data-toggle="table"  data-sort-name="course_title" data-sort-order="asc">
         
      <thead>
         <tr>
-            <th><?= __('Center Type') ?></th>    
+            <th data-field="center_name" data-sortable="true"><?= __('Center Type') ?></th>    
              <th><?= __('Center Name') ?></th>    
               <th><?= __('Research Area') ?></th>    
               <th><?= __('Address') ?></th>    
@@ -109,3 +116,5 @@
      
      
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>

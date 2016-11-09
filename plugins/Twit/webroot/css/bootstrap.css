@@ -6207,17 +6207,17 @@ button.close {
     position: absolute;
     right: 0px;
     width: 150px;
-    border: 3px solid #73AD21;
+    border: 3px solid #000000;
     padding: 2px;
 }
 
 .posleft{
     position: absolute;
-    top: 1200px
-    left: 10px;
-    width: 300px;
+    top: 1000px
+    left: 5px;
+    width: 200px;
     border: 3px solid #000000;
-    padding: 10px;
+    padding: 5px;
 }
 
 .borderless {
@@ -6226,4 +6226,8 @@ button.close {
 .borderless tr td {
     border: none !important;
     padding: 0px !important;
+}
+
+.table-scrollable{
+    overflow: auto;
 }

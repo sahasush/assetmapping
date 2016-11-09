@@ -7,7 +7,10 @@ use Cake\Event\Event;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry ;
 use Cake\Log\Log;
-
+use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Text;
+use Cake\Database\Statement\PDOStatement;
+use Cake\Database\Connection;
 /**
  * Themes Controller
  *
@@ -58,15 +61,36 @@ class ThemesController extends AppController {
 		if ($this->request->is ( 'post' )) {
 			$theme_id = $this->request->data ['Themes'];
 			$data_component = $this->request->data ['Datacomponent'];
-			echo "Debug--> " . $theme_id . "  <>" . $data_component;
+			
 			$resultsDegree = null;
 			$resultsCourses = null;
 			$resultsCenters = null;
+			
+			// Find relative themes
+			$conn = ConnectionManager::get ( 'default' );
 			if ($data_component == 'degree') {
 				echo "/nMatch found/n";
 				$resultsDegree = $this->Themes->find ()->where ( [ 
 						'Themes_ID' => $theme_id 
 				] )->contain ( 'degrees' )->first ();
+				
+				//Search the rest of the data
+				
+				
+				$deptdata = $conn->execute ( 'select thm.theme as theme,u.University,c.College ,dept.Department,d.Degree_Level,d.Program_Name from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and thm.themes_id=:theme', [
+						'theme' => $theme_id
+				] )->fetchAll ( 'assoc' );
+				
+				
+				// $this->log("raw sql::".(Text::toList($sql)),'debug');
+				
+				$this->set ( 'deptdata', $deptdata );
+				$this->set ( '_serialize', [
+						'deptdata'
+				] );
+				
+				
+				
 				$this->set ( 'theme', $resultsDegree );
 			} else if ($data_component == 'courses') {
 				echo "<br />Match found for courses";

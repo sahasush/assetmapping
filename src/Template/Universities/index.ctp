@@ -2,6 +2,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New University'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Search Universities'), ['action' => 'search']) ?> </li>
     </ul>
 </nav>
 <div class="container">
