@@ -5,12 +5,13 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry ;
+use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Text;
 use Cake\Database\Statement\PDOStatement;
 use Cake\Database\Connection;
+
 /**
  * Themes Controller
  *
@@ -28,14 +29,13 @@ class ThemesController extends AppController {
 		
 		$this->set ( compact ( 'themes' ) );
 		
-		$colnames=$this->loadTablePermission();
+		$colnames = $this->loadTablePermission ();
 		
 		$this->set ( '_serialize', [ 
 				'themes' 
 		] );
 		
 		$this->set ( 'colnames', $colnames );
-		
 	}
 	public function search() {
 		
@@ -69,42 +69,72 @@ class ThemesController extends AppController {
 			// Find relative themes
 			$conn = ConnectionManager::get ( 'default' );
 			if ($data_component == 'degree') {
-				echo "/nMatch found/n";
-				$resultsDegree = $this->Themes->find ()->where ( [ 
-						'Themes_ID' => $theme_id 
-				] )->contain ( 'degrees' )->first ();
 				
-				//Search the rest of the data
-				
-				
-				$deptdata = $conn->execute ( 'select thm.theme as theme,u.University,c.College ,dept.Department,d.Degree_Level,d.Program_Name from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and thm.themes_id=:theme', [
-						'theme' => $theme_id
+				$degrees = $conn->execute ( 'select thm.theme as theme,u.University,c.College ,dept.Department,d.Degree_Level,d.Program_Name from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and thm.themes_id=:theme', [ 
+						'theme' => $theme_id 
 				] )->fetchAll ( 'assoc' );
 				
-				
-				// $this->log("raw sql::".(Text::toList($sql)),'debug');
-				
-				$this->set ( 'deptdata', $deptdata );
-				$this->set ( '_serialize', [
-						'deptdata'
+				$this->set ( 'degrees', $degrees );
+				$this->set ( '_serialize', [ 
+						'degrees' 
 				] );
-				
-				
-				
-				$this->set ( 'theme', $resultsDegree );
 			} else if ($data_component == 'courses') {
-				echo "<br />Match found for courses";
-				$resultsCourses = $this->Themes->find ()->where ( [ 
-						'Themes_ID' => $theme_id 
-				] )->contain ( 'courses' )->first ();
-				$this->set ( 'theme', $resultsCourses );
-			} else if ($data_component == 'centers') {
-				echo "<br />Match found for labs";
-				$resultsCenters = $this->Themes->find ()->where ( [ 
-						'Themes_ID' => $theme_id 
-				] )->contain ( 'labs_centers' )->first ();
 				
-				$this->set ( 'theme', $resultsCenters );
+				// Get dept Data
+				$courses = $conn->execute ( 'SELECT DISTINCT' . '(co.Course_Title),  co.Course_Number,  thm.theme,  dept.Department,' . ' u.University,  c.College FROM themes thm, themes_courses_junction dc,' . ' courses co, departments dept, universities u,colleges c WHERE thm.Themes_ID = dc.Themes_ID' . ' AND co.Departments_ID = dept.Departments_ID AND thm.Themes_ID=:th' . ' AND u.University_ID = c.University_ID AND c.Colleges_ID = dept.Colleges_ID ORDER BY thm.Theme,u.University', [ 
+						'th' => $theme_id 
+				] )->fetchAll ( 'assoc' );
+				
+				$this->set ( 'courses', $courses );
+				$this->set ( '_serialize', [ 
+						'courses' 
+				] );
+			} else if ($data_component == 'centers') {
+				
+				// Get dept Data
+				$centers = $conn->execute ( 'select  lc.center_name,lc.center_type,lc.research_area, thm.theme as theme,' . 'dept.Department,u.University,c.College  from themes thm,' . 'departments dept,universities u,colleges c,labs_centers lc,themes_centers_junction tcj where ' . 'thm.themes_ID=:thm and tcj.labs_centers_id=lc.labs_centers_id and ' . 'thm.themes_ID=tcj.themes_id  ' . 'and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and lc.departments_id=dept.departments_id' . ' and lc.university_id=u.university_id' . ' and lc.colleges_id=c.colleges_id ' . ' order by thm.theme,u.University,c.College,dept.Department', [ 
+						'thm' => $theme_id 
+				] )->fetchAll ( 'assoc' );
+				
+				$this->set ( 'centers', $centers );
+				$this->set ( '_serialize', [ 
+						'centers' 
+				] );
+			} else if ($data_component == 'faculty') {
+				
+				// Get dept Data
+				$faculties = $conn->execute ( 'SELECT f.Faculty_Fname,  f.Faculty_Lname ,  f.Faculty_MInitial,  f.Position,  lc.Center_Name,
+  thm.theme AS theme,
+  dept.Department,
+  u.University,
+  c.College
+FROM themes thm,
+     departments dept,
+     universities u,
+     colleges c,
+     labs_centers lc,
+     themes_centers_junction tcj,
+     centers_faculty_junction cfj,
+     faculty f
+WHERE thm.Themes_ID = :thm
+AND tcj.Labs_Centers_ID = lc.Labs_Centers_ID
+AND thm.Themes_ID = tcj.Themes_ID
+AND u.University_ID = c.University_ID
+AND c.Colleges_ID = dept.Colleges_ID
+AND lc.Departments_ID = dept.Departments_ID
+AND lc.University_ID = u.University_ID
+AND lc.Colleges_ID = c.Colleges_ID
+  AND f.Faculty_ID=cfj.Faculty_ID
+  AND cfj.Labs_Centers_ID=lc.Labs_Centers_ID
+  AND tcj.Labs_Centers_ID=lc.Labs_Centers_ID
+ORDER BY thm.theme, u.University, c.College, dept.Department', [ 
+						'thm' => $theme_id 
+				] )->fetchAll ( 'assoc' );
+				
+				$this->set ( 'faculties', $faculties );
+				$this->set ( '_serialize', [ 
+						'faculties' 
+				] );
 			}
 			
 			$this->set ( 'component', $data_component );
@@ -228,22 +258,26 @@ class ThemesController extends AppController {
 		$this->set ( "role", $role );
 	}
 	private function loadTablePermission() {
-		$tblcolPer = TableRegistry::get('TblColPermission');
-		$colnames = array();
+		$tblcolPer = TableRegistry::get ( 'TblColPermission' );
+		$colnames = array ();
 		
 		$session = $this->request->session ();
 		$role = $session->read ( 'User.role' );
 		// Start a new query.
-		$results = $tblcolPer->find()->select(['col_name'])->where(['table_name '  =>  'themes'])->where(['role_id' => $role]);
-	    
-		foreach ($results as $result) {
+		$results = $tblcolPer->find ()->select ( [ 
+				'col_name' 
+		] )->where ( [ 
+				'table_name ' => 'themes' 
+		] )->where ( [ 
+				'role_id' => $role 
+		] );
+		
+		foreach ( $results as $result ) {
 			
-			$this->log("colname::".$result->col_name,'debug');
-			$colnames[] = $result->col_name;
-			
+			$this->log ( "colname::" . $result->col_name, 'debug' );
+			$colnames [] = $result->col_name;
 		}
 		
 		return $colnames;
-	
 	}
 }
