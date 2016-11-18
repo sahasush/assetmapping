@@ -7,9 +7,10 @@
         <li><?= $this->Html->link(__('New Faculty'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="faculty view large-9 medium-8 columns content">
+<div class="container">
+
     <h3><?= h($faculty->Faculty_ID) ?></h3>
-    <table class="vertical-table">
+      <table class="table table-reflow">
         <tr>
             <th><?= __('Faculty Fname') ?></th>
             <td><?= h($faculty->Faculty_Fname) ?></td>
@@ -90,16 +91,20 @@
             <th><?= __('Faculty ID') ?></th>
             <td><?= $this->Number->format($faculty->Faculty_ID) ?></td>
         </tr>
-    </table>
-    <div class="row">
-        <h4><?= __('Expertise') ?></h4>
-        <?= $this->Text->autoParagraph(h($faculty->Expertise)); ?>
-    </div>
-    <div class="row">
-        <h4><?= __('Other') ?></h4>
-        <?= $this->Text->autoParagraph(h($faculty->Other)); ?>
-    </div>
-    <div class="row">
+  
+<tr>
+        <th><?= __('Expertise') ?></th>
+        <td><?= $this->Text->autoParagraph(h($faculty->Expertise)); ?></td>
+</tr>
+<tr>
+        <th><?= __('Other') ?></th>
+        <td><?= $this->Text->autoParagraph(h($faculty->Other)); ?></td>
+</tr>
+<tr>
+ 
+      </table>
+      
+         <div class="row">
         <h4><?= __('Sources') ?></h4>
         <?= $this->Text->autoParagraph(h($faculty->Sources)); ?>
     </div>

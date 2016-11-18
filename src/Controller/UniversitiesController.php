@@ -375,8 +375,7 @@ class UniversitiesController extends AppController {
 						'dept_degrees_junction.deptartments_ID' => $department_id 
 				] );
 				
-				$total = $data->count ();				
-				
+				$total = $data->count ();
 				
 				$deptdata = $conn->execute ( 'select thm.theme as theme,d.Program_Name,dept.Department,u.University,c.College from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and ddj.deptartments_id=:dept and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID', [ 
 						'dept' => $department_id 
@@ -394,85 +393,83 @@ class UniversitiesController extends AppController {
 				$this->set ( '_serialize', [ 
 						'degrees' 
 				] );
-			} else if ($data_component == 'courses') {			
+			} else if ($data_component == 'courses') {
 				
 				$values = TableRegistry::get ( 'Courses' );
 				$results1 = $values->find ( 'all' )->where ( [ 
 						'Courses.Departments_ID =' => $department_id 
 				] );
 				
-				
-				$results = $this->paginate ( $results1);
-				
+				$results = $this->paginate ( $results1 );
 				
 				$this->set ( 'courses', $results );
 				$this->set ( '_serialize', [ 
 						'courses' 
 				] );
 				
-			
 				// Get dept Data
-				$deptdata = $conn->execute ( 'select  distinct (co.course_title),thm.theme as theme,dept.Department,u.University,c.College from themes thm,themes_courses_junction dc ,courses co,departments dept,universities u,colleges c where  thm.themes_ID=dc.themes_id and co.departments_id=dept.Departments_ID  and dept.departments_id=:dept and  u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID',['dept' => $department_id 
+				$deptdata = $conn->execute ( 'select  distinct (co.course_title),thm.theme as theme,dept.Department,u.University,c.College from themes thm,themes_courses_junction dc ,courses co,departments dept,universities u,colleges c where  thm.themes_ID=dc.themes_id and co.departments_id=dept.Departments_ID  and dept.departments_id=:dept and  u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID', [ 
+						'dept' => $department_id 
 				] )->fetchAll ( 'assoc' );
-				
-			
 				
 				$this->set ( 'deptdata', $deptdata );
 				$this->set ( '_serialize', [ 
 						'deptdata' 
 				] );
-				//Equpment
-			} else if ($data_component == 'equipment') {			
+				// Equpment
+			} else if ($data_component == 'equipment') {
 				$tbl = TableRegistry::get ( 'LabsCenters' );
 				
-				$data = $tbl->find ( 'all' )->leftJoin ( 'labs_centers', 'labs_centers.labs_centers_id=LabsCenters.labs_centers_id' )->where ( [
-						'LabsCenters.departments_ID' => $department_id
+				$data = $tbl->find ( 'all' )->leftJoin ( 'labs_centers', 'labs_centers.labs_centers_id=LabsCenters.labs_centers_id' )->where ( [ 
+						'LabsCenters.departments_ID' => $department_id 
 				] );
 				
 				$this->log ( "query::" . $data, 'debug' );
 				;
-				$this->set ( 'equipments', $data  );
-				$this->set ( '_serialize', [
-						'equipments'
+				$this->set ( 'equipments', $data );
+				$this->set ( '_serialize', [ 
+						'equipments' 
 				] );
-			
+				
 				// Get dept Data
-				$deptdata = $conn->execute ( ' select distinct e.center_name,thm.theme as theme,dept.Department,u.University,c.College from themes thm,departments dept,universities u,colleges c,equipment e,labs_centers lc,themes_centers_junction tcj  where  thm.themes_id=tcj.themes_id  and e.lab_centers_id=lc.labs_centers_id  and tcj.labs_centers_id=lc.labs_centers_id  and lc.departments_id=dept.Departments_ID  and dept.departments_id=:dept and  u.University_ID=lc.University_ID and c.Colleges_ID=dept.Colleges_ID' ,['dept' => $department_id 
+				$deptdata = $conn->execute ( ' select distinct e.center_name,thm.theme as theme,dept.Department,u.University,c.College from themes thm,departments dept,universities u,colleges c,equipment e,labs_centers lc,themes_centers_junction tcj  where  thm.themes_id=tcj.themes_id  and e.lab_centers_id=lc.labs_centers_id  and tcj.labs_centers_id=lc.labs_centers_id  and lc.departments_id=dept.Departments_ID  and dept.departments_id=:dept and  u.University_ID=lc.University_ID and c.Colleges_ID=dept.Colleges_ID', [ 
+						'dept' => $department_id 
 				] )->fetchAll ( 'assoc' );
 				
-			
-			
 				$this->set ( 'deptdata', $deptdata );
-				$this->set ( '_serialize', [
-						'deptdata'
+				$this->set ( '_serialize', [ 
+						'deptdata' 
 				] );
 				// Labs centers
-			}else if ($data_component == 'centers') {	
+			} else if ($data_component == 'centers') {
 				$values = TableRegistry::get ( 'LabsCenters' );
-				$results1 = $values->find ( 'all' )->where ( [
-						'LabsCenters.Departments_ID =' => $department_id
+				$results1 = $values->find ( 'all' )->where ( [ 
+						'LabsCenters.Departments_ID =' => $department_id 
 				] );
 				
-				$results = $this->paginate ( $results1);
-				
+				$results = $this->paginate ( $results1 );
 				
 				$this->set ( 'centers', $results );
-				$this->set ( '_serialize', [
-						'centers'
+				$this->set ( '_serialize', [ 
+						'centers' 
 				] );
-				$this->log ( "query::".$results1, 'debug' );
-					
+				$this->log ( "query::" . $results1, 'debug' );
+				
 				// Get dept Data
-				$deptdata = $conn->execute ( 'select  distinct (co.course_title),thm.theme as theme,dept.Department,u.University,c.College from themes thm,themes_courses_junction dc ,courses co,departments dept,universities u,colleges c where  thm.themes_ID=dc.themes_id and co.departments_id=dept.Departments_ID  and dept.departments_id=:dept and  u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID',['dept' => $department_id
+				$deptdata = $conn->execute ( 'select lc. center_name,lc.Labs_Centers_ID,lc.center_type,lc.Research_Area,thm.theme as theme,dept.Department,u.University,c.College from 
+  themes thm,departments dept,universities u,colleges c,labs_centers lc,themes_centers_junction tcj where 
+  thm.themes_ID=tcj.themes_id  and dept.departments_id=:dept 
+  and  u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID
+  AND lc.departments_ID=dept.departments_id AND lc.colleges_id=c.Colleges_ID and lc.university_id=u.University_ID
+  AND lc.Labs_Centers_ID=tcj.Labs_Centers_ID
+  ORDER BY lc.center_name', [ 
+						'dept' => $department_id 
 				] )->fetchAll ( 'assoc' );
 				
-					
-				
 				$this->set ( 'deptdata', $deptdata );
-				$this->set ( '_serialize', [
-						'deptdata'
+				$this->set ( '_serialize', [ 
+						'deptdata' 
 				] );
-				
 			}
 			
 			$this->set ( 'component', $data_component );

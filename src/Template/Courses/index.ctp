@@ -1,12 +1,15 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+
+<div class="container-fluid">
+<nav class="posright">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Course'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="courses index large-9 medium-8 columns content">
+<br>
+<br>
     <h3><?= __('Courses') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+   <table class="table table-bordered">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('Courses_ID') ?></th>

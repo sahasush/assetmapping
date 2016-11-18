@@ -1,10 +1,13 @@
-<nav class="posleft">
-    <ul class="side-nav">
+<div class="container-fluid">
+<div class="posright">
+    <ul>
         <li ><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Labs Center'), ['action' => 'add']) ?></li>
     </ul>
-</nav>
-<div class="container">
+</div>
+<br>
+<br>
+<br>
     <h3><?= __('Labs Centers') ?></h3>
    <table class = "table table-bordered">
         <thead>

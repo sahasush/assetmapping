@@ -1,10 +1,10 @@
-<nav class="posleft">
-    <ul class="side-nav">
+<div class="posright">
+    <ul >
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New University'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('Search Universities'), ['action' => 'search']) ?> </li>
     </ul>
-</nav>
+</div>
 <div class="container">
     <h3><?= __('Universities') ?></h3>
    <table class = "table table-bordered">

@@ -9,6 +9,8 @@
     </ul>
     
 </nav>
+<br>
+
     <h3><?= __('Search Results') ?></h3>
      <br>Showing Resutls for  theme </b>and component  <b><?=$component  ?> </b>
 

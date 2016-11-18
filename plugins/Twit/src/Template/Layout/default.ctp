@@ -50,7 +50,7 @@ $cakeDescription = '';
       <li class="active"><a href="#">Home</a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Search by<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="/theme/search">Theme</a></li>
+          <li><a href="/themes/search">Theme</a></li>
           <li><a href="/universities/search">CSU/College/Department</a></li>
           <li><a href="/faculty#">Faculty</a></li>
         </ul>

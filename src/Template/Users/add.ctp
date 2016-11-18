@@ -4,7 +4,7 @@
         <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="users form large-9 medium-8 columns content">
+<div class="container">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend><?= __('Add User') ?></legend>

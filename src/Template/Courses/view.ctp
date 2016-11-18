@@ -7,9 +7,10 @@
         <li><?= $this->Html->link(__('New Course'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="courses view large-9 medium-8 columns content">
-    <h3><?= h($course->Courses_ID) ?></h3>
-    <table class="vertical-table">
+<div class="container">
+
+    <h3>Course ID:<?= h($course->Courses_ID) ?></h3>
+  <table class="table table-reflow">
         <tr>
             <th><?= __('Course Title') ?></th>
             <td><?= h($course->Course_Title) ?></td>
