@@ -2,6 +2,15 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
+use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Text;
+use Cake\Database\Statement\PDOStatement;
+use Cake\Database\Connection;
+use Cake\Core\Configure;
+
 
 /**
  * LabsCenters Controller
@@ -32,10 +41,22 @@ class LabsCentersController extends AppController
 	  		
 		$query = $this->LabsCenters->find('all');
 		
-		
+		//GET ROLE
+		$session = $this->request->session ();
+		$role = $session->read ( 'User.role' );
+		$this->log ( "Userrole::" . $role, 'debug' );
+		$admin=Configure::read('Role.Admin');
           
-
-        $this->set('labsCenters', $this->paginate($query));
+       if( $role != $admin){
+        
+        	 $this->Flash->error(__('You are not authorized to view this page.'));
+        
+       
+       }else{
+       	
+          $this->set('labsCenters', $this->paginate($query));
+        
+       }
 		
 		
        // $this->set(compact('labsCenters'));
@@ -53,23 +74,28 @@ class LabsCentersController extends AppController
     {
         
 	
-		
+		$colnames=$this->loadTablePermission($this->request->session ());
 		$this->loadModel("LabsCenters");
 		//$labsCenter = $this->LabsCenters->get($id, [
          // 'contain' => []
         //]);
 
 		
-	
-		
-		
 	//Custom start
 	
-	$labsCenter = $this->LabsCenters->find()->where(['Labs_Centers_ID'=>$id])->contain('faculty')->first();
+		//get user name
+		$session = $this->request->session ();
+		$username= $session->read ( 'User.name' );
 	
+	$labsCenter1 = $this->LabsCenters->find('all')->where(['Labs_Centers_ID'=>$id])->contain(['faculty','departments','universities','colleges']);
+	$labsCenter = $labsCenter1->first();
 	//end
+	
+	$this->set ( 'colnames', $colnames );
 		$this->set('labsCenter', $labsCenter);
         $this->set('_serialize', ['labsCenter']);
+        
+        $this->set ( 'username', $username );
 	
     }
 
@@ -144,4 +170,31 @@ class LabsCentersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    
+    public function loadTablePermission($session) {
+    	$tblcolPer = TableRegistry::get ( 'TblColPermission' );
+    	$colnames = array ();
+    
+    	$session = $this->request->session ();
+    	$role = $session->read ('User.roleID' );
+    	// Start a new query.
+    	$results = $tblcolPer->find ()->select ( [ 
+				'col_name' 
+		] )->where ( [ 
+				'table_name ' => 'labs_centers' 
+		] )->where ( [ 
+				'role_id' => $role 
+		] );
+    
+    	foreach ( $results as $result ) {
+    		 
+    		$this->log ( "colname::" . $result->col_name, 'debug' );
+    		$colnames [] = $result->col_name;
+    	}
+    
+    	return $colnames;
+    }
+    
+    
 }

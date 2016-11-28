@@ -38,6 +38,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     
 </head>
 <body>
+<div class='page-header'>
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+        <p class="bg-primary">Logged in as <?=$username?></p>
+    </div>
+  </div>
+</div>
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
@@ -56,13 +63,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </ul>
         </div>
     </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
+  
+    <div class="container">
+      <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
     </div>
+   
     <footer>
      
 <?= $this->fetch('jquery'); ?> <?= $this->fetch('script'); ?>
+
  
     </footer>
 </body>

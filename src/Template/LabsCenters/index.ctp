@@ -1,4 +1,6 @@
 <div class="container-fluid">
+
+ <?php if (!empty($labsCenters)): ?>
 <div class="posright">
     <ul>
         <li ><?= __('Actions') ?></li>
@@ -8,6 +10,8 @@
 <br>
 <br>
 <br>
+
+    
     <h3><?= __('Labs Centers') ?></h3>
    <table class = "table table-bordered">
         <thead>
@@ -97,4 +101,12 @@
         </ul>
         <p><?= $this->Paginator->counter() ?></p>
     </div>
+    
+        <?php endif; ?>
+        <?php if (empty($labsCenters)): ?>
+        <div class="alert alert-danger">
+  			<strong>Warning!<strong> <?= $this->Flash->render() ?>
+		</div>
+         
+         <?php endif; ?>
 </div>

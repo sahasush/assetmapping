@@ -4,7 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry ;
-
+use Cake\Log\Log;
 
 /**
  * Users Controller
@@ -26,17 +26,13 @@ class UsersController extends AppController
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
     }
-
     
     public function home()
     {
     	//Do nothing
     }
     
-    public function query()
-    {
-    	//Do nothing
-    }
+
     /**
      * View method
      *
@@ -63,16 +59,20 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
+        	$data=$this->request->data();
+        	
+        	$associated=['Roles'];
+            $user = $this->Users->patchEntity($user, $this->request->data(),['associated' => $associated]);
+            $this->log ( "test::" . $user, 'debug' );
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
+            	 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('user'));
+        $roles = $this->Users->roles->find('list');
+        $this->set(compact('user', 'roles'));
         $this->set('_serialize', ['user']);
     }
 
@@ -86,7 +86,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => []
+            'contain' => ['roles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -98,7 +98,8 @@ class UsersController extends AppController
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('user'));
+        $roles = $this->Users->roles->find('list', ['limit' => 200]);
+        $this->set(compact('user', 'roles'));
         $this->set('_serialize', ['user']);
     }
 
@@ -121,77 +122,84 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-	/**
-	* Login
-	*/
-	public function login()
+    
+    /**
+     * Login
+     */
+    public function login()
     {
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            
-          
-            if ($user) {
-                $this->Auth->setUser($user);    
-                //Get roles
-                
-          //      $id   = $user['id'];          
-               
-                $session = $this->request->session();                 
-                $role=$this->getUserRoles($user);               
-               $session->write('User.role', $role);               
-                //End
-               return $this->redirect($this->Auth->redirectUrl());
-            }
-            
-            
-            $this->Flash->error(__('Invalid username or password, try again'));
-        }
+    	if ($this->request->is('post')) {
+    		$user = $this->Auth->identify();
+    
+    
+    		if ($user) {
+    			$this->Auth->setUser($user);
+    			//Get roles
+    
+    			//      $id   = $user['id'];
+    			 
+    			$session = $this->request->session();
+    			$role=$this->getUserRoles($user);
+    			$session->write('User.role', $role);
+    			$session->write('User.name',$user['username']);
+    			//End
+    			return $this->redirect($this->Auth->redirectUrl());
+    		}
+    
+    
+    		$this->Flash->error(__('Invalid username or password, try again'));
+    	}
     }
     private function getUserRoles($user)
     {
     	$users = TableRegistry::get('Users');
+    	$session = $this->request->session();
     	$rname="";
     	$priority=10;
     	$counter=0;
+    	$rolename="";
     	$query = $users->find()
     	->contain(['roles'])
     	->where(['users.id' => $user['id']])
     	->limit(1);
-    	
+    	 
     	foreach ($query as $row) {
     		// Each row is now an instance of our Article class.
     		echo $row->id;
-    		
+    
     		if (!empty($row->roles)){
     			foreach ($row->roles as $role){
     				$counter=$counter+1;
     				if($counter ==1 ){
     					$priority=$role->priority;
+    					$rolename=$role->name;
+    					$session->write('User.roleID', $role->role_id);
     				}else{
-    					$priority=min(	$priority,$role->priority);
+    					$priority=min(	$priority,$role->priority);//not needed for now
+    					$rolename=$role->name;
+    					$session->write('User.roleID', $role->role_id);
+    					
     				}
     			}
     		}
-    		
-    	}   	
+    
+    	}
     	
-    	return $priority;
+    	return $rolename;
     }
     
     
- 
-public function initialize()
-{
-    parent::initialize();
-    $this->Auth->allow(['logout']);
-}
-
-public function logout()
-{
-    $this->Flash->success('You are now logged out.');
-    return $this->redirect($this->Auth->logout());
-}
-
-
-
-}
+    
+    public function initialize()
+    {
+    	parent::initialize();
+    	$this->Auth->allow(['logout']);
+    }
+    
+    public function logout()
+    {
+    	$this->Flash->success('You are now logged out.');
+    	return $this->redirect($this->Auth->logout());
+    }
+    
+       }

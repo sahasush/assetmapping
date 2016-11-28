@@ -17,6 +17,8 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use EasyMenus\Controller\Component\EasyMenusComComponent;
+use Cake\Core\Configure;
+
 
 /**
  * Application Controller
@@ -75,6 +77,8 @@ class AppController extends Controller
         //For Ajax and Json
         $this->loadComponent('RequestHandler');
         
+        Configure::write('Role.Admin','Admin');
+        
         
 		
     }
@@ -100,9 +104,7 @@ class AppController extends Controller
 	public function beforeFilter(Event $event)
     {
 
-    	$this->Auth->allow(['index', 'view', 'display','add']);
-
-    	
+    	$this->Auth->allow(['index', 'view', 'display','add']);   	
     	
     }
     

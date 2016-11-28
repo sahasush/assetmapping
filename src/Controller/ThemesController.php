@@ -29,7 +29,7 @@ class ThemesController extends AppController {
 		
 		$this->set ( compact ( 'themes' ) );
 		
-		$colnames = $this->loadTablePermission ();
+		$colnames = $this->loadTablePermission ($this->request->session ());
 		
 		$this->set ( '_serialize', [ 
 				'themes' 
@@ -61,6 +61,7 @@ class ThemesController extends AppController {
 		if ($this->request->is ( 'post' )) {
 			$theme_id = $this->request->data ['Themes'];
 			$data_component = $this->request->data ['Datacomponent'];
+			$colnames = $this->loadTablePermission ();
 			
 			$resultsDegree = null;
 			$resultsCourses = null;
@@ -92,7 +93,7 @@ class ThemesController extends AppController {
 			} else if ($data_component == 'centers') {
 				
 				// Get dept Data
-				$centers = $conn->execute ( 'select  lc.center_name,lc.center_type,lc.research_area, thm.theme as theme,' . 'dept.Department,u.University,c.College  from themes thm,' . 'departments dept,universities u,colleges c,labs_centers lc,themes_centers_junction tcj where ' . 'thm.themes_ID=:thm and tcj.labs_centers_id=lc.labs_centers_id and ' . 'thm.themes_ID=tcj.themes_id  ' . 'and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and lc.departments_id=dept.departments_id' . ' and lc.university_id=u.university_id' . ' and lc.colleges_id=c.colleges_id ' . ' order by thm.theme,u.University,c.College,dept.Department', [ 
+				$centers = $conn->execute ( 'select  lc.center_name,lc.labs_centers_id,lc.center_type,lc.research_area, thm.theme as theme,' . 'dept.Department,u.University,c.College  from themes thm,' . 'departments dept,universities u,colleges c,labs_centers lc,themes_centers_junction tcj where ' . 'thm.themes_ID=:thm and tcj.labs_centers_id=lc.labs_centers_id and ' . 'thm.themes_ID=tcj.themes_id  ' . 'and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and lc.departments_id=dept.departments_id' . ' and lc.university_id=u.university_id' . ' and lc.colleges_id=c.colleges_id ' . ' order by thm.theme,u.University,c.College,dept.Department', [ 
 						'thm' => $theme_id 
 				] )->fetchAll ( 'assoc' );
 				
@@ -136,7 +137,7 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 						'faculties' 
 				] );
 			}
-			
+			$this->set ( 'colnames', $colnames );
 			$this->set ( 'component', $data_component );
 			$this->set ( '_serialize', [ 
 					'theme' 
@@ -266,8 +267,6 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 		// Start a new query.
 		$results = $tblcolPer->find ()->select ( [ 
 				'col_name' 
-		] )->where ( [ 
-				'table_name ' => 'themes' 
 		] )->where ( [ 
 				'role_id' => $role 
 		] );

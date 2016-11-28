@@ -1,5 +1,9 @@
-<nav class="posleft">
-    <ul class="side-nav">
+<p align='right'><b>Logged in as <?=$username?></b></p>
+<div class="container">
+
+ <nav class="posright">
+
+    <ul>
         <li ><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Labs Center'), ['action' => 'edit', $labsCenter->Labs_Centers_ID]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Labs Center'), ['action' => 'delete', $labsCenter->Labs_Centers_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $labsCenter->Labs_Centers_ID)]) ?> </li>
@@ -7,11 +11,18 @@
         <li><?= $this->Html->link(__('New Labs Center'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="container">
+ 
 
-    <h3>Lab Center ID:<?= h($labsCenter->Labs_Centers_ID) ?></h3>
+<h3>Lab Center Details </h3>
     <table class="table table-reflow">
 	<div style="word-wrap: break-word; width: 800px">
+	 <?php if (in_array("Labs_Centers_ID", $colnames)): ?>
+	    <tr>
+	    <th scope="row"><?= __('Lab Center ID') ?></th>
+            <td><?= h($labsCenter->Labs_Centers_ID) ?></td>
+	    
+	    </tr>
+	 <?php endif; ?>
         <tr>
             <th scope="row"><?= __('Center Type') ?></th>
             <td><?= h($labsCenter->Center_Type) ?></td>
@@ -21,43 +32,30 @@
             <td><?= h($labsCenter->Center_Name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Estbl Yr') ?></th>
+            <th scope="row"><?= __('Year Established') ?></th>
             <td><?= h($labsCenter->Estbl_Yr) ?></td>
         </tr>
+        <?php if (in_array("Active_Status", $colnames)): ?>
         <tr>
             <th><?= __('Active Status') ?></th>
             <td><?= h($labsCenter->Active_Status) ?></td>
         </tr>
+        <?php endif; ?>
         <tr>
-            <th><?= __('Contact 1 Lname') ?></th>
-            <td><?= h($labsCenter->Contact_1_Lname) ?></td>
+            <th><?= __('Primary Contact Name') ?></th>
+            <td><?= h($labsCenter->Contact_1_Lname) ?> , <?= h($labsCenter->Contact_1_Fname) ?>  ,  <?= h($labsCenter->Contact_1_Minitial) ?></td>
         </tr>
         <tr>
-            <th><?= __('Contact 1 Fname') ?></th>
-            <td><?= h($labsCenter->Contact_1_Fname) ?></td>
+            <th><?= __('Secondary Contact Name') ?></th>
+            <td><?= h($labsCenter->Contact_2_Fname) ?> , <?= h($labsCenter->Contact_2_Lname) ?> , <?= h($labsCenter->Contact_2_Minitial) ?></td>
         </tr>
+        
         <tr>
-            <th><?= __('Contact 1 Minitial') ?></th>
-            <td><?= h($labsCenter->Contact_1_Minitial) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Contact 2 Lname') ?></th>
-            <td><?= h($labsCenter->Contact_2_Lname) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Contact 2 Fname') ?></th>
-            <td><?= h($labsCenter->Contact_2_Fname) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Contact 2 Minitial') ?></th>
-            <td><?= h($labsCenter->Contact_2_Minitial) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('No Of Researchers') ?></th>
+            <th><?= __('Number Of Researchers') ?></th>
             <td><?= h($labsCenter->No_of_Researchers) ?></td>
         </tr>
         <tr>
-            <th><?= __('No Of Technicians') ?></th>
+            <th><?= __('Number Of Technicians') ?></th>
             <td><?= h($labsCenter->No_of_Technicians) ?></td>
         </tr>
         <tr>
@@ -73,73 +71,96 @@
             <td><?= h($labsCenter->Email) ?></td>
         </tr>
         <tr>
-            <th><?= __('Address 1') ?></th>
-            <td><?= h($labsCenter->Address_1) ?></td>
+            <th><?= __('Address') ?></th>
+            <td><?= h($labsCenter->Address_1) ?> , <?= h($labsCenter->Building_Room) ?> <br> <?= h($labsCenter->Address_2) ?>
+            </td>
         </tr>
+        
         <tr>
-            <th><?= __('Building Room') ?></th>
-            <td><?= h($labsCenter->Building_Room) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Address 2') ?></th>
-            <td><?= h($labsCenter->Address_2) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Phone 1') ?></th>
+            <th><?= __('Phone Number') ?></th>
             <td><?= h($labsCenter->Phone_1) ?></td>
         </tr>
         <tr>
-            <th><?= __('Phone 1 Ext') ?></th>
+            <th><?= __('Phone Extension') ?></th>
             <td><?= h($labsCenter->Phone_1_Ext) ?></td>
         </tr>
         <tr>
-            <th><?= __('Phone 2') ?></th>
+            <th><?= __('Secondary Phone Number') ?></th>
             <td><?= h($labsCenter->Phone_2) ?></td>
         </tr>
         <tr>
-            <th><?= __('Phone 2 Desc') ?></th>
+            <th><?= __('Secondary Phone Type') ?></th>
             <td><?= h($labsCenter->Phone_2_Desc) ?></td>
         </tr>
         <tr>
-            <th><?= __('Web URL') ?></th>
+            <th><?= __('URL') ?></th>
             <td><?= h($labsCenter->Web_URL) ?></td>
         </tr>
-        <tr>
-            <th><?= __('Other') ?></th>
-            <td><?= h($labsCenter->Other) ?></td>
-        </tr>
+        
+         <?php if (in_array("Validation", $colnames)): ?>
         <tr>
             <th><?= __('Validation') ?></th>
             <td><?= h($labsCenter->Validation) ?></td>
         </tr>
+         <?php endif; ?>
+          <?php if (in_array("Validation_Source", $colnames)): ?>
         <tr>
             <th><?= __('Validation Source') ?></th>
             <td><?= h($labsCenter->Validation_Source) ?></td>
         </tr>
+        	<?php endif; ?>
+        	<?php if (in_array("Valid_Exist", $colnames)): ?>
         <tr>
-            <th><?= __('Valid Exist') ?></th>
+            <th><?= __('Presence Validated') ?></th>
             <td><?= h($labsCenter->Valid_Exist) ?></td>
         </tr>
+        <?php endif; ?>
+        <?php if (in_array("Other", $colnames)): ?>
         <tr>
-            <th><?= __('Labs Centers ID') ?></th>
-            <td><?= $this->Number->format($labsCenter->Labs_Centers_ID) ?></td>
+            <th><?= __('Other Information') ?></th>
+            <td><?= h($labsCenter->Other) ?></td>
         </tr>
+        <?php endif; ?>
         <tr>
-            <th><?= __('University ID') ?></th>
-            <td><?= $this->Number->format($labsCenter->University_ID) ?></td>
+            <th><?= __('University') ?></th>
+             <td><?= h($labsCenter->university->University) ?> </td>
         </tr>
+        <?php if (in_array("University_Id", $colnames)): ?>
         <tr>
-            <th><?= __('Colleges ID') ?></th>
-            <td><?= $this->Number->format($labsCenter->Colleges_ID) ?></td>
+            <th><?= __('University Id') ?></th>
+            <td><?= h($labsCenter->University_ID) ?></td>
         </tr>
+        <?php endif; ?>
+        
+        
         <tr>
-            <th><?= __('Departments ID') ?></th>
-            <td><?= $this->Number->format($labsCenter->Departments_ID) ?></td>
+            <th><?= __('Colleges') ?></th>
+            <td><?= h($labsCenter->college->College) ?> </td>
+        </tr>
+        
+         <?php if (in_array("Colleges_Id", $colnames)): ?>
         <tr>
+            <th><?= __('Colleges Id') ?></th>
+            <td><?= h($labsCenter->Colleges_ID) ?></td>
+        </tr>
+        <?php endif; ?>
+        <tr>
+            <th><?= __('Department') ?></th>
+            <td>
+            <?php if (!empty($labsCenter->department)): ?>
+                    <?= h($labsCenter->department->Department) ?> 
+              <?php endif; ?>
+            </td>
+           <tr>
+           <?php if (in_array("Departments_Id", $colnames)): ?>
+        <tr>
+            <th><?= __('Departments Id') ?></th>
+            <td><?= h($labsCenter->Departments_ID) ?></td>
+        </tr>
+        <?php endif; ?>
 		 <th><?= __('Faculty Name') ?></th>
 		 <td>
         <?php if (!empty($labsCenter->faculty)): ?>
-		
 		
            
                 <?php foreach ($labsCenter->faculty as $user): ?>
@@ -147,7 +168,7 @@
                 <?php endforeach; ?>
             
         <?php else: ?>
-            <p>No data found</p>
+            <p>-</p>
         <?php endif; ?>
         </td>
 		</tr>
@@ -159,17 +180,17 @@
         <h4><?= __('Research Area') ?></h4>
         <?= $this->Text->autoParagraph(h($labsCenter->Research_Area)); ?>
     </div>
+    	 <?php if (in_array("Sources", $colnames)): ?>
     <div class="row">
         <h4><?= __('Sources') ?></h4>
         <?= $this->Text->autoParagraph(h($labsCenter->Sources)); ?>
     </div>
-	
-
-        
-       
-        
- 
-	
-	
-	
+     <?php endif; ?>
+	 	
 </div>
+ <div class="col-sm-4">
+                    <h5 id='footer-header'> Footer</h3>
+                   
+  </div>    
+
+            

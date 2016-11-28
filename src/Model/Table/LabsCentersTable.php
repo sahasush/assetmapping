@@ -42,6 +42,25 @@ class LabsCentersTable extends Table
 		 'joinTable' => 'Centers_Faculty_Junction'			
         ]);
 		
+		//Departments		
+		$this->belongsTo('departments', [
+				'foreignKey' => 'Departments_Id',
+				'joinType' => 'INNER',
+		]);
+		
+		//Colleges
+		$this->belongsTo('colleges', [
+				'foreignKey' => 'Colleges_Id',
+				'joinType' => 'INNER',
+		]);
+		
+		
+		//University
+		$this->belongsTo('universities', [
+				'foreignKey' => 'University_ID',
+				'joinType' => 'INNER',
+		]);
+		
     }
 
     /**

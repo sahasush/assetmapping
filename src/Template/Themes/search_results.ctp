@@ -1,6 +1,6 @@
 
 <div class="container-fluid"> 
-  
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <nav class="posright">
     <ul >
          <li class="list-inline"><?= __('Select One') ?></li>
@@ -62,7 +62,7 @@
             <th data-field="college"  data-sortable="true"><?= __('College') ?></th>    
              <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
                 <th data-field="course_title"  data-sortable="true"><?= __('Course Title') ?></th>   
-              <th data-field="course_number"  data-sortable="true"><?= __('Course_Number') ?></th>   
+              <th data-field="course_number"  data-sortable="true"><?= __('Course Number') ?></th>   
               </tr> 
         </thead>
         <tbody>
@@ -95,6 +95,7 @@
              <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
                 <th data-field="center_name"  data-sortable="true"><?= __('Center Name') ?></th>   
               <th data-field="center_type"  data-sortable="true"><?= __('Center Type') ?></th>   
+               <th class="actions"><?= __('Actions') ?></th>
                
               </tr> 
         </thead>
@@ -107,7 +108,8 @@
                  <td><?= h($values['College']) ?></td>  
                  <td><?= h($values['Department']) ?></td>  
                   <td><?= h($values['center_name']) ?></td>
-                 <td><?= h($values['center_type']) ?></td>               
+                 <td><?= h($values['center_type']) ?></td>
+                 <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labscenters','action' => 'view', $values['labs_centers_id']])?> </td>               
                         
                   
                    
@@ -130,6 +132,8 @@
                 <th data-field="faculty_name"  data-sortable="true"><?= __('Faculty Name') ?></th>   
               <th data-field="position"  data-sortable="true"><?= __('Position') ?></th>   
               <th data-field="center_name"  data-sortable="true"><?= __('Center Name') ?></th>   
+                <th class="actions"><?= __('Actions') ?></th>
+   
                
               </tr> 
         </thead>
@@ -144,6 +148,8 @@
                   <td><?= h($values['Faculty_Fname'].','.$values['Faculty_MInitial'].'  '.$values['Faculty_Lname']) ?></td>  
                    <td><?= h($values['Position']) ?></td>
                   <td><?= h($values['Center_Name']) ?></td>
+                  <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labscenters','action' => 'view', $values['labs_centers_id']])?> </td>
+                  
                        
                         
                   

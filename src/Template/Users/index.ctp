@@ -1,22 +1,24 @@
-<nav class="postleft">
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li ><?= __('Actions') ?></li>
+        <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="container">
+<div class="users index large-9 medium-8 columns content">
     <h3><?= __('Users') ?></h3>
-   <table class = "table table-bordered">
+    <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
-                 <th><?= $this->Paginator->sort('fullname') ?></th>
-                 <th><?= $this->Paginator->sort('username') ?></th>
-                 <th><?= $this->Paginator->sort('password') ?></th>
-                <th><?= $this->Paginator->sort('email') ?></th>
-                
+                <th><?= $this->Paginator->sort('username') ?></th>
+                <th><?= $this->Paginator->sort('password') ?></th>
+                <th><?= $this->Paginator->sort('role') ?></th>
                 <th><?= $this->Paginator->sort('created') ?></th>
                 <th><?= $this->Paginator->sort('modified') ?></th>
+                <th><?= $this->Paginator->sort('email') ?></th>
+                <th><?= $this->Paginator->sort('fullname') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -24,12 +26,13 @@
             <?php foreach ($users as $user): ?>
             <tr>
                 <td><?= $this->Number->format($user->id) ?></td>
-                 <td><?= h($user->fullname) ?></td>
-                 <td><?= h($user->username) ?></td>
-                 <td><?= h($user->password) ?></td>
-                <td><?= h($user->email) ?></td>                
+                <td><?= h($user->username) ?></td>
+                <td><?= h($user->password) ?></td>
+                <td><?= h($user->role) ?></td>
                 <td><?= h($user->created) ?></td>
                 <td><?= h($user->modified) ?></td>
+                <td><?= h($user->email) ?></td>
+                <td><?= h($user->fullname) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
