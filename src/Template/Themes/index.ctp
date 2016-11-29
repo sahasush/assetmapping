@@ -1,8 +1,7 @@
 
-<h1>TEST <?=implode(" ",$colnames); ?></h1>
-<nav ass="posleft">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+<nav class="posright">
+    <ul>
+        <li ><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Theme'), ['action' => 'add']) ?></li>
     </ul>
 </nav>

@@ -1,6 +1,7 @@
 
 <div class="container-fluid"> 
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+  <?php if ($role == $Admin): ?>
 <nav class="posright">
     <ul >
          <li class="list-inline"><?= __('Select One') ?></li>
@@ -9,6 +10,7 @@
     </ul>
     
 </nav>
+ <?php endif; ?>
 <br>
 
     <h3><?= __('Search Results') ?></h3>
@@ -109,7 +111,7 @@
                  <td><?= h($values['Department']) ?></td>  
                   <td><?= h($values['center_name']) ?></td>
                  <td><?= h($values['center_type']) ?></td>
-                 <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labscenters','action' => 'view', $values['labs_centers_id']])?> </td>               
+                 <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labscenters','action' => 'view', $values['labs_centers_id']],array('target' => '_blank'))?> </td>               
                         
                   
                    
@@ -148,7 +150,7 @@
                   <td><?= h($values['Faculty_Fname'].','.$values['Faculty_MInitial'].'  '.$values['Faculty_Lname']) ?></td>  
                    <td><?= h($values['Position']) ?></td>
                   <td><?= h($values['Center_Name']) ?></td>
-                  <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labscenters','action' => 'view', $values['labs_centers_id']])?> </td>
+                  <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $values['Faculty_ID']],array('target' => '_blank'))?> </td>
                   
                        
                         

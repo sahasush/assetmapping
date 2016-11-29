@@ -11,6 +11,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Text;
 use Cake\Database\Statement\PDOStatement;
 use Cake\Database\Connection;
+use Cake\Core\Configure;
 
 /**
  * Themes Controller
@@ -68,6 +69,19 @@ class ThemesController extends AppController {
 			$resultsCenters = null;
 			
 			// Find relative themes
+			
+			
+			//Get Role
+			$session = $this->request->session ();
+			$username= $session->read ( 'User.name' );
+			// GET ROLE
+			
+			$role = $session->read ( 'User.role' );
+			$admin = Configure::read ( 'Role.Admin' );
+			
+			$this->set('role',$role);
+			$this->set('Admin',$admin);
+			
 			$conn = ConnectionManager::get ( 'default' );
 			if ($data_component == 'degree') {
 				
@@ -104,7 +118,7 @@ class ThemesController extends AppController {
 			} else if ($data_component == 'faculty') {
 				
 				// Get dept Data
-				$faculties = $conn->execute ( 'SELECT f.Faculty_Fname,  f.Faculty_Lname ,  f.Faculty_MInitial,  f.Position,  lc.Center_Name,
+				$faculties = $conn->execute ( 'SELECT f.Faculty_Fname,  f.Faculty_ID,f.Faculty_Lname ,  f.Faculty_MInitial,  f.Position,  lc.Center_Name,
   thm.theme AS theme,
   dept.Department,
   u.University,
@@ -156,10 +170,20 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 	public function view($id = null) {
 		
 		// Custom start
-		$theme = $this->Themes->find ()->where ( [ 
+		/**$theme = $this->Themes->find ()->where ( [ 
 				'Themes_ID' => $id 
-		] )->contain ( 'degrees' )->first ();
+		] )->contain ( 'degrees' )->first ();*/
 		
+		
+		$theme = $this->Themes->find ()->where ( [
+				'Themes_ID' => $id
+		] );
+		$theme=$theme->contain([
+    'degrees' => [
+        'sort' => ['degrees.Degree_Level' => 'ASC']
+    ]
+]);
+		$theme=$theme->first();
 		$this->set ( 'theme', $theme );
 		$this->set ( '_serialize', [ 
 				'theme' 

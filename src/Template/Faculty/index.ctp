@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-
+ <?php if (!empty($faculties)): ?>
 	<nav class="posright">
 		<ul>
 			<li class="list-inline"><?= __('Actions') ?></li>
@@ -65,7 +65,7 @@
 		</tr>
 	</thead>
 	<tbody>
-            <?php foreach ($faculty as $faculty): ?>
+            <?php foreach ($faculties as $faculty): ?>
             <tr>
 			<td><?= $this->Number->format($faculty->Faculty_ID) ?></td>
 			<td><?= h($faculty->Faculty_Fname) ?></td>
@@ -104,6 +104,13 @@
         </ul>
 	<p><?= $this->Paginator->counter() ?></p>
 </div>
+ <?php endif; ?>
+ <?php if (empty($faculties)): ?>
+        <div class="alert alert-danger">
+  			<strong>Warning!<strong> <?= $this->Flash->render() ?>
+		</div>
+         
+         <?php endif; ?>
 </div>
 
 
