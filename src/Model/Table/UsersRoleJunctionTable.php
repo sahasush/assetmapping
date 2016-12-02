@@ -9,8 +9,7 @@ use Cake\Validation\Validator;
 /**
  * UsersRoleJunction Model
  *
- * @property \Cake\ORM\Association\BelongsTo $RoleJunctions
- * @property \Cake\ORM\Association\BelongsTo $Roles
+ *  @property \Cake\ORM\Association\BelongsTo $Roles
  *
  * @method \App\Model\Entity\UsersRoleJunction get($primaryKey, $options = [])
  * @method \App\Model\Entity\UsersRoleJunction newEntity($data = null, array $options = [])
@@ -37,10 +36,7 @@ class UsersRoleJunctionTable extends Table
         $this->displayField('role_junction_id');
         $this->primaryKey('role_junction_id');
 
-        $this->belongsTo('RoleJunctions', [
-            'foreignKey' => 'role_junction_id',
-            'joinType' => 'INNER'
-        ]);
+        
         $this->belongsTo('Roles', [
             'foreignKey' => 'roles_id'
         ]);
@@ -70,7 +66,7 @@ class UsersRoleJunctionTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['role_junction_id'], 'RoleJunctions'));
+       // $rules->add($rules->existsIn(['role_junction_id'], 'RoleJunctions'));
         $rules->add($rules->existsIn(['roles_id'], 'Roles'));
 
         return $rules;

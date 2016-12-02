@@ -1,4 +1,6 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+
+<div class="container">
+<nav class="posright">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
@@ -12,7 +14,6 @@
         <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend><?= __('Edit User') ?></legend>
@@ -22,7 +23,7 @@
             echo $this->Form->input('role');
             echo $this->Form->input('email');
             echo $this->Form->input('fullname');
-            echo $this->Form->input('roles._ids', ['options' => $roles]);
+           // echo $this->Form->input('roles._ids', ['options' => $roles]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -38,11 +38,11 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
         
-        $this->belongsToMany('roles', [
+        $this->belongsTo('roles', [
         		'alias' => 'Roles',
-        		'foreignKey' => 'id',
-        		'targetForeignKey' => 'roles_id',
-        		'joinTable' => 'Users_Role_Junction'
+        		'foreignKey' => 'role',
+        		'bindingKey'=> 'role_id',
+        		'propertyName'=>'role_id'
         ]);
     }
 

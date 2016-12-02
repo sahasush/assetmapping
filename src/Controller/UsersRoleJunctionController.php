@@ -19,7 +19,7 @@ class UsersRoleJunctionController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['RoleJunctions', 'Roles']
+            'contain' => ['Roles']
         ];
         $usersRoleJunction = $this->paginate($this->UsersRoleJunction);
 
@@ -62,9 +62,9 @@ class UsersRoleJunctionController extends AppController
                 $this->Flash->error(__('The users role junction could not be saved. Please, try again.'));
             }
         }
-        $roleJunctions = $this->UsersRoleJunction->RoleJunctions->find('list', ['limit' => 200]);
+        
         $roles = $this->UsersRoleJunction->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('usersRoleJunction', 'roleJunctions', 'roles'));
+        $this->set(compact('usersRoleJunction',  'roles'));
         $this->set('_serialize', ['usersRoleJunction']);
     }
 

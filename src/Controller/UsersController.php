@@ -46,6 +46,9 @@ class UsersController extends AppController
             'contain' => ['roles']
         ]);
 
+       
+        
+        
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
     }
@@ -60,18 +63,38 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
         	$data=$this->request->data();
+        	//$role_id = $this->request->data ['role'];
+        	$associated = ['Roles'];
         	
-        	$associated=['Roles'];
-            $user = $this->Users->patchEntity($user, $this->request->data(),['associated' => $associated]);
+        //   $user = $this->Users->patchEntity($user, $this->request->data());
+           $user=$this->Users->patchEntity($user, $this->request->data(), ['associated' => $associated ]);
+        
             $this->log ( "test::" . $user, 'debug' );
             if ($this->Users->save($user)) {
+            	$this->log ( "ID::" . $user->id, 'debug' );
+            	//Add to roles junction
+            	/**$usersRoleJunctionTable = TableRegistry::get('UsersRoleJunction');
+            	$usersRoleJunction = $usersRoleJunctionTable->newEntity();
+            	
+            	$usersRoleJunction->id = $user->id;
+            	$usersRoleJunction->roles_id = $role_id;
+            	
+            	if ($usersRoleJunctionTable->save($usersRoleJunction)) {
+            		// The $article entity contains the id now
+            		$id = $usersRoleJunction->id;
+            	}
+            	*/
+            	
             	 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
-        $roles = $this->Users->roles->find('list');
+        
+        $roles=TableRegistry::get('Roles')->find('all');
+       
+       
         $this->set(compact('user', 'roles'));
         $this->set('_serialize', ['user']);
     }
@@ -162,29 +185,15 @@ class UsersController extends AppController
     	->contain(['roles'])
     	->where(['users.id' => $user['id']])
     	->limit(1);
-    	 
-    	foreach ($query as $row) {
-    		// Each row is now an instance of our Article class.
-    		echo $row->id;
-    
-    		if (!empty($row->roles)){
-    			foreach ($row->roles as $role){
-    				$counter=$counter+1;
-    				if($counter ==1 ){
-    					$priority=$role->priority;
-    					$rolename=$role->name;
-    					$session->write('User.roleID', $role->role_id);
-    				}else{
-    					$priority=min(	$priority,$role->priority);//not needed for now
-    					$rolename=$role->name;
-    					$session->write('User.roleID', $role->role_id);
-    					
-    				}
-    			}
-    		}
-    
-    	}
+    	 $id=$user['id'];
     	
+    	$query = $this->Users->get($id, [
+    			'contain' => ['roles']
+    	]);
+    	 
+    	$rolename=$query->role_id->name;
+    	
+    	    	
     	return $rolename;
     }
     
