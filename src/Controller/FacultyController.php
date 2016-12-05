@@ -71,7 +71,7 @@ class FacultyController extends AppController
     public function view($id = null)
     {
         $faculty = $this->Faculty->get($id, [
-            'contain' => []
+            'contain' => ['Publications']
         ]);
         
         //Get the permission       
@@ -90,6 +90,30 @@ class FacultyController extends AppController
         $this->set('role',$role);
         $this->set('Admin',$admin);
         $this->set('_serialize', ['faculty']);
+    }
+    
+    public function viewpublications($id = null)
+    {
+    	$faculty = $this->Faculty->get($id, [
+    			'contain' => ['Publications']
+    	]);
+    
+    	//Get the permission
+    	$session = $this->request->session ();
+    	$username= $session->read ( 'User.name' );
+    	// GET ROLE
+    
+    	$role = $session->read ( 'User.role' );
+    	$admin = Configure::read ( 'Role.Admin' );
+    
+    	$colnames = $this->loadTablePermission ( $session );
+    	$this->set ( 'colnames', $colnames );
+    	//End permission
+    
+    	$this->set('faculty', $faculty);
+    	$this->set('role',$role);
+    	$this->set('Admin',$admin);
+    	$this->set('_serialize', ['faculty']);
     }
 
     /**

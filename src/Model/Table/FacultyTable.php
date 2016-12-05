@@ -42,6 +42,13 @@ class FacultyTable extends Table
 		 'joinTable' => 'centers_faculty_junction'			
         ]);
 		
+		$this->belongsToMany('Publications', [
+				'alias' => 'Publications',
+				'foreignKey' => 'Faculty_ID',
+				'targetForeignKey' => 'Publications_ID',
+				'joinTable' => 'faculty_publications_junction'
+		]);
+		
 		//Custom --start
 		
 		 // Add the behaviour to your table

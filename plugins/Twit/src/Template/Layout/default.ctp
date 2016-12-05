@@ -47,12 +47,15 @@ $cakeDescription = '';
       <a class="navbar-brand" href="#">Asset Mapping</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
+      <li class="active"><a href="/users/home">Home</a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Search by<span class="caret"></span></a>
         <ul class="dropdown-menu">
+        <li><a href="/universities/search">CSU/College/Department</a></li>
+        <li><a href="/faculty/search">Faculty</a></li>        
+          <li><a href="/labscenters/search">Lab/Center</a></li>        
           <li><a href="/themes/search">Theme</a></li>
-          <li><a href="/universities/search">CSU/College/Department</a></li>
-          <li><a href="/faculty#">Faculty</a></li>
+          
+          
         </ul>
       </li>
        <li><a href="/users/logout">Logout</a></li>

@@ -197,7 +197,9 @@ class UsersController extends AppController
     	return $rolename;
     }
     
-    
+    public function query(){
+    	
+    }
     
     public function initialize()
     {
