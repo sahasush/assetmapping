@@ -54,28 +54,26 @@ $cakeDescription = '';
         <li><a href="/faculty/search">Faculty</a></li>        
           <li><a href="/labsCenters/search">Lab/Center</a></li>        
           <li><a href="/themes/search">Theme</a></li>
-          
-          
         </ul>
       </li>
        <li><a href="/users/logout">Logout</a></li>
     </ul>
   </div>
-</nav>
-
+  </nav>
+	 <div class="container">
 
         <?= $this->Flash->render(); ?>
-	 <br>
+         <br>
 <br>
 <br>
 <br>
 <br>
         <?= $this->fetch('content'); ?>
+        <footer style="position: fixed; left:0px;bottom: 0px; width: 100%; height: 60px; background-color: black;">
+    <font color="white"><p>&copy;<?=date("Y")?> California State University, Northridge</p></font>
+  </footer>
+      </div>
       
-    </div>
-    
-   
-  </body>
-  
-    
+	
+
 </html>

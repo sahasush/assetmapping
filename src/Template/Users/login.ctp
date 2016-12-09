@@ -1,7 +1,7 @@
 <div class="container">
-<h1> Login</h1>
-<br>
+
 <?= $this->Form->create() ?>
+ <h2 class="text-center">Please login with your credentials </h2>
     <div class="form-group row">
       <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Username</label>
       <div class="col-sm-10">
@@ -21,5 +21,8 @@
       </div>
     
  <?= $this->Form->end() ?>
+
 </div>
+
+
 

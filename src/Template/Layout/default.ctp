@@ -75,7 +75,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
      
 <?= $this->fetch('jquery'); ?> <?= $this->fetch('script'); ?>
 
- 
+ <div id="testfooter">
+  
+    <p class="text-muted"> 	&copy;<?=date("Y")?> California State University, Northridge. </p>
+  
+</div>
     </footer>
 </body>
 </html>
