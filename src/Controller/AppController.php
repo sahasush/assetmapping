@@ -100,7 +100,14 @@ class AppController extends Controller
         }
         
         //$this->viewBuilder()->theme('Modern'); -- This is for deafault
-        $this->viewBuilder()->theme('Twit');
+        
+        //Get the permission
+        $session = $this->request->session ();
+        $username= $session->read ( 'User.name' );
+        $this->log("Username --".$username, 'debug');
+        if($username != null){
+           $this->viewBuilder()->theme('Twit');
+        }
         
     }
 	public function beforeFilter(Event $event)

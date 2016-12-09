@@ -209,6 +209,10 @@ class UsersController extends AppController
     
     public function logout()
     {
+    	$session = $this->request->session();
+    	$session->delete('User.name');
+    	$session->delete('User.role');
+    	$session->destroy();
     	$this->Flash->success('You are now logged out.');
     	return $this->redirect($this->Auth->logout());
     }

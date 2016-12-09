@@ -75,7 +75,7 @@
 					id="Datacomponent">
 					
 					<option value="faculty">Faculty</option>						
-					<option value="centers">Publication</option>
+					<option value="publication">Publication</option>
 					
 				</select>
 

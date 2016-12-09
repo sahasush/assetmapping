@@ -433,6 +433,8 @@ class FacultyController extends AppController
 						'facdata'
 				] );
 			
+			}else if ($data_component == 'publication') {
+				return $this->redirect(['action' => 'viewpublications', $fac_id]);
 			}
 			
 			

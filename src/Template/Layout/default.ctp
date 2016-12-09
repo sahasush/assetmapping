@@ -40,9 +40,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 <div class='page-header'>
   <div class='btn-toolbar pull-right'>
+  <?php if (!empty($username)): ?>
     <div class='btn-group'>
         <p class="bg-primary">Logged in as <?=$username?></p>
     </div>
+         <?php endif; ?>
   </div>
 </div>
     <nav class="top-bar expanded" data-topbar role="navigation">
