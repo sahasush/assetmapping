@@ -62,6 +62,7 @@ class PublicationsController extends AppController
         $this->set(compact('publication'));
         $this->set('_serialize', ['publication']);
     }
+    
 
     /**
      * Edit method
@@ -107,5 +108,14 @@ class PublicationsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    
+    /**
+     * Views the publications by faculty
+     */
+    public function viewFacultyPubl()
+    {
+    	
+    
     }
 }

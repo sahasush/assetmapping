@@ -33,6 +33,15 @@ class PublicationsTable extends Table
         $this->table('publications');
         $this->displayField('Publications_ID');
         $this->primaryKey('Publications_ID');
+        
+        
+        $this->belongsToMany('publications', [
+        		'alias' => 'Publications',
+        		'foreignKey' => 'Publications_ID',
+        		'targetForeignKey' => 'Faculty_ID',
+        		'joinTable' => 'Faculty_Publications_Junction'
+        ]);
+        
     }
 
     /**
