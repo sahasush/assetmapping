@@ -281,11 +281,12 @@ class LabsCentersController extends AppController {
 	 * Search
 	 */
 	public function searchResults() {
-		if ($this->request->is ( 'post' )) {
+		if ($this->request->is ( 'get' )) {
+			$this->log ( "entered get::", 'debug' );
 			// Get the request ids
-			$university_id = $this->request->data ['university_id'];
-			$center_id = $this->request->data ['labs_center_id'];
-			$data_component = $this->request->data ['Datacomponent'];
+			$university_id = $this->request->query ['university_id'];
+			$center_id = $this->request->query['labs_center_id'];
+			$data_component = $this->request->query ['Datacomponent'];
 			$this->log ( "Debug university_id --center_id--datacomponent::" . $university_id . '<>' . $center_id . '<>' . $data_component, 'debug' );
 			
 			$resultsEquipment = null;
@@ -360,7 +361,7 @@ class LabsCentersController extends AppController {
 				] );
 			} else if ($data_component == 'faculty') {
 				// Faculty
-				$this->log ( "entered faculty::", 'debug' );
+				
 									$results = $conn->execute ( 'select 
 					  lc.Center_Name, 
 					  lc.Labs_Centers_ID, 

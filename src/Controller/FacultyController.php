@@ -5,11 +5,12 @@ use App\Controller\AppController;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
+use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Text;
 use Cake\Database\Statement\PDOStatement;
 use Cake\Database\Connection;
-use Cake\Core\Configure;
+
 
 
 /**
@@ -20,6 +21,40 @@ use Cake\Core\Configure;
 class FacultyController extends AppController
 {
 
+	/**
+	 * Show how redirecting works when AJAX is involved:
+	 * It will requestAction() the redirect instead of actually redirecting.
+	 *
+	 * @return \Cake\Network\Response|null
+	 */
+	public function redirecting() {
+		if ($this->request->is ( 'post' )) {
+			// Do sth like saving data
+			if (! $this->request->is ( 'ajax' )) {
+				$this->Flash->success ( 'Yeah, that was a normal POST and redirect (PRG).' );
+			}
+			return $this->redirect ( [
+					'action' => 'index'
+			] );
+		}
+	}
+	/**
+	 * Show how redirecting works when AJAX is involved using Ajax component and view class.
+	 * It will not follow the redirect, but instead return it along with messages sent.
+	 *
+	 * @return \Cake\Network\Response|null
+	 */
+	public function redirectingPrevented() {
+		if ($this->request->is ( 'post' )) {
+			// Do sth like saving data
+			$this->Flash->success ( 'Yeah, that was a normal POST and redirect (PRG).' );
+			return $this->redirect ( [
+					'action' => 'index'
+			] );
+		}
+	}
+	
+	
     /**
      * Index method
      *
@@ -188,12 +223,22 @@ class FacultyController extends AppController
 	public function initialize()
     {
        parent::initialize();
-
        
-	 $this->loadComponent('Search.Prg', [
-            'actions' => ['index']
-        ]);
+       if (in_array ( $this->request->action, [
+       		'redirectingPrevented',
+       		'form',
+       		'toggle'
+       ] )) {
+       	$this->components ['Ajax.Ajax'] = [
+       			'flashKey' => 'FlashMessage'
+       	];
+       }
+
+      
 	}
+	
+	
+	
 	//end
 	
 	public function loadTablePermission($session) {
@@ -219,4 +264,141 @@ class FacultyController extends AppController
 	
 		return $colnames;
 	}
+	
+	
+	/**
+	 * Search by University,faculty
+	 */
+	public function search() {
+		$univs = TableRegistry::get ( 'Universities' );
+		$universities = $univs->find ( 'list', [
+				'keyField' => 'University_ID',
+				'valueField' => 'University'
+		] );
+	
+		// Find Labs/Centers
+		$values = TableRegistry::get ( 'Faculty' );
+	
+		$faclnames = $values->find ( 'list', [
+				'keyField' => 'Faculty_ID',
+				'valueField' => 'Faculty_Lname'
+		] )->order ( [
+				'Faculty_Lname' => 'ASC'
+		] );
+		
+		$this->log ( $this->name."_".$this->request->action." ::Fac Lname:" .$faclnames  , 'debug' );
+		$facfnames = $values->find ( 'list', [
+				'keyField' => 'Faculty_Fname',
+				'valueField' => 'Faculty_Fname'
+		] )->order ( [
+				'Faculty_Fname' => 'ASC'
+		] );
+	
+		$this->set ( compact ( 'universities' ) );
+		$this->set ( '_serialize', [
+				'universities'
+		] );
+	
+		$this->set ( compact ( 'faclnames' ) );
+		$this->set ( '_serialize', [
+				'faclnames'
+		] );
+		
+		$this->set ( compact ( 'facfnames' ) );
+		$this->set ( '_serialize', [
+				'facfnames'
+		] );
+		
+			
+	}
+	
+	/**
+	 * 
+	 * @throws NotFoundException
+	 */
+	
+	public function univFlnameAjax() {
+		
+		$this->log (" AMMM" , 'debug' );
+		
+		$this->request->allowMethod ( 'ajax' );
+		$id = $this->request->query ( 'university_id' );
+		if (! $id) {
+			throw new NotFoundException ();
+		}
+	
+		$this->log ("University ID.".$id,"debug");
+		
+		
+		$this->viewBuilder ()->className ( 'Ajax.Ajax' );
+		$this->loadModel ( 'Faculty' );
+		$conn = ConnectionManager::get ( 'default' );
+		$faclnames = $conn->execute ( 'select 
+				distinct (f.Faculty_Lname ),
+					   u.University,					 
+					  f.Faculty_ID,					 
+					  f.Faculty_Fname,
+					  f.Faculty_MInitial
+					from 
+					  labs_centers lc
+				  	  left join universities u on lc.university_id = u.university_id 
+					  left join colleges c on lc.colleges_id = c.colleges_id 
+					  LEFT join centers_faculty_junction cfj on cfj.Labs_Centers_ID=lc.Labs_Centers_ID
+					  INNER JOIN faculty f ON cfj.Faculty_ID=f.Faculty_ID
+					where 
+					  lc.university_id = :univ  group by f.Faculty_Lname ORDER  BY f.Faculty_Lname ASC ', ['univ' => $id						  		
+								  ] )->fetchAll ( 'assoc' );		
+								  
+								  
+		
+					  $this->set ( 'faclnames', $faclnames );
+		//$this->set ( compact ( 'faclnames' ) );
+		$this->set ( '_serialize', 'faclnames' );
+	}
+	
+	public function fnameLnameAjax() {
+		
+		$this->log (" Get First Name" , 'debug' );
+		
+		$this->request->allowMethod ( 'ajax' );
+		$id = $this->request->query ( 'university_id' );
+		$lname = $this->request->query ( 'flname' );
+		if (! $id) {
+			throw new NotFoundException ();
+		}
+		
+		$this->log ($id."--lname_id-->.".$lname,"debug");
+		
+		
+		$this->viewBuilder ()->className ( 'Ajax.Ajax' );
+		$this->loadModel ( 'Faculty' );
+		$conn = ConnectionManager::get ( 'default' );
+		$facfnames = $conn->execute ( 'select
+				distinct(f.Faculty_ID),
+				f.Faculty_Fname ,
+					   u.University,					  
+					  f.Faculty_Fname,
+					  f.Faculty_MInitial
+					from
+					  labs_centers lc
+				  	  left join universities u on lc.university_id = u.university_id
+					  left join colleges c on lc.colleges_id = c.colleges_id
+					  LEFT join centers_faculty_junction cfj on cfj.Labs_Centers_ID=lc.Labs_Centers_ID
+					  INNER JOIN faculty f ON cfj.Faculty_ID=f.Faculty_ID
+					where
+					  lc.university_id = :univ  and f.Faculty_Lname=:lname ORDER  BY f.Faculty_Fname ASC ', ['univ' => $id,'lname'=>$lname
+							  ] )->fetchAll ( 'assoc' );
+		
+		
+							  //Test start
+		
+							  foreach ($facfnames as $fac) {
+							  	$this->log ("Name-->".h($fac['Faculty_Fname']),"debug");
+							  }
+							  	//Test End
+							  
+		$this->set ( compact ( 'facfnames' ) );
+		$this->set ( '_serialize', 'facfnames' );
+	}
+	
 }

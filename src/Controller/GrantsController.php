@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 
 /**
  * Grants Controller
@@ -11,6 +12,11 @@ use App\Controller\AppController;
 class GrantsController extends AppController
 {
 
+	public function initialize()
+	{
+		parent::initialize();
+		$this ->loadComponent('Global')	;
+	}
     /**
      * Index method
      *
@@ -37,6 +43,21 @@ class GrantsController extends AppController
             'contain' => []
         ]);
 
+        
+        //Get the permission
+        $session = $this->request->session ();
+        $username= $session->read ( 'User.name' );
+        // GET ROLE
+        
+        $role = $session->read ( 'User.role' );
+        $admin = Configure::read ( 'Role.Admin' );
+        
+        
+        
+        $colnames = $this->Global->loadTablePermission ( $session,'grants' );
+        
+        $this->log ( $this->name."_".$this->request->action." ::Colnames::" . implode("--",$colnames), 'debug' );
+        $this->set ( 'colnames', $colnames );
         $this->set('grant', $grant);
         $this->set('_serialize', ['grant']);
     }

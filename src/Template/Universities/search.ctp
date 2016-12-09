@@ -43,6 +43,8 @@
 								
 								
 								?>
+								
+							
 		 <label class="control-label col-sm-2" for="university">University</label>
 			<div class="col-sm-10">	
 			<?=  $this->Form->input('university_id', array('label' => false,'type' => 'select','options'=> $universities,'class' => 'selectpicker','data-live-search'=>'true','id' => 'universities', 'rel' => $url));?>

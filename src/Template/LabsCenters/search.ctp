@@ -10,7 +10,7 @@
 <div class="container">
 
 		<h3><?= __('Lab/Center Search') ?></h3>
-<?= $this->Form->create(null, ['url' => ['controller' => 'LabsCenters', 'action' => 'searchResults' ], 'class' =>'form-horizontal']); ?>
+<?= $this->Form->create(null, ['url' => ['controller' => 'LabsCenters', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get']); ?>
 
 
          <div class="form-group">              
