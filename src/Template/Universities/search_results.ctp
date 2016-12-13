@@ -7,7 +7,7 @@
 	</ul>
 
 </nav>
-<div class="container">
+<div>
 	<h3><?= __('Search Results') ?></h3>
 	<br>Showing Resutls for component <b><?=$component  ?> </b>
 	
@@ -137,11 +137,11 @@
 			</tr>
 		</thead>
 		<tbody>       
-                <?php foreach ( $centers as $center ) :?>
+                 <?php foreach ( $centers as $center ) :?>
                              <tr>
 								<td><?= h($center->Center_Name) ?></td>
 								<td><?= h($center->Center_Type) ?></td>
-							
+							 
 								<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labscenters','action' => 'view', $center->Labs_Centers_ID])?> </td>
 							</tr>
 						
@@ -152,6 +152,38 @@
           
     </table>
      <?php endif; ?>
+     <!--  Show Faculty Data -->
+     
+     	<?php if (!empty($faculties)): ?>
+   <table data-toggle="table"  data-sort-name="center_name" data-sort-order="asc">
+		<thead>
+			<tr>
+			
+				<th data-field="center_name" data-sortable="true"><?= __('Center Name') ?></th>
+				<th><?= __('Center Type') ?></th>
+				<th><?= __('Faculty') ?></th>
+				
+					<th class="actions"><?= __('Actions') ?></th>
+				
+			</tr>
+		</thead>
+		<tbody>       
+                <?php foreach ( $faculties as $faculty ) :?>
+                             <tr>
+								<td><?= h($faculty['Center_Name']) ?></td>
+								<td><?= h($faculty['Center_Type']) ?></td>
+							   <td><?= h($faculty['Faculty_Lname']) ?>,<?= h($faculty['Faculty_Fname']) ?>,<?= h($faculty['Faculty_MInitial']) ?></td>
+								<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> </td>
+							</tr>
+						
+               <?php endforeach; ?>
+                </tbody>
+             
+	</table>
+          
+    </table>
+     <?php endif; ?>
+     
      	
      </div>
      

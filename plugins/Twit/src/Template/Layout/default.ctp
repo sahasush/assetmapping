@@ -60,7 +60,7 @@ $cakeDescription = '';
     </ul>
   </div>
   </nav>
-	 <div class="container">
+	 <div>
 
         <?= $this->Flash->render(); ?>
          <br>

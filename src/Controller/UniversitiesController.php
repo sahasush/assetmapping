@@ -470,6 +470,45 @@ class UniversitiesController extends AppController {
 				$this->set ( '_serialize', [ 
 						'deptdata' 
 				] );
+			}else if ($data_component == 'faculty') {
+				
+				
+				// Get faculty Data
+				$deptdata = $conn->execute ( 'select 
+					  lc.Center_Name, 
+					  lc.Labs_Centers_ID, 
+					  lc.Center_Type, 
+					  thm.theme, 
+					  dept.Department, 
+					  u.University, 
+					  c.College, 
+					  f.Faculty_ID,
+					 f.Faculty_Lname ,
+					  f.Faculty_Fname,
+					  f.Faculty_MInitial
+					from 
+					  faculty f 
+            		  LEFT JOIN centers_faculty_junction cfj ON cfj.Faculty_ID=f.Faculty_ID
+            		  LEFT JOIN labs_centers lc ON cfj.Labs_Centers_ID=lc.Labs_Centers_ID
+					  left join themes_centers_junction tcj on lc.Labs_Centers_ID = tcj.Labs_Centers_ID 
+					  left join themes thm on thm.themes_ID = tcj.Themes_ID 
+					  left join departments dept on lc.departments_ID = dept.departments_id 
+					  left join universities u on lc.university_id = u.university_id 
+					  left join colleges c on lc.colleges_id = c.colleges_id 
+					where 
+					  dept.Departments_ID=:dept', [ 
+						'dept' => $department_id 
+				] )->fetchAll ( 'assoc' );
+				
+				$this->set ( 'deptdata', $deptdata );
+				$this->set ( '_serialize', [ 
+						'deptdata' 
+				] );
+				
+				$this->set ( 'faculties', $deptdata );
+				$this->set ( '_serialize', [
+						'faculties'
+				] );
 			}
 			
 			$this->set ( 'component', $data_component );

@@ -128,10 +128,12 @@ class FacultyController extends AppController
 
 		$role = $session->read('User.role');
 		$admin = Configure::read('Role.Admin');
-		$colnames = $this->loadTablePermission($session);
+		$colnames = $this->Global->loadTablePermission ( $session,'faculty' );
 		$this->set('colnames', $colnames);
 
 		// End permission
+		
+		$this->log('username --'.$username.'--'.$role, 'debug');
 
 		$this->set('faculty', $faculty);
 		$this->set('role', $role);
