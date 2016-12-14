@@ -1,5 +1,5 @@
 
-<div class="container-fluid"> 
+
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
   <?php if ($role == $Admin): ?>
 <nav class="posright">
@@ -165,5 +165,4 @@
      
      
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>

@@ -1,4 +1,4 @@
-
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <div class="container-fluid">
 	
 		<?php if ($role == $Admin): ?>

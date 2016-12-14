@@ -69,7 +69,10 @@ $cakeDescription = '';
 <br>
 <br>
         <?= $this->fetch('content'); ?>
-        <footer style="position: fixed; left:0px;bottom: 0px; width: 100%; height: 60px; background-color: black;">
+        
+        <br>
+        <br>
+        <footer style="position: fixed; left:0px;bottom: 0px; width: 100%; height: 20px; background-color: black;">
     <font color="white"><p>&copy;<?=date("Y")?> California State University, Northridge</p></font>
   </footer>
       </div>

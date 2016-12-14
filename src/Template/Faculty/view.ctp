@@ -1,6 +1,6 @@
 
 <div class="container">
-	
+	  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 		<?php if ($role == $Admin): ?>
 <nav class="posright">
 	<ul class="side-nav">

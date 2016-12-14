@@ -1,14 +1,6 @@
 
 <div class="container">
-<nav class="posright">
-    <ul >
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Grant'), ['action' => 'edit', $grant->Grants_ID]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Grant'), ['action' => 'delete', $grant->Grants_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $grant->Grants_ID)]) ?> </li>
-        <li><?= $this->Html->link(__('List Grants'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Grant'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
+
     <h3><?= h('Grants Detail') ?></h3>
     <table class="table table-reflow">
     

@@ -77,12 +77,12 @@ class FacultyController extends AppController
 		// $faculty = $this->paginate($this->Faculty);
 		// Custom --sush
 
-		$query = $this->Faculty->
+		$query = $this->Faculty->find('search', $this->Faculty->filterParams($this->request->query));
 
 		// Use the plugins 'search' custom finder and pass in the
 		// processed query params
 
-		find('search', $this->Faculty->filterParams($this->request->query));
+		
 
 		// GET ROLE
 
@@ -442,4 +442,33 @@ class FacultyController extends AppController
 			
 		}
 	}
+	
+	
+	/**
+	 * Authorize users
+	 */
+	public function isAuthorized($user) {
+		$session = $this->request->session ();
+		$role = $session->read ( 'User.role' );
+	
+		$admin = Configure::read ( 'Role.Admin' );
+		if ($role != $admin) {$this->log ( "Test:Not admin::" . $role."--action".$this->request->action , 'debug' );
+		if ($this->request->action == 'fnameLnameAjax' || $this->request->action == 'view' || $this->request->action == 'search' || $this->request->action == 'searchResults' || $this->request->action == 'univFlnameAjax' || $this->request->action == 'viewpublications') {
+			$this->log ( "Test:Not admin--1::" . $role, 'debug' );
+			return true;
+		}else{
+			$this->Flash->error(__('Page not authorized'));
+			return false;
+		}
+	
+	
+		}else{
+	
+			$this->log ( "Test: admin::" . $role, 'debug' );
+			return true;
+		}
+	
+		return parent::isAuthorized($user);
+	}
+	
 }

@@ -1,14 +1,5 @@
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 
-<div class="container">
-
-<nav class="posright">
-	<ul>
-		<li class="list-inline"><?= __('Select One') ?></li>
-		<li><?= $this->Html->link(__('List Universities'), ['action' => 'index']) ?> </li>
-		<li><?= $this->Html->link(__('Search Universities'), ['action' => 'search']) ?> </li>
-	</ul>
-
-</nav>
 <br>
 <br>
 	<h3><?= __('Search Results') ?></h3>
@@ -84,8 +75,18 @@
 								<td><?= h($faculty['University']) ?></td>
 								<td><?= h($faculty['College']) ?></td>
 								<td><?= h($faculty['Department']) ?></td>
-								<td><?= h($faculty['Faculty_Lname']) ?>,<?= h($faculty['Faculty_Fname']) ?>,<?= h($faculty['Faculty_MInitial']) ?></td>								
-								<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> </td>
+								
+								<td>
+								
+								<?php if (!empty($faculty['Faculty_ID'])): ?>
+								<?= h($faculty['Faculty_Lname']) ?>,<?= h($faculty['Faculty_Fname']) ?>,<?= h($faculty['Faculty_MInitial']) ?>
+								 <?php endif; ?>	</td>								
+								<td class="actions"> 
+								<?php if (!empty($faculty['Faculty_ID'])): ?>
+								<?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> 
+								 <?php endif; ?>	
+								</td>
+										
 							</tr>
 						
                <?php endforeach; ?>
@@ -176,7 +177,5 @@
           
     </table>
      <?php endif; ?>
-     	
-     </div>
      
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>

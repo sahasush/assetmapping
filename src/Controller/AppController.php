@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -21,7 +22,6 @@ use Cake\Core\Configure;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 
-
 /**
  * Application Controller
  *
@@ -30,94 +30,91 @@ use Cake\ORM\TableRegistry;
  *
  * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller
-{
-
-    //Custom --start
+class AppController extends Controller {
+	
+	// Custom --start
 	use \Crud\Controller\ControllerTrait;
 	
-	
-	
-	//end 
+	// end
 	/**
-     * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading components.
-     *
-     * e.g. `$this->loadComponent('Security');`
-     *
-     * @return void
-     */
-    public function initialize()
-    {
-        parent::initialize();
-        $this->loadComponent('Flash');
-      
-		 $this->loadComponent('Auth', [
-            'authenticate' => [
-                'Form' => [
-                    'fields' => [
-                        'username' => 'username',
-                        'password' => 'password'
-                    ]
-                ]
-            ],
-		    'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login',
-             ],
-		 		'loginRedirect' => [
-		 				'controller' => 'Users',
-		 				'action' => 'home'
-		 		],
-        ]);
+	 * Initialization hook method.
+	 *
+	 * Use this method to add common initialization code like loading components.
+	 *
+	 * e.g. `$this->loadComponent('Security');`
+	 *
+	 * @return void
+	 */
+	public function initialize() {
+		parent::initialize ();
+		$this->loadComponent ( 'Flash' );
 		
-        // Allow the display action so our pages controller
-        // continues to work.
-        $this->Auth->allow(['display']);
-      
-        //For Ajax and Json
-        $this->loadComponent('RequestHandler');
-        
-        Configure::write('Role.Admin','Admin');
-        
-        
+		$this->loadComponent ( 'Auth', [ 
+				'authenticate' => [ 
+						'Form' => [ 
+								'fields' => [ 
+										'username' => 'username',
+										'password' => 'password' 
+								] 
+						] 
+				],
+				'loginAction' => [ 
+						'controller' => 'Users',
+						'action' => 'login' 
+				],
+				'loginRedirect' => [ 
+						'controller' => 'Users',
+						'action' => 'home' 
+				] ,
+				'authError' => 'Access Denied',
+				'authorize' => array('Controller'),
+				'unauthorizedRedirect' => $this->referer()
+		] );
 		
-    }
-
-    /**
-     * Before render callback.
-     *
-     * @param \Cake\Event\Event $event The beforeRender event.
-     * @return void
-     */
-    public function beforeRender(Event $event)
-    {
-        if (!array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->response->type(), ['application/json', 'application/xml'])
-        ) {
-            $this->set('_serialize', true);
-        }
-        
-        //$this->viewBuilder()->theme('Modern'); -- This is for deafault
-        
-        //Get the permission
-        $session = $this->request->session ();
-        $username= $session->read ( 'User.name' );
-        $this->log("Username --".$username, 'debug');
-        if($username != null){
-           $this->viewBuilder()->theme('Twit');
-        }
-        
-    }
-	public function beforeFilter(Event $event)
-    {
-
-    	$this->Auth->allow(['index', 'view', 'display','add']);   	
-    	
-    }
-    
-    
-    
-    
+		// Allow the display action so our pages controller
+		// continues to work.
+		$this->Auth->allow ( [ 
+				'display' 
+		] );
+		
+		// For Ajax and Json
+		$this->loadComponent ( 'RequestHandler' );
+		
+		Configure::write ( 'Role.Admin', 'Admin' );
+	}
+	
+	/**
+	 * Before render callback.
+	 *
+	 * @param \Cake\Event\Event $event
+	 *        	The beforeRender event.
+	 * @return void
+	 */
+	public function beforeRender(Event $event) {
+		if (! array_key_exists ( '_serialize', $this->viewVars ) && in_array ( $this->response->type (), [ 
+				'application/json',
+				'application/xml' 
+		] )) {
+			$this->set ( '_serialize', true );
+		}
+		
+		// $this->viewBuilder()->theme('Modern'); -- This is for deafault
+		
+		// Get the permission
+		$session = $this->request->session ();
+		$username = $session->read ( 'User.name' );
+		$this->log ( "Username --" . $username, 'debug' );
+		if ($username != null) {
+			$this->viewBuilder ()->theme ( 'Twit' );
+		}
+	}
+	public function beforeFilter(Event $event) {
+		if ($this->Auth->user ()) {
+			$this->Auth->authorize = 'Controller';
+			$this->log ( "11", 'debug' );
+		}else{
+			$this->Auth->deny ();
+			$this->log ( "22", 'debug' );
+		}
+	}
 }

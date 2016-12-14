@@ -1,16 +1,6 @@
 <p align='right'><b>Logged in as <?=$username?></b></p>
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <div class="container">
-
- <nav class="posright">
-
-    <ul>
-        <li ><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Labs Center'), ['action' => 'edit', $labsCenter->Labs_Centers_ID]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Labs Center'), ['action' => 'delete', $labsCenter->Labs_Centers_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $labsCenter->Labs_Centers_ID)]) ?> </li>
-        <li><?= $this->Html->link(__('List Labs Centers'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Labs Center'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
  
 
 <h3>Lab Center Details </h3>

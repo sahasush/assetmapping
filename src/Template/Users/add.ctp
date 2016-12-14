@@ -1,5 +1,6 @@
 
 <div class="container">
+ <?php if (!empty($user)): ?>
 <nav class="posright">
     <ul >
         <li class="heading"><?= __('Actions') ?></li>
@@ -33,4 +34,13 @@
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
+     <?php endif; ?>
+    
+    <?php if (empty($user)): ?>
+        <div class="alert alert-danger">
+  			<strong>Warning!<strong> <?= $this->Flash->render() ?>
+		</div>
+         
+         <?php endif; ?>
+         
 </div>

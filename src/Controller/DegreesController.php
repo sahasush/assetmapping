@@ -108,4 +108,34 @@ class DegreesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    /**
+     * Authorize users
+     */
+    public function isAuthorized($user) {
+    	$session = $this->request->session ();
+    	$role = $session->read ( 'User.role' );
+    
+    	$admin = Configure::read ( 'Role.Admin' );
+    	if ($role != $admin) {
+    		$this->log ( "Test:Not admin::" . $role."--action".$this->request->action , 'debug' );
+    		if ($this->request->action == 'view' ) {
+    			$this->log ( "Test:Not admin--1::" . $role, 'debug' );
+    			return true;
+    		}else{
+    			$this->Flash->error(__('Page not authorized'));
+    			return false;
+    		}
+    			
+    			
+    	}else{
+    			
+    		$this->log ( "Test: admin::" . $role, 'debug' );
+    		return true;
+    	}
+    
+    	return parent::isAuthorized($user);
+    }
+    
+    
 }

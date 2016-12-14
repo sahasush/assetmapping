@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 
 /**
  * Courses Controller
@@ -11,6 +12,14 @@ use App\Controller\AppController;
 class CoursesController extends AppController
 {
 
+	public 	function initialize()
+	{
+		parent::initialize();
+		
+		$this ->loadComponent('Global')	;
+	}
+	
+	
     /**
      * Index method
      *
@@ -33,8 +42,23 @@ class CoursesController extends AppController
      */
     public function view($id = null)
     {
+    	
+    	
+    	// GET ROLE
+
+    	$session = $this->request->session();
+    	$username = $session->read('User.name');
+    	 
+    	$role = $session->read('User.role');
+    	$admin = Configure::read('Role.Admin');
+    	$colnames = $this->Global->loadTablePermission ( $session,'courses' );
+    	$this->set('colnames', $colnames);
+    	
+    	// End permission
+    	
+    	
         $course = $this->Courses->get($id, [
-            'contain' => []
+            'contain' => ['departments']
         ]);
 
         $this->set('course', $course);
@@ -107,5 +131,33 @@ class CoursesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    
+    /**
+     * Authorize users
+     */
+    public function isAuthorized($user) {
+    	$session = $this->request->session ();
+    	$role = $session->read ( 'User.role' );
+    
+    	$admin = Configure::read ( 'Role.Admin' );
+    	if ($role != $admin) {
+    		
+    		if ($this->request->action == 'view' ) {
+    		
+    			return true;
+    		}else{
+    			$this->Flash->error(__('Page not authorized'));
+    			return false;
+    		}
+    		 
+    		 
+    	}else{
+    		 
+    		
+    		return true;
+    	}
+    
+    	return parent::isAuthorized($user);
     }
 }

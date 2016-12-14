@@ -353,13 +353,14 @@ class UniversitiesController extends AppController {
 	 * Returns the results of the selections
 	 */
 	public function searchResults() {
-		if ($this->request->is ( 'post' )) {
+		if ($this->request->is ( 'get' )) {
 			// Get the request ids
-			$university_id = $this->request->data ['university_id'];
-			$college_id = $this->request->data ['college_id'];
-			$department_id = $this->request->data ['department_id'];
+			$university_id = $this->request->query ['university_id'];
+			$college_id = $this->request->query ['college_id'];
+			$department_id = $this->request->query ['department_id'];
 			
-			$data_component = $this->request->data ['Datacomponent'];
+			$data_component = $this->request->query ['Datacomponent'];
+			$this->log ( "MMM::" . $data_component, 'debug' );
 			
 			$resultsDegree = null;
 			$resultsCourses = null;
@@ -393,6 +394,8 @@ class UniversitiesController extends AppController {
 				$this->set ( '_serialize', [ 
 						'degrees' 
 				] );
+				
+				$this->set ( 'component', $data_component );
 			} else if ($data_component == 'courses') {
 				
 				$values = TableRegistry::get ( 'Courses' );
@@ -408,7 +411,7 @@ class UniversitiesController extends AppController {
 				] );
 				
 				// Get dept Data
-				$deptdata = $conn->execute ( 'select  distinct (co.course_title),thm.theme as theme,dept.Department,u.University,c.College from themes thm,themes_courses_junction dc ,courses co,departments dept,universities u,colleges c where  thm.themes_ID=dc.themes_id and co.departments_id=dept.Departments_ID  and dept.departments_id=:dept and  u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID', [ 
+				$deptdata = $conn->execute ( 'select  distinct (co.course_title),co.Courses_ID,thm.theme as theme,dept.Department,u.University,c.College from themes thm,themes_courses_junction dc ,courses co,departments dept,universities u,colleges c where  thm.themes_ID=dc.themes_id and co.departments_id=dept.Departments_ID  and dept.departments_id=:dept and  u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID', [ 
 						'dept' => $department_id 
 				] )->fetchAll ( 'assoc' );
 				
@@ -513,5 +516,34 @@ class UniversitiesController extends AppController {
 			
 			$this->set ( 'component', $data_component );
 		}
+	}
+	
+	
+	/**
+	 * Authorize users
+	 */
+	public function isAuthorized($user) {
+		$session = $this->request->session ();
+		$role = $session->read ( 'User.role' );
+	
+		$admin = Configure::read ( 'Role.Admin' );
+		if ($role != $admin) {
+	
+			if ($this->request->action == 'view' || $this->request->action == 'search' || $this->request->action == 'searchResults' || $this->request->action == 'univCollegesAjax' || $this->request->action == 'collegeDeptAjax'    ) {
+	
+				return true;
+			}else{
+				$this->Flash->error(__('Page not authorized'));
+				return false;
+			}
+			 
+			 
+		}else{
+			 
+	
+			return true;
+		}
+	
+		return parent::isAuthorized($user);
 	}
 }

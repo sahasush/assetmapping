@@ -1,12 +1,4 @@
-
-<nav class="posright">
-	<ul>
-		<li class="list-inline"><?= __('Select One') ?></li>
-		<li><?= $this->Html->link(__('List Universities'), ['action' => 'index']) ?> </li>
-		<li><?= $this->Html->link(__('Search Universities'), ['action' => 'search']) ?> </li>
-	</ul>
-
-</nav>
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <div>
 	<h3><?= __('Search Results') ?></h3>
 	<br>Showing Resutls for component <b><?=$component  ?> </b>
@@ -48,7 +40,7 @@
 				<th><?= __('Course Number') ?></th>
 				<th><?= __('Course Abbr') ?></th>
 				<th><?= __('Units') ?></th>
-
+				<th class="actions"><?= __('Actions') ?></th>	
 			</tr>
 		</thead>
 		<tbody>
@@ -59,6 +51,7 @@
 				<td><?= h($course->Course_Number) ?></td>
 				<td><?= h($course->Course_Abbr) ?></td>
 				<td><?= h($course->Units) ?></td>
+				<td><?= $this->Html->link(__('View'), ['controller'=>'courses','action' => 'view', $course->Courses_ID])?></td> 
 			</tr>
                 <?php endforeach; ?>
         </td>

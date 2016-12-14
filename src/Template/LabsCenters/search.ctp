@@ -1,12 +1,4 @@
 
-<div class="posright">
-    <ul>
-        <li ><?= __('Actions') ?></li>
-              <li><?= $this->Html->link(__('List Labs Centers'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Labs Center'), ['action' => 'add']) ?> </li>
-    </ul>
-</div>
-
 <div class="container">
 
 		<h3><?= __('Lab/Center Search') ?></h3>

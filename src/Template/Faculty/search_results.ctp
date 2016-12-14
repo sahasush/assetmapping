@@ -1,15 +1,4 @@
-
-<div class="container">
-
-<nav class="posright">
-	<ul>
-		<li class="list-inline"><?= __('Select One') ?></li>
-		<li><?= $this->Html->link(__('List Universities'), ['action' => 'index']) ?> </li>
-		<li><?= $this->Html->link(__('Search Universities'), ['action' => 'search']) ?> </li>
-	</ul>
-
-</nav>
-<br>
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <br>
 	<h3><?= __('Search Results') ?></h3>
 	<br>Showing Resutls for component <b><?=$component  ?> </b>
@@ -61,6 +50,6 @@
      
      
      	
-     </div>
+
      
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>

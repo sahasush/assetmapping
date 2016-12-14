@@ -1,4 +1,6 @@
 <div class="container-fluid">
+
+<?= $this->Flash->render() ?>
 <nav class="posright">
     <ul >
         <li ><?= __('Actions') ?></li>

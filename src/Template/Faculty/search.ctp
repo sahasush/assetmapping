@@ -1,14 +1,4 @@
 
-<div class="posright">
-	<ul>
-		<li class="list-inline"><?= __('Select One') ?></li>
-		<li><?= $this->Html->link(__('New University'), ['action' => 'add']) ?></li>
-		<li><?= $this->Html->link(__('List Themes'), ['action' => 'index']) ?> </li>
-		<li><?= $this->Html->link(__('Search Theme'), ['action' => 'search']) ?> </li>
-	</ul>
-
-</div>
-
 <div class="container">
 
 		<h3><?= __('Universities') ?></h3>

@@ -1,13 +1,5 @@
 <div class="container">
-<nav class="posright">
-    <ul >
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Equipment'), ['action' => 'edit', $equipment->Equipment_ID]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Equipment'), ['action' => 'delete', $equipment->Equipment_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $equipment->Equipment_ID)]) ?> </li>
-        <li><?= $this->Html->link(__('List Equipment'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Equipment'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 
    <table class="table table-reflow">
     <?php if (in_array("Equipment_ID", $colnames)): ?>

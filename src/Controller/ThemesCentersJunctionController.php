@@ -108,4 +108,32 @@ class ThemesCentersJunctionController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    /**
+     * Authorize users
+     */
+    public function isAuthorized($user) {
+    	$session = $this->request->session ();
+    	$role = $session->read ( 'User.role' );
+    
+    	$admin = Configure::read ( 'Role.Admin' );
+    	if ($role != $admin) {
+    
+    		if ($this->request->action == 'view' ) {
+    
+    			return true;
+    		}else{
+    			$this->Flash->error(__('Page not authorized'));
+    			return false;
+    		}
+    		 
+    		 
+    	}else{
+    		 
+    
+    		return true;
+    	}
+    
+    	return parent::isAuthorized($user);
+    }
 }

@@ -33,6 +33,13 @@ class CoursesTable extends Table
         $this->table('courses');
         $this->displayField('Courses_ID');
         $this->primaryKey('Courses_ID');
+        
+        
+         $this->belongsTo('departments', [
+        		'alias' => 'Departments',
+        		'foreignKey' => 'Departments_ID',
+        		'bindingKey'=> 'Departments_ID'        	
+        ]);
     }
 
     /**

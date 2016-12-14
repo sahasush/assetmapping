@@ -33,6 +33,13 @@ class DepartmentsTable extends Table
         $this->table('departments');
         $this->displayField('Departments_ID');
         $this->primaryKey('Departments_ID');
+        
+        $this->hasOne('courses', [
+        		'alias' => 'Courses',
+        		'foreignKey' => 'Departments_ID',
+        		'bindingKey'=> 'Departments_ID',
+        		'propertyName'=>'Departments_ID'
+        ]);
     }
 
     /**

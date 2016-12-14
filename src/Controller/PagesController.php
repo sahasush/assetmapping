@@ -54,6 +54,7 @@ class PagesController extends AppController
         $this->set(compact('page', 'subpage'));
 
         try {
+        	
             $this->render(implode('/', $path));
         } catch (MissingTemplateException $e) {
             if (Configure::read('debug')) {
@@ -62,4 +63,6 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+    
+    
 }

@@ -25,6 +25,13 @@ class ThemesController extends AppController {
 	 *
 	 * @return \Cake\Network\Response|null
 	 */
+	
+	public function initialize()
+	{
+		parent::initialize();
+		$this->loadComponent('Paginator');
+	}
+	
 	public function index() {
 		$themes = $this->paginate ( $this->Themes );
 		
@@ -101,8 +108,7 @@ class ThemesController extends AppController {
 				] )->fetchAll ( 'assoc' );
 				
 				$this->set ( 'courses', $courses );
-				$this->set ( '_serialize', [ 
-						'courses' 
+				$this->set ( '_serialize', [ 'courses' 
 				] );
 			} else if ($data_component == 'centers') {
 				
@@ -273,9 +279,7 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 				'action' => 'index' 
 		] );
 	}
-	public function isAuthorized($user) {
-		return parent::isAuthorized ( $user );
-	}
+	
 	public function beforeFilter(Event $event) {
 		$session = $this->request->session ();
 		$role = $session->read ( 'User.role' );
@@ -302,5 +306,32 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 		}
 		
 		return $colnames;
+	}
+	
+	/**
+	 * Authorize users
+	 */
+	public function isAuthorized($user) {
+		$session = $this->request->session ();
+		$role = $session->read ( 'User.role' );
+	
+		$admin = Configure::read ( 'Role.Admin' );
+		if ($role != $admin) {$this->log ( "Test:Not admin::" . $role."--action".$this->request->action , 'debug' );
+			if ($this->request->action == 'view' || $this->request->action == 'search' || $this->request->action == 'searchResults' ) {
+				$this->log ( "Test:Not admin--1::" . $role, 'debug' );
+				return true;
+			}else{
+				$this->Flash->error(__('Page not authorized'));
+				return false;
+			}
+				
+				
+		}else{
+				
+			$this->log ( "Test: admin::" . $role, 'debug' );
+			return true;
+		}
+	
+		return parent::isAuthorized($user);
 	}
 }
