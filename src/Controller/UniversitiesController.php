@@ -421,11 +421,15 @@ class UniversitiesController extends AppController {
 				] );
 				// Equpment
 			} else if ($data_component == 'equipment') {
-				$tbl = TableRegistry::get ( 'LabsCenters' );
+				//$tbl = TableRegistry::get ( 'LabsCenters' );
 				
-				$data = $tbl->find ( 'all' )->leftJoin ( 'labs_centers', 'labs_centers.labs_centers_id=LabsCenters.labs_centers_id' )->where ( [ 
-						'LabsCenters.departments_ID' => $department_id 
-				] );
+				//$data = $tbl->find ( 'all' )->leftJoin ( 'labs_centers', 'labs_centers.labs_centers_id=LabsCenters.labs_centers_id' )->where ( [ 
+					//	'LabsCenters.departments_ID' => $department_id 
+				//] );
+				$tbl = TableRegistry::get ( 'Equipment' );
+				$data = $tbl->find ( 'all' )->leftJoin ( 'labs_centers', 'labs_centers.labs_centers_id=equipment.lab_centers_id' )->where ( [
+							'labs_centers.departments_ID' => $department_id
+						] );
 				
 				$this->log ( "query::" . $data, 'debug' );
 				;
