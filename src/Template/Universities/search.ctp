@@ -1,7 +1,7 @@
 <div class="container">
 
 		<h3><?= __('Universities') ?></h3>
-<?= $this->Form->create(null, ['url' => ['controller' => 'Universities', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get']); ?>
+<?= $this->Form->create(null, ['url' => ['controller' => 'Universities', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get','id' => 'form1']); ?>
 
 
          <div class="form-group">              
@@ -67,7 +67,7 @@
 					<option value="equipment">Equipment</option>
 					<option value="faculty">Faculty</option>						
 					<option value="centers">Labs/Centers</option>
-					
+					<option value="universities">Universities</option>
 				</select>
 
 			</div>
@@ -88,7 +88,8 @@
 		</table>
 	</form>
 </div>
-
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
 
 
 <script>
@@ -149,5 +150,20 @@ $(function() {
 		});
 	});
 });
-</script>
 
+$('#form1').validate({
+    rules: {
+        'department_id': {
+            required: true,
+        },
+        
+    },
+    messages: {
+        'department_id': {
+            required: "Please select a department",
+        },
+        
+    },
+});
+</script>
+        

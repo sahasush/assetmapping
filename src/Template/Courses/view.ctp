@@ -6,13 +6,9 @@
             <th><?= __('Course Title') ?></th>
             <td><?= h($course->Course_Title) ?></td>
         </tr>
-        <tr>
-            <th><?= __('Course Abbr') ?></th>
-            <td><?= h($course->Course_Abbr) ?></td>
-        </tr>
-        <tr>
+         <tr>
             <th><?= __('Course Number') ?></th>
-            <td><?= h($course->Course_Number) ?></td>
+            <td><?= h($course->Course_Abbr) ?> <?= h($course->Course_Number) ?></td>
         </tr>
         <tr>
             <th><?= __('Other') ?></th>

@@ -1,7 +1,7 @@
 <div class="container"> 
   
 <h3><?= __('Themes') ?></h3>
-<?= $this->Form->create(null, ['url' => ['controller' => 'Themes', 'action' => 'searchResults']]); ?>
+<?= $this->Form->create(null, ['url' => ['controller' => 'Themes', 'action' => 'searchResults'],'class' =>'form-horizontal','type' => 'get']); ?>
 
 
 <table class='table borderless' cellpadding="10" >

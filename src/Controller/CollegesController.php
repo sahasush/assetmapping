@@ -2,6 +2,14 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
+use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Text;
+use Cake\Database\Statement\PDOStatement;
+use Cake\Database\Connection;
 
 /**
  * Colleges Controller

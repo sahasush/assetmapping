@@ -2,7 +2,7 @@
 <div class="container">
 
 		<h3><?= __('Lab/Center Search') ?></h3>
-<?= $this->Form->create(null, ['url' => ['controller' => 'LabsCenters', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get']); ?>
+<?= $this->Form->create(null, ['url' => ['controller' => 'LabsCenters', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get','id' => 'searchform']); ?>
 
 
          <div class="form-group">              
@@ -74,6 +74,8 @@
 	</form>
 </div>
 
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
 
 
 <script>
@@ -105,7 +107,19 @@ $(function() {
 		});
 	});
 });
-
-
+$('#searchform').validate({
+    rules: {
+        'labs_center_id': {
+            required: true,
+        },
+        
+    },
+    messages: {
+        'labs_center_id': {
+            required: "Please select a Center",
+        },
+        
+    },
+});
 </script>
 

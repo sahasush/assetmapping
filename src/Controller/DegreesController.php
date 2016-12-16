@@ -2,6 +2,15 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
+use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Text;
+use Cake\Database\Statement\PDOStatement;
+use Cake\Database\Connection;
+
 
 /**
  * Degrees Controller
@@ -11,6 +20,12 @@ use App\Controller\AppController;
 class DegreesController extends AppController
 {
 
+	public 	function initialize()
+	{
+		parent::initialize();
+	
+		$this ->loadComponent('Global')	;
+	}
     /**
      * Index method
      *
@@ -36,6 +51,18 @@ class DegreesController extends AppController
         $degree = $this->Degrees->get($id, [
             'contain' => []
         ]);
+        
+       // GET ROLE
+
+    	$session = $this->request->session();
+    	$username = $session->read('User.name');
+    	 
+    	$role = $session->read('User.role');
+    	$admin = Configure::read('Role.Admin');
+    	$colnames = $this->Global->loadTablePermission ( $session,'courses' );
+    	$this->set('colnames', $colnames);
+    	
+    	// End permission
 
         $this->set('degree', $degree);
         $this->set('_serialize', ['degree']);

@@ -1,11 +1,12 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+
+<div class="container">
+<nav class="posright">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Labs Centers'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="labsCenters form large-9 medium-8 columns content">
-
+<br>
     <?= $this->Form->create($labsCenter) ?>
     <fieldset>
         <legend><?= __('Add Labs Center') ?></legend>

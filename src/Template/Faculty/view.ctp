@@ -78,11 +78,12 @@
 			<td><?= h($faculty->Valid_Exist) ?></td>
 		</tr>
 		 <?php endif; ?>
+		   <?php if (in_array("Faculty ID", $colnames)): ?>
 		<tr>
 			<th><?= __('Faculty ID') ?></th>
 			<td><?= $this->Number->format($faculty->Faculty_ID) ?></td>
 		</tr>
-
+		<?php endif; ?>
 		<tr>
 			<th><?= __('Expertise') ?></th>
 			<td><?= $this->Text->autoParagraph(h($faculty->Expertise)); ?></td>
@@ -93,7 +94,7 @@
 			<td><?= h($faculty->Validation) ?></td>
 		</tr>
             <?php endif; ?>
-               <?php if (in_array("Validation_Source", $colnames)): ?>
+         <?php if (in_array("Validation_Source", $colnames)): ?>
         <tr>
 			<th><?= __('Validation Source') ?></th>
 			<td><?= h($faculty->Validation_Source) ?></td>

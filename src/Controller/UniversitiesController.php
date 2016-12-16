@@ -372,13 +372,15 @@ class UniversitiesController extends AppController {
 				
 				$tbl = TableRegistry::get ( 'Degrees' );
 				
+		
+				
 				$data = $tbl->find ( 'all' )->leftJoin ( 'dept_degrees_junction', 'dept_degrees_junction.degrees_id=Degrees.Degrees_ID' )->where ( [ 
-						'dept_degrees_junction.deptartments_ID' => $department_id 
+						'dept_degrees_junction.deptartments_ID IN(' . $department_id .')'
 				] );
 				
 				$total = $data->count ();
 				
-				$deptdata = $conn->execute ( 'select thm.theme as theme,d.Program_Name,dept.Department,u.University,c.College from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and ddj.deptartments_id=:dept and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID', [ 
+				$deptdata = $conn->execute ( 'select thm.theme as theme,d.Program_Name,dept.Department,u.University,c.College from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and ddj.deptartments_id IN (:dept) and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID', [ 
 						'dept' => $department_id 
 				] )->fetchAll ( 'assoc' );
 				
@@ -464,13 +466,13 @@ class UniversitiesController extends AppController {
 				
 				// Get dept Data
 				$deptdata = $conn->execute ( 'select lc. center_name,lc.Labs_Centers_ID,lc.center_type,lc.Research_Area,thm.theme as theme,dept.Department,u.University,c.College from 
-  themes thm,departments dept,universities u,colleges c,labs_centers lc,themes_centers_junction tcj where 
-  thm.themes_ID=tcj.themes_id  and dept.departments_id=:dept 
-  and  u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID
-  AND lc.departments_ID=dept.departments_id AND lc.colleges_id=c.Colleges_ID and lc.university_id=u.University_ID
-  AND lc.Labs_Centers_ID=tcj.Labs_Centers_ID
-  ORDER BY lc.center_name', [ 
-						'dept' => $department_id 
+				  themes thm,departments dept,universities u,colleges c,labs_centers lc,themes_centers_junction tcj where 
+				  thm.themes_ID=tcj.themes_id  and dept.departments_id=:dept 
+				  and  u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID
+				  AND lc.departments_ID=dept.departments_id AND lc.colleges_id=c.Colleges_ID and lc.university_id=u.University_ID
+				  AND lc.Labs_Centers_ID=tcj.Labs_Centers_ID
+				  ORDER BY lc.center_name', [ 
+										'dept' => $department_id 
 				] )->fetchAll ( 'assoc' );
 				
 				$this->set ( 'deptdata', $deptdata );
@@ -515,6 +517,35 @@ class UniversitiesController extends AppController {
 				$this->set ( 'faculties', $deptdata );
 				$this->set ( '_serialize', [
 						'faculties'
+				] );
+			}else if ($data_component == 'universities') {
+				
+				
+				// Get faculty Data
+				$deptdata = $conn->execute ( '  SELECT
+						    distinct ( dept.Department),
+						  thm.Theme AS theme, 
+						  u.University,
+						  c.College,
+						  u.Addrss_Line_1,u.Addrss_Line_2
+						FROM  universities u  
+						     left join labs_centers lc  on lc.University_ID = u.University_ID
+						      left join departments dept on lc.Departments_ID = dept.Departments_ID
+						     left join colleges c on c.colleges_id = u.University_ID
+						    left join themes_centers_junction tcj on lc.Labs_Centers_ID = tcj.Labs_Centers_ID
+						    left join themes thm on  thm.Themes_ID = tcj.Themes_ID      
+						 where   dept.Departments_ID = :dept', [ 
+						'dept' => $department_id 
+				] )->fetchAll ( 'assoc' );
+				
+				$this->set ( 'deptdata', $deptdata );
+				$this->set ( '_serialize', [ 
+						'deptdata' 
+				] );
+				
+				$this->set ( 'universities', $deptdata );
+				$this->set ( '_serialize', [
+						'universities'
 				] );
 			}
 			

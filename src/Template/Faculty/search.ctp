@@ -2,7 +2,7 @@
 <div class="container">
 
 		<h3><?= __('Universities') ?></h3>
-<?= $this->Form->create(null, ['url' => ['controller' => 'Faculty', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get']); ?>
+<?= $this->Form->create(null, ['url' => ['controller' => 'Faculty', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get','id' => 'form1']); ?>
 
 
          <div class="form-group">              
@@ -88,7 +88,8 @@
 	</form>
 </div>
 
-
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
 
 <script>
 $(function() {
@@ -150,6 +151,21 @@ $(function() {
 			}
 		});
 	});
+});
+
+$('#form1').validate({
+    rules: {
+        'lname_id': {
+            required: true,
+        },
+        
+    },
+    messages: {
+        'lname_id': {
+            required: "Please select a Faculty Last Name",
+        },
+        
+    },
 });
 </script>
 

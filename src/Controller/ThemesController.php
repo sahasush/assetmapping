@@ -66,9 +66,9 @@ class ThemesController extends AppController {
 		] );
 	}
 	public function searchResults() {
-		if ($this->request->is ( 'post' )) {
-			$theme_id = $this->request->data ['Themes'];
-			$data_component = $this->request->data ['Datacomponent'];
+		if ($this->request->is ( 'get' )) {
+			$theme_id = $this->request->query ['Themes'];
+			$data_component = $this->request->query ['Datacomponent'];
 			$colnames = $this->loadTablePermission ();
 			
 			$resultsDegree = null;

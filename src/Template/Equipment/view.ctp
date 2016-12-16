@@ -2,11 +2,13 @@
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 
    <table class="table table-reflow">
+    
     <?php if (in_array("Equipment_ID", $colnames)): ?>
    <tr>
             <th><?= __('Equipment ID') ?></th>
             <td><?= $this->Number->format($equipment->Equipment_ID) ?></td>
         </tr>
+       
           <?php endif; ?>
         <tr>
             <th><?= __('Center Name') ?></th>

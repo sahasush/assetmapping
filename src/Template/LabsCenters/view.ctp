@@ -1,7 +1,7 @@
 <p align='right'><b>Logged in as <?=$username?></b></p>
-  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+
 <div class="container">
- 
+   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 
 <h3>Lab Center Details </h3>
     <table class="table table-reflow">
@@ -37,7 +37,11 @@
         </tr>
         <tr>
             <th><?= __('Secondary Contact Name') ?></th>
-            <td><?= h($labsCenter->Contact_2_Fname) ?> , <?= h($labsCenter->Contact_2_Lname) ?> , <?= h($labsCenter->Contact_2_Minitial) ?></td>
+            <td>
+            <?php if (!empty($labsCenter->Contact_2_Lname)): ?>
+            <?= h($labsCenter->Contact_2_Fname) ?> , <?= h($labsCenter->Contact_2_Lname) ?> , <?= h($labsCenter->Contact_2_Minitial) ?>
+             <?php endif; ?>
+            </td>
         </tr>
         
         <tr>

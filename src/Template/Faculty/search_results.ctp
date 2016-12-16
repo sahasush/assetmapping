@@ -12,8 +12,9 @@
    <table class = "table table-bordered">
 		<thead>
 			<tr>
-				<th ><?= __('Center Name') ?></th>
+				
 				<th><?= __('Faculty Name') ?></th>
+				<th ><?= __('Center Name') ?></th>
 				<th><?= __('Center Type') ?></th>
 				<th><?= __('Theme') ?></th>
 				<th><?= __('University') ?></th>

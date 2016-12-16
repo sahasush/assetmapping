@@ -1,5 +1,6 @@
 
 <div class="container">
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 
     <h3><?= h('Grants Detail') ?></h3>
     <table class="table table-reflow">

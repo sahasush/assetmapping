@@ -53,13 +53,13 @@
    <table data-toggle="table"  data-sort-name="fac_name" data-sort-order="asc">
 		<thead>
 			<tr>
-				<th data-field="fac_name" data-sortable="true"><?= __('Center Name') ?></th>
+				<th data-field="fac_name" data-sortable="true"><?= __('Faculty Name') ?></th>
 				<th><?= __('Center Type') ?></th>
 				<th><?= __('Theme') ?></th>
 				<th><?= __('University') ?></th>
 				<th><?= __('College') ?></th>
 				<th><?= __('Department') ?></th>
-				<th><?= __('Faculty Name') ?></th>
+				<th><?= __('Center Name') ?></th>
 					<th class="actions"><?= __('Actions') ?></th>
 				
 			</tr>
@@ -67,8 +67,15 @@
 		<tbody>  
 		
                 <?php foreach ( $faculties as $faculty ) :?>
-          
+    
                              <tr>
+                             	<td>
+								
+								<?php if (!empty($faculty['Faculty_ID'])): ?>
+								<?= h($faculty['Faculty_Lname']) ?>,<?= h($faculty['Faculty_Fname']) ?>,<?= h($faculty['Faculty_MInitial']) ?>
+								<?php else :?>
+								--
+								 <?php endif; ?>	</td>	
 								<td><?= h($faculty['Center_Name']) ?></td>
 								<td><?= h($faculty['Center_Type']) ?></td>
 								<td><?= h($faculty['Theme']) ?></td>
@@ -76,11 +83,7 @@
 								<td><?= h($faculty['College']) ?></td>
 								<td><?= h($faculty['Department']) ?></td>
 								
-								<td>
-								
-								<?php if (!empty($faculty['Faculty_ID'])): ?>
-								<?= h($faculty['Faculty_Lname']) ?>,<?= h($faculty['Faculty_Fname']) ?>,<?= h($faculty['Faculty_MInitial']) ?>
-								 <?php endif; ?>	</td>								
+														
 								<td class="actions"> 
 								<?php if (!empty($faculty['Faculty_ID'])): ?>
 								<?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> 

@@ -146,6 +146,9 @@ class FacultyController extends AppController
 	function viewpublications($id = null)
 	{
 		$faculty = $this->Faculty->get($id, ['contain' => ['Publications']]);
+		
+		
+		$faculty = $this->Faculty->get($id, ['contain' => ['Publications'=>['sort'=>['Publications.Publication_Name' => 'ASC']]]]);
 
 		//Get the permission
         $session = $this->request->session ();
