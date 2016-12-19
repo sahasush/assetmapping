@@ -111,7 +111,7 @@
                  <td><?= h($values['Department']) ?></td>  
                   <td><?= h($values['center_name']) ?></td>
                  <td><?= h($values['center_type']) ?></td>
-                 <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labscenters','action' => 'view', $values['labs_centers_id']])?> </td>               
+                 <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labsCenters','action' => 'view', $values['labs_centers_id']])?> </td>               
                         
                   
                    

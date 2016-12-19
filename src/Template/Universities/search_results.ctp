@@ -139,7 +139,7 @@
 				<td><?= h($center->Center_Name) ?></td>
 				<td><?= h($center->Center_Type) ?></td>
 
-				<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labscenters','action' => 'view', $center->Labs_Centers_ID])?> </td>
+				<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labsCenters','action' => 'view', $center->Labs_Centers_ID])?> </td>
 			</tr>
 						
                <?php endforeach; ?>

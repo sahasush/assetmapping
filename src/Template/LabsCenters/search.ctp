@@ -10,7 +10,7 @@
         <?php
 								
 								$url = $this->Url->build ( [ 
-										'controller' => 'labscenters',
+										'controller' => 'labsCenters',
 										'action' => 'univCentersAjax',
 										'_ext' => 'json' 
 								] );

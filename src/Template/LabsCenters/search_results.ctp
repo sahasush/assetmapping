@@ -170,7 +170,7 @@
 								<td><?= h($center['College']) ?></td>
 								<td><?= h($center['Department']) ?></td>
 								
-								<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labscenters','action' => 'view', $center['Labs_Centers_ID']])?> </td>
+								<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labsCenters','action' => 'view', $center['Labs_Centers_ID']])?> </td>
 							</tr>
 						 <?php $counter=$counter+1;?>
                <?php endforeach; ?>

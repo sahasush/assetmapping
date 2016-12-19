@@ -59,7 +59,7 @@ class DegreesController extends AppController
     	 
     	$role = $session->read('User.role');
     	$admin = Configure::read('Role.Admin');
-    	$colnames = $this->Global->loadTablePermission ( $session,'courses' );
+    	$colnames = $this->Global->loadTablePermission ( $session,'degrees' );
     	$this->set('colnames', $colnames);
     	
     	// End permission
