@@ -1,43 +1,37 @@
-<nav class="posleft">
+<div class="container">
+<nav class="posright">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Role'), ['action' => 'edit', $role->role_id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Role'), ['action' => 'delete', $role->role_id], ['confirm' => __('Are you sure you want to delete # {0}?', $role->role_id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Roles'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Role'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Edit Role'), ['action' => 'edit', $role->role_id['0']['role']]) ?> </li>
+        
     </ul>
 </nav>
-<div class="container">
     <h3><?= h($role->name) ?></h3>
-    <table class="table table-reflow">
-        <tr>
-            <th><?= __('Role') ?></th>
-            <td><?= $this->Number->format($role->role_id) ?></td>
-        </tr>
+       	<table class="table table-reflow">
         <tr>
             <th><?= __('Name') ?></th>
             <td><?= h($role->name) ?></td>
         </tr>
         <tr>
-            <th><?= __('Priority') ?></th>
-            <td><?= $this->Number->format($role->priority) ?></td>
+            <th><?= __('Users Having This Role') ?></th>
+             
+         <?php foreach ($role->role_id as $ru): ?>
+        <tr>
+         <th></th>
+            <td><?= $this->Html->link($ru->username, ['controller' => 'Users', 'action' => 'view', $ru->id])  ?></td>
+            
+        </tr>
+
+    <?php endforeach; ?>
+    
         </tr>
         <tr>
-        <th><?= __('Users') ?></th>
-        <td>
-            <?php if (!empty($role->users)): ?>
-        
-                <?php foreach ($role->users as $user): ?>
-                    <li><?= h($user->email) ?> </li>
-                <?php endforeach; ?>
-            </td>
-            <?php else: ?>
-            <p>None</p>
-        <?php endif; ?>
-        </td>
-        
+            <th><?= __('Role Id') ?></th>
+            <td><?= $this->Number->format($role->role_id) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Priority') ?></th>
+            <td><?= $this->Number->format($role->priority) ?></td>
         </tr>
     </table>
 </div>

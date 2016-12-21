@@ -16,6 +16,8 @@ class RolesControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
+        'app.roles',
+        'app.users',
         'app.roles'
     ];
 
@@ -65,6 +67,16 @@ class RolesControllerTest extends IntegrationTestCase
      * @return void
      */
     public function testDelete()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test isAuthorized method
+     *
+     * @return void
+     */
+    public function testIsAuthorized()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

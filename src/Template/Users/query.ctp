@@ -5,9 +5,9 @@
   <span class="caret"></span></button>
   <ul class="dropdown-menu">
     <li><a href="/themes/search">Theme</a></li>
-    <li><a href="#">CSU/College/Department</a></li>
-    <li><a href="#">Lab/Center</a></li>
-    <li><a href="#">Faculty</a></li>
+    <li><a href="/universities/search">CSU/College/Department</a></li>
+    <li><a href="/labsCenters/search">Lab/Center</a></li>
+    <li><a href="/faculty/search">Faculty</a></li>
   </ul>
 </div>
   

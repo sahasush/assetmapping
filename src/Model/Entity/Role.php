@@ -6,11 +6,10 @@ use Cake\ORM\Entity;
 /**
  * Role Entity
  *
- * @property int $role_id
  * @property string $name
  * @property int $priority
  *
- * @property \App\Model\Entity\Role $role
+ * @property \App\Model\Entity\User $role_id
  */
 class Role extends Entity
 {

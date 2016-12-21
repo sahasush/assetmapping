@@ -1,12 +1,16 @@
-<nav class="postleft">
+
+<div class="container">
+<nav class="posright" id="actions-sidebar">
     <ul class="side-nav">
-        <li ><?= __('Actions') ?></li>
+        <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Role'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="container">
+
     <h3><?= __('Roles') ?></h3>
-    <table class = "table table-bordered">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('role_id') ?></th>
@@ -18,7 +22,7 @@
         <tbody>
             <?php foreach ($roles as $role): ?>
             <tr>
-              <td><?= $this->Number->format($role->role_id) ?></td>
+                <td><?= $this->Number->format($role->role_id) ?></td>
                 <td><?= h($role->name) ?></td>
                 <td><?= $this->Number->format($role->priority) ?></td>
                 <td class="actions">

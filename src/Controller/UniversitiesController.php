@@ -204,12 +204,20 @@ class UniversitiesController extends AppController {
 		$colleges = $values->find ( 'list', [ 
 				'keyField' => 'College_ID',
 				'valueField' => 'College' 
-		] )->order ( [ 
-				'College' => 'ASC' 
-		] );
+				] )->where ( [ 
+				'Colleges.Colleges_ID = ' => '0' 
+				] )->order ( [ 
+						'College' => 'ASC' 
+				] );
+		
 		$colleges->distinct ( [ 
 				'College' 
 		] );
+		
+		
+		$colleges=$colleges->cleanCopy();
+		
+
 		
 		// Find Colleges
 		$values = TableRegistry::get ( 'Departments' );
@@ -217,6 +225,8 @@ class UniversitiesController extends AppController {
 		$departments = $values->find ( 'list', [ 
 				'keyField' => 'Departments_ID',
 				'valueField' => 'Department' 
+				] )->where ( [ 
+				'Departments.Departments_ID = ' => '0' 
 		] )->order ( [ 
 				'Department' => 'ASC' 
 		] );
@@ -224,19 +234,7 @@ class UniversitiesController extends AppController {
 				'Department' 
 		] );
 		
-		// Test debug
 		
-		$test = $values->find ( 'list', [ 
-				'keyField' => 'Departments_ID',
-				'valueField' => 'Department' 
-		] )->where ( [ 
-				'Departments.Colleges_ID = ' => '26' 
-		] )->order ( [ 
-				'Department' => 'ASC' 
-		] );
-		$this->log ( "query::" . $test, 'debug' );
-		
-		// Test debug end
 		$this->set ( compact ( 'universities' ) );
 		$this->set ( '_serialize', [ 
 				'universities' 

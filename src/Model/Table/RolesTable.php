@@ -36,14 +36,12 @@ class RolesTable extends Table
         $this->displayField('name');
         $this->primaryKey('role_id');
 
-       /** $this->belongsToMany('users', [
-        		'alias' => 'Users',
-        		'foreignKey' => 'roles_id',
-        		'targetForeignKey' => 'id',
-        		'joinTable' => 'Users_Role_Junction'
-        ]);*/
+ $this->belongsTo('Roles', [
+            'foreignKey' => 'role_id',
+            'joinType' => 'INNER'
+        ]);
         
-        $this->hasOne('users', [
+        $this->hasMany('users', [
         		'alias' => 'Users',
         		'foreignKey' => 'role',
         		'bindingKey'=> 'role_id',
