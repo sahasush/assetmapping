@@ -100,11 +100,6 @@ $cakeDescription = '';
 	 <div>
 
         <?= $this->Flash->render(); ?>
-         <br>
-<br>
-<br>
-<br>
-<br>
         <?= $this->fetch('content'); ?>
         
         <br>

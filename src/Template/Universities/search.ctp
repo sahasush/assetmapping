@@ -1,8 +1,6 @@
 <div class="container">
-
-		<h3><?= __('Universities') ?></h3>
+		<h3><?= __('Saerch by CSU/College/Department') ?></h3>
 <?= $this->Form->create(null, ['url' => ['controller' => 'Universities', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get','id' => 'form1']); ?>
-
 
          <div class="form-group">              
                 
@@ -20,12 +18,12 @@
 										'_ext' => 'json' 
 								] );
 								
-								$empty = $colleges->toArray () ? Configure::read ( 'Select.defaultBefore' ) . __ ( 'pleaseSelect' ) . Configure::read ( 'Select.defaultAfter' ) : [ 
-										'0' => Configure::read ( 'Select.naBefore' ) . __ ( 'noOptionAvailable' ) . Configure::read ( 'Select.naAfter' ) 
+								$empty = $colleges->toArray () ? Configure::read ( 'Select.defaultBefore' ) . __ ( 'Please Select' ) . Configure::read ( 'Select.defaultAfter' ) : [ 
+										'0' => Configure::read ( 'Select.naBefore' ) . __ ( 'Not Available' ) . Configure::read ( 'Select.naAfter' ) 
 								];
 								
-								$deptempty = $departments->toArray () ? Configure::read ( 'Select.defaultBefore' ) . __ ( 'pleaseSelect' ) . Configure::read ( 'Select.defaultAfter' ) : [ 
-										'0' => Configure::read ( 'Select.naBefore' ) . __ ( 'noOptionAvailable' ) . Configure::read ( 'Select.naAfter' ) 
+								$deptempty = $departments->toArray () ? Configure::read ( 'Select.defaultBefore' ) . __ ( 'Please Select' ) . Configure::read ( 'Select.defaultAfter' ) : [ 
+										'0' => Configure::read ( 'Select.naBefore' ) . __ ( 'Not Available' ) . Configure::read ( 'Select.naAfter' ) 
 								];
 								
 								
@@ -36,7 +34,7 @@
 							
 		 <label class="control-label col-sm-2" for="university">University</label>
 			<div class="col-sm-10">	
-			<?=  $this->Form->input('university_id', array('label' => false,'type' => 'select','options'=> $universities,'class' => 'selectpicker','data-live-search'=>'true','id' => 'universities', 'rel' => $url));?>
+			<?=  $this->Form->input('university_id', array('label' => false,'type' => 'select','options'=> $universities,'class' => 'selectpicker','data-live-search'=>'true','id' => 'universities', 'rel' => $url,'empty'=>'Select', 'required' => true));?>
 			
 			
 			</div>
@@ -52,6 +50,7 @@
             <label class="control-label col-sm-2" for="department">Department</label>
             <div class="col-sm-10">	 
           <?= $this->Form->input('department_id', ['label' => false,'id' => 'departments', 'empty' => $deptempty]); ?>
+            
 		</div>
 		</div>
 		 <div class="form-group">    
@@ -153,16 +152,20 @@ $(function() {
 
 $('#form1').validate({
     rules: {
-        'department_id': {
+        'department_id' : {
             required: true,
-        },
-        
+        },      
+        'college_id': {
+            required: true,
+        },  
     },
     messages: {
         'department_id': {
             required: "Please select a department",
-        },
-        
+        },      
+        'college_id': {
+            required: "Please select a college",
+        },        
     },
 });
 </script>

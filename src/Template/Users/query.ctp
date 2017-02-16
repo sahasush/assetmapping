@@ -1,5 +1,5 @@
 <div class="container">
-    <h3>Search by.</h3>
+    <h3>Search by:</h3>
  <div class="dropdown">
   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select One
   <span class="caret"></span></button>

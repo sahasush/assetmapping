@@ -1,6 +1,6 @@
 <div class="container"> 
   
-<h3><?= __('Themes') ?></h3>
+<h3><?= __('Search by Theme') ?></h3>
 <?= $this->Form->create(null, ['url' => ['controller' => 'Themes', 'action' => 'searchResults'],'class' =>'form-horizontal','type' => 'get']); ?>
 
 
@@ -8,16 +8,13 @@
    <tbody>
       <tr >
          <td>
-          <!-- <div class="form-group"> -->
-          
-          
-            <?=$this->Form->input('Themes', array('type' => 'select','options'=> $themes,'class' => 'selectpicker','data-live-search'=>'true')); ?>    
+            <?=$this->Form->input('Themes', array('type' => 'select','options'=> $themes,'class' => 'selectpicker','data-live-search'=>'true','label'=>'Theme')); ?>    
        
             </td>
             <td>  
             
               <div class="input select">
-            <label for="datacomponents">Data Components</label>           
+            <label for="datacomponents">Data Component</label>           
             <select  class="selectpicker" data-live-search="true" name="Datacomponent" id="Datacomponent">
                <option value="degree">Degrees</option>
                <option value="courses">Courses</option>
