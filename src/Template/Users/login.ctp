@@ -16,8 +16,10 @@
       </div>
        <div class="form-group row">
        <div class="col-sm-10">
-      <?= $this->Form->button('Login') ?>
+     
+      <input class="btn btn-primary-outline btn-lg" type="submit" value="Login">
       </div>
+      
       </div>
     
  <?= $this->Form->end() ?>

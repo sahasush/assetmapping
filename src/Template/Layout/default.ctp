@@ -12,71 +12,160 @@
  * @since         0.10.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
+    <?= $this->Html->charset()?>
+    <meta name="viewport"
+	content="width=device-width, initial-scale=1.0">
+<title>
         <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
+        <?= $this->fetch('title')?>
     </title>
-    <?= $this->Html->meta('icon') ?>
+    <?= $this->Html->meta('icon')?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
+   <!-- <?= $this->Html->css('base.css')?> -->
+   <!--   <?= $this->Html->css('cake.css')?>  -->
     <?= $this->Html->css('custom.css');?>
+        <?= $this->Html->css('csun-components.css')?>
+         <?= $this->Html->css('csun-apps.css')?>
 
    
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    <?= $this->fetch('meta')?>
+    <?= $this->fetch('css')?>
+    <?= $this->fetch('script')?>
    <?= $this->Html->script('jquery'); ?> 
     
 </head>
-<body>
-<div class='page-header'>
-  <div class='btn-toolbar pull-right'>
-  <?php if (!empty($username)): ?>
-    <div class='btn-group'>
-        <p class="bg-primary">Logged in as <?=$username?></p>
-    </div>
-         <?php endif; ?>
-  </div>
+
+<body class="login">
+	<div class="header">
+		<div class="web-one">
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="container hidden-xs">
+					<div class="row">
+				<div class="col-sm-5 col-md-6 col-lg-7">
+					<a class="navbar-brand hidden-xs" href="http://www.csun.edu">
+						<img src="https://www.csun.edu/faculty/imgs/csun-logo.png" alt="California State University, Northridge - CSUN">
+					</a>
+					<a class="navbar-brandname hidden-xs" href="https://www.csun.edu/faculty">
+						<img src="/img/geoglogo.JPG" alt="META Lab Faculty Application">
+					</a>
+				</div>
+				<ul class="list-inline mini-nav pull-right">
+					<li><a href="#main-content">Skip to content</a></li>|
+					<li><a href="http://www.csun.edu/universaldesigncenter">Accessibility</a></li>|
+					<li><a href="https://mynorthridge.csun.edu/psc/PANRPRD/EMPLOYEE/EMPL/c/NRPA_CSUN_APPS.NR_PEOPLESRCH_CMP.GBL">Directory</a></li>|
+					<li><a href="http://www.csun.edu/calendar">Calendar</a></li>|
+					<li><a href="http://www.csun.edu/atoz/">A to Z</a></li>|
+					<li><a href="http://www.csun.edu/it/webmail">Webmail</a></li>
+				</ul>
+			</div>
+		</div>
+				<div class="navbar-bg">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target=".navbar-ex1-collapse">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand hidden-sm hidden-md hidden-lg"
+							style="margin-top: 10px;" href="https://www.csun.edu/faculty"><img
+							src="https://www.csun.edu/faculty/imgs/csun-logo.png"
+							alt="CSUN Faculty Logo"></a> <a
+							class="navbar-brand hidden-sm hidden-md hidden-lg"
+							style="margin-top: 1px;" href="https://www.csun.edu/faculty"><img
+							src="https://www.csun.edu/faculty/imgs/faculty-logo-sm.png"
+							alt="CSUN Faculty Logo"></a>
+					</div>
+					<div class="navbar-body">
+						<div class="container">
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse navbar-ex1-collapse">
+								<ul class="nav navbar-nav navbar-center">
+									<li><a href="http://www.csun.edu">CSUN Home Page</a></li>
+								</ul>
+							</div>
+							<!-- /.navbar-collapse -->
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+
 </div>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-               <li>
-                 <div class="dropdown"> 
-  					<span>Mouse over me</span>
-  						<div class="dropdown-content">
-    					<p>Hello World!</p>
-  				</div>                
-               </li>
-            </ul>
-        </div>
-    </nav>
-  
-    <div class="container">
-      <?= $this->Flash->render() ?>
-      
-        <?= $this->fetch('content') ?>
+
+			<!-- End  -->
+
+
+			<div>
+      <?= $this->Flash->render()?>
+      <br>
+        <?= $this->fetch('content')?>
         
     </div>
-   
-    <footer>
+
+
+<footer>
      
 <?= $this->fetch('jquery'); ?> <?= $this->fetch('script'); ?>
+  
+   	 <div class="container">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="row">
+					<div class="col-sm-3 footer-seal">
+						<img src="https://www.csun.edu/faculty/imgs/footer-seal.png"
+							alt="Seal for California State University, Northridge">
+					</div>
+					<div class="col-sm-9">
+						<ul class="list-unstyled">
+							<li><strong>Geography</strong> <br>&copy; California State
+								University, Northridge</li>
+							<li>18111 Nordhoff Street, Northridge, CA 91330</li>
+							<li>Phone: (818) 677-1200 / <a
+								href="http://www.csun.edu/contact/" target="_blank">Contact Us</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-7">
+				<div class="row">
+					<div class="col-sm-4">
+						<ul class="list-unstyled">
+							<li><a href="http://www.csun.edu/emergency/" target="_blank">Emergency
+									Information</a></li>
+							<li><a
+								href="http://www.csun.edu/afvp/university-policies-procedures/"
+								target="_blank">University Policies &amp; Procedures</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4">
+						<ul class="list-unstyled">
+							<li><a href="http://www.csun.edu/sites/default/files/900-12.pdf"
+								target="_blank">Terms and Conditions for Use</a></li>
+							<li><a
+								href="http://www.csun.edu/sites/default/files/500-8025.pdf"
+								target="_blank">Privacy Policy</a></li>
+							<li><a href="http://www.csun.edu/it/document-viewers"
+								target="_blank">Document Reader</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4">
+						<ul class="list-unstyled">
+							<li><a href="http://www.calstate.edu/" target="_blank">California
+									State University</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    </footer>
-</body>
+
+</footer>
+
 </html>
