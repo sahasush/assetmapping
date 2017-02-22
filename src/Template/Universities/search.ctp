@@ -2,9 +2,7 @@
 		<h3><?= __('Saerch by CSU/College/Department') ?></h3>
 <?= $this->Form->create(null, ['url' => ['controller' => 'Universities', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get','id' => 'form1']); ?>
 
-         <div class="form-group">              
-                
-        <?php
+ <?php
 								
 								$url = $this->Url->build ( [ 
 										'controller' => 'universities',
@@ -30,20 +28,17 @@
 								
 								
 								?>
-								
-							
-		 <label class="control-label col-sm-2" for="university">University</label>
-			<div class="col-sm-10">	
-			<?=  $this->Form->input('university_id', array('label' => false,'type' => 'select','options'=> $universities,'class' => 'selectpicker','data-live-search'=>'true','id' => 'universities', 'rel' => $url,'empty'=>'Select', 'required' => true));?>
-			
-			
+
+         <div class="form-group">        
+         <label class="control-label col-sm-2" for="universities">University</label>
+			<div class="col-sm-1">				
+			<?=  $this->Form->input('university_id', ['label' => false,'type' => 'select','options'=> $universities,'id' => 'universities', 'rel' => $url,'empty'=>'Select', 'required' => true]);?>
 			</div>
 		</div>
      <div class="form-group">    
             <label class="control-label col-sm-2" for="college">College</label>
-            <div class="col-sm-10">	
-          
-				<?= $this->Form->input('college_id', ['label' => false,'id' => 'colleges', 'empty' => $empty,'collrel' => $collurl]); ?>  
+            <div class="col-sm-10">	          
+				<?= $this->Form->input('college_id', ['label' => false,'id' => 'colleges','empty' => $empty,'collrel' => $collurl ]); ?>  
 			</div>
      </div>
        <div class="form-group">    
@@ -68,15 +63,14 @@
 					<option value="centers">Labs/Centers</option>
 					<option value="universities">Universities</option>
 				</select>
+			
 
 			</div>
 		</div>
  </div>
-        <?= $this->Form->button('Search', ['type' => 'submit'])?>
-      
-             
-   <?= $this->Form->button('Reset', ['type' => 'reset']); ?>
-   
+ 
+    <?= $this->Form->button('Search', ['type' => 'submit'])?>
+  <?= $this->Form->button('Reset the Form', ['type' => 'reset']);?>
   </td>
    <?= $this->Form->end()?>
    
@@ -87,7 +81,7 @@
 		</table>
 	</form>
 </div>
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>   -->
  <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
 
 
@@ -97,6 +91,7 @@ $(function() {
 	
 		var selectedValue = $(this).val();
 		var targeturl = $(this).attr('rel') + '?university_id=' + selectedValue;
+		 $("#departments")[0].selectedIndex = 0;
 		
 		$.ajax({
 			type: 'post',
@@ -107,9 +102,16 @@ $(function() {
 			success: function(response) {
 				if (response.content) {
 					$('#colleges').html(response.content);
+					console.log($('#colleges').html());
+					 $('#colleges').addClass('selectpicker');
+					 $('#colleges').attr('data-live-search', 'true');
+					 $('#colleges').attr('data-width','100%');
+					 $('#colleges').selectpicker('refresh').selectpicker('refresh');
+					
 				
 					
 				}
+			
 			},
 			error: function(e) {
 				alert("An error occurred: " + e.responseText.message);
@@ -137,8 +139,11 @@ $(function() {
 			
 			success: function(response) {
 				if (response.content) {
-					$('#departments').html(response.content);
-				
+					$('#departments').html(response.content);					
+					 $('#departments').addClass('selectpicker');
+					 $('#departments').attr('data-live-search', 'true');
+					 $('#departments').attr('data-width','100%');
+					 $('#departments').selectpicker('refresh').selectpicker('refresh');			
 					
 				}
 			},
@@ -158,6 +163,9 @@ $('#form1').validate({
         'college_id': {
             required: true,
         },  
+         'university_id': {
+            required: true,
+        },  
     },
     messages: {
         'department_id': {
@@ -165,8 +173,24 @@ $('#form1').validate({
         },      
         'college_id': {
             required: "Please select a college",
-        },        
+        },   
+        'university_id': {
+            required: "Please select a university",
+        },          
     },
 });
+
+$('#form1').on('reset', function() {
+	  var _this = this;	
+	  $('#colleges').empty();
+	  $('#colleges').append('<option value="0" selected="selected">Not Available</option>');
+	  $('#departments').empty();
+	  $('#departments').append('<option value="0" selected="selected">Not Available</option>');
+	  setTimeout(function() {
+		  $('.selectpicker').selectpicker('refresh');
+		  
+	  });
+	});
+
 </script>
         
