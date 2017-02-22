@@ -4,6 +4,7 @@
    <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 
 <h3>Lab Center Details </h3>
+	<?php if (!empty($labsCenter)): ?>
     <table class="table table-reflow">
 	<div style="word-wrap: break-word; width: 800px">
 	 <?php if (in_array("Labs_Centers_ID", $colnames)): ?>
@@ -33,14 +34,13 @@
         <?php endif; ?>
         <tr>
             <th><?= __('Primary Contact Name') ?></th>
-            <td><?= h($labsCenter->Contact_1_Lname) ?> , <?= h($labsCenter->Contact_1_Fname) ?>  ,  <?= h($labsCenter->Contact_1_Minitial) ?></td>
+            <td><?= h($this->String->  lnameFirst($labsCenter->Contact_1_Fname   ,$labsCenter->Contact_1_Minitial,$labsCenter->Contact_1_Lname) )?></td>
         </tr>
         <tr>
             <th><?= __('Secondary Contact Name') ?></th>
             <td>
-            <?php if (!empty($labsCenter->Contact_2_Lname)): ?>
-            <?= h($labsCenter->Contact_2_Fname) ?> , <?= h($labsCenter->Contact_2_Lname) ?> , <?= h($labsCenter->Contact_2_Minitial) ?>
-             <?php endif; ?>
+            <?= h($this->String->  lnameFirst($labsCenter->Contact_2_Fname, $labsCenter->Contact_2_Minitial,$labsCenter->Contact_2_Lname)) ?>
+      
             </td>
         </tr>
         
@@ -66,7 +66,10 @@
         </tr>
         <tr>
             <th><?= __('Address') ?></th>
-            <td><?= h($labsCenter->Address_1) ?> , <?= h($labsCenter->Building_Room) ?> <br> <?= h($labsCenter->Address_2) ?>
+            <td>
+             <?= h($this->String-> addressFormat($labsCenter->Address_1,$labsCenter->Building_Room))?>
+            <br>
+            <?= h($labsCenter->Address_2) ?>
             </td>
         </tr>
         
@@ -182,9 +185,7 @@
      <?php endif; ?>
 	 	
 </div>
- <div class="col-sm-4">
-                    <h5 id='footer-header'> Footer</h3>
-                   
-  </div>    
+     <?php endif; ?>
+
 
             

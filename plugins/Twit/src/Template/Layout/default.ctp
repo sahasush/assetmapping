@@ -28,12 +28,13 @@ $cakeDescription = '';
         echo  $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array('inline' => false));
 
        echo  $this->Html->script('Twit.bootstrap.min');
+       echo $this->fetch('meta');
+       echo $this->fetch('css');
+       echo $this->fetch('script');
 
         echo  $this->Html->script('Twit.bootstrap-select');
           echo  $this->Html->script('Twit.bootstrap-select.min');
-        echo $this->fetch('meta');
-        echo $this->fetch('css');
-        echo $this->fetch('script');
+       
         
     ?>
     

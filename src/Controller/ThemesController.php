@@ -90,9 +90,20 @@ class ThemesController extends AppController {
 			$this->set('Admin',$admin);
 			
 			$conn = ConnectionManager::get ( 'default' );
+			
+			//get the theme
+			
+			$theme = $this->Themes->find ()->where ( [
+					'Themes_ID' => $theme_id
+			] );
+			
+			$theme=$theme->first();
+			$this->log ( "theme::" .$theme, 'debug' );
+			$this->set ( 'theme', $theme );
+			
 			if ($data_component == 'degree') {
 				
-				$degrees = $conn->execute ( 'select thm.theme as theme,u.University,c.College ,dept.Department,d.Degree_Level,d.Program_Name from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and thm.themes_id=:theme', [ 
+				$degrees = $conn->execute ( 'select thm.theme as theme,u.University_ID,u.University,c.Colleges_ID,dept.Departments_ID,c.College ,dept.Department,d.Degree_Level,d.Degrees_ID,d.Program_Name from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and thm.themes_id=:theme', [ 
 						'theme' => $theme_id 
 				] )->fetchAll ( 'assoc' );
 				
@@ -113,7 +124,11 @@ class ThemesController extends AppController {
 			} else if ($data_component == 'centers') {
 				
 				// Get dept Data
-				$centers = $conn->execute ( 'select  lc.center_name,lc.labs_centers_id,lc.center_type,lc.research_area, thm.theme as theme,' . 'dept.Department,u.University,c.College  from themes thm,' . 'departments dept,universities u,colleges c,labs_centers lc,themes_centers_junction tcj where ' . 'thm.themes_ID=:thm and tcj.labs_centers_id=lc.labs_centers_id and ' . 'thm.themes_ID=tcj.themes_id  ' . 'and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and lc.departments_id=dept.departments_id' . ' and lc.university_id=u.university_id' . ' and lc.colleges_id=c.colleges_id ' . ' order by thm.theme,u.University,c.College,dept.Department', [ 
+				$centers = $conn->execute ( 'select  lc.center_name,lc.labs_centers_id,lc.center_type,lc.research_area, thm.theme as theme,'.
+  '  dept.Department,u.University,c.College  from themes thm  left join themes_centers_junction tcj on  thm.themes_ID=tcj.themes_id '.
+   'left join labs_centers lc on tcj.labs_centers_id=lc.labs_centers_id  left join departments dept on lc.departments_id=dept.departments_id'.
+'  left join universities u on lc.university_id=u.university_id  left join colleges c on c.Colleges_ID= lc.Colleges_ID    where thm.themes_ID=:thm'.
+ ' order by thm.theme,u.University,c.College,dept.Department', [ 
 						'thm' => $theme_id 
 				] )->fetchAll ( 'assoc' );
 				
@@ -159,9 +174,7 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 			}
 			$this->set ( 'colnames', $colnames );
 			$this->set ( 'component', $data_component );
-			$this->set ( '_serialize', [ 
-					'theme' 
-			] );
+			$this->set ( '_serialize', ['theme'] );
 		}
 	}
 	

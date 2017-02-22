@@ -2,35 +2,36 @@
 
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
   <?php if ($role == $Admin): ?>
-<nav class="posright">
-    <ul >
-         <li class="list-inline"><?= __('Select One') ?></li>
-         <li><?= $this->Html->link(__('List Themes'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('Search Theme'), ['action' => 'search']) ?> </li>
-    </ul>
-    
-</nav>
+
  <?php endif; ?>
 <br>
 
     <h3><?= __('Search Results') ?></h3>
-     <br>Showing Resutls for  theme </b>and component  <b><?=$component  ?> </b>
-
+     <br><?=ucfirst($component) ?> by <?= h($theme->Theme) ?> Theme
     
      
      <!--  Theme dept degree data -->
      <?php if (!empty($degrees)): ?>
     
-    
-  
   <table data-toggle="table"  data-sort-name="theme" data-sort-order="asc">
    
      <thead>
         <tr>
-            <th data-field="theme"  data-sortable="true"><?= __('Theme') ?></th>    
+            <?php if ($role == $Admin): ?>
+			 <th data-field="university_id"  data-sortable="true"><?= __('University_ID') ?></th>    
+ 			<?php endif; ?>
             <th data-field="university"  data-sortable="true"><?= __('University') ?></th>    
+             <?php if ($role == $Admin): ?>
+			 <th data-field="university_id"  data-sortable="true"><?= __('Colleges_ID') ?></th>    
+ 			<?php endif; ?>
             <th data-field="college"  data-sortable="true"><?= __('College') ?></th>    
-             <th data-field="theme"  data-sortable="true"><?= __('Department') ?></th>    
+             <?php if ($role == $Admin): ?>
+			 <th data-field="university_id"  data-sortable="true"><?= __('Departments_ID') ?></th>    
+ 			<?php endif; ?>
+             <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
+               <?php if ($role == $Admin): ?>
+			 <th data-field="deree_id"  data-sortable="true"><?= __('Degrees_ID') ?></th>    
+ 			<?php endif; ?>
                 <th data-field="degree_level"  data-sortable="true"><?= __('Degree Level') ?></th>   
               <th data-field="program_name"  data-sortable="true"><?= __('Program Name') ?></th>   
               </tr> 
@@ -39,10 +40,21 @@
 
                 <?php foreach ($degrees as $key=>$values): ?>
                  <tr>
-                 <td><?= h($values['theme'] )?></td>
+                   <?php if ($role == $Admin): ?>
+			   <td><?= h($values['University_ID']) ?></td>     
+ 			<?php endif; ?>
                  <td><?= h($values['University']) ?></td>    
+                  <?php if ($role == $Admin): ?>
+			   <td><?= h($values['Colleges_ID']) ?></td>     
+ 			<?php endif; ?>
                  <td><?= h($values['College']) ?></td>  
+                  <?php if ($role == $Admin): ?>
+			   <td><?= h($values['Departments_ID']) ?></td>     
+ 			<?php endif; ?>
                  <td><?= h($values['Department']) ?></td>  
+                 <?php if ($role == $Admin): ?>
+			   <td><?= h($values['Degrees_ID']) ?></td>     
+ 			<?php endif; ?>
                   <td><?= h($values['Degree_Level']) ?></td>
                  <td><?= h($values['Program_Name']) ?></td>               
                   
@@ -97,7 +109,7 @@
              <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
                 <th data-field="center_name"  data-sortable="true"><?= __('Center Name') ?></th>   
               <th data-field="center_type"  data-sortable="true"><?= __('Center Type') ?></th>   
-               <th class="actions"><?= __('Actions') ?></th>
+               <th class="actions"><?= __('Additional Details') ?></th>
                
               </tr> 
         </thead>
