@@ -2,20 +2,7 @@
 <div class="container-fluid">
 	
 		<?php if ($role == $Admin): ?>
-<nav class="posright">
-	<ul class="side-nav">
-		<li class="heading"><?= __('Actions') ?></li>
-	
-		<li><?= $this->Html->link(__('Edit Faculty'), ['action' => 'edit', $faculty->Faculty_ID]) ?> </li>
-		<li><?= $this->Form->postLink(__('Delete Faculty'), ['action' => 'delete', $faculty->Faculty_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $faculty->Faculty_ID)]) ?> </li>
-		<li><?= $this->Html->link(__('List Faculty'), ['action' => 'index']) ?> </li>
-		<li><?= $this->Html->link(__('New Faculty'), ['action' => 'add']) ?> </li>
-	</ul>
 
-</nav>
-<br>
-<br>
-<br>
 	 <?php endif; ?>
 
 	<h3>Faculty and PublicationDetails</h3>
@@ -86,7 +73,7 @@
 						<?php if (in_array("Valid_Exist", $colnames)): ?><td> <?= h($publication->Valid_Exist) ?></td><?php endif; ?>
                 <?php endforeach; ?>            
         <?php else: ?>
-            <p>-</p>
+            <tr><td>No matching records found</td></tr>
         <?php endif; ?>
        
            
