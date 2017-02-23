@@ -139,14 +139,15 @@
    
      <thead>
         <tr>
-            <th data-field="theme"  data-sortable="true"><?= __('Theme') ?></th>    
+          
             <th data-field="university"  data-sortable="true"><?= __('University') ?></th>    
             <th data-field="college"  data-sortable="true"><?= __('College') ?></th>    
              <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
                 <th data-field="faculty_name"  data-sortable="true"><?= __('Faculty Name') ?></th>   
               <th data-field="position"  data-sortable="true"><?= __('Position') ?></th>   
               <th data-field="center_name"  data-sortable="true"><?= __('Center Name') ?></th>   
-                <th class="actions"><?= __('Actions') ?></th>
+                <th class="actions"><?= __('More Info') ?></th>
+                <th class="actions"><?= __('Publications') ?></th>
    
                
               </tr> 
@@ -155,19 +156,16 @@
 
                 <?php foreach ($faculties as $key=>$values): ?>
                  <tr>
-                 <td><?= h($values['theme'] )?></td>
+                 
                  <td><?= h($values['University']) ?></td>    
                  <td><?= h($values['College']) ?></td>  
                  <td><?= h($values['Department']) ?></td>  
-                  <td><?= h($values['Faculty_Fname'].','.$values['Faculty_MInitial'].'  '.$values['Faculty_Lname']) ?></td>  
+                 <td><?= h($this->String->  lnameFirst($values['Faculty_Lname']   ,$values['Faculty_MInitial'],$values['Faculty_Fname']) )?></td>                 
                    <td><?= h($values['Position']) ?></td>
                   <td><?= h($values['Center_Name']) ?></td>
                   <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $values['Faculty_ID']])?> </td>
+                   <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'viewpublications', $values['Faculty_ID']])?> </td>
                   
-                       
-                        
-                  
-                   
                    </tr>
                 <?php endforeach; ?>
             </td>

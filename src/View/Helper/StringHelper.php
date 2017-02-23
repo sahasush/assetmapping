@@ -10,7 +10,7 @@ class StringHelper extends Helper {
 		
 		$output='';
 		
-		if(strlen(trim($lname)) > 0){
+		if(!empty($lname) & strlen(trim($lname)) > 0){
 			$output=$lname;
 		}
 		

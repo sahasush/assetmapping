@@ -28,7 +28,8 @@
         <?php endif; ?>
         <tr>
 			<th><?= __('Faculty Name') ?></th>
-			<td><?= h($faculty->Faculty_Lname) ?>,<?= h($faculty->Faculty_Fname) ?>,<?= h($faculty->Faculty_MInitial) ?></td>
+			<td><?= h($this->String->  lnameFirst($faculty->Faculty_Fname  ,$faculty->Faculty_MInitial,$faculty->Faculty_Lname) )?></td>
+		
 		</tr>
 		</table>
 		<table class="table table-bordered">

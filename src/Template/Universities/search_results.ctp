@@ -9,10 +9,7 @@
      
     
    <table class="table table-reflow">
-		<tr>
-			<th><?= __('Theme') ?></th>
-			<td><?= h($deptdata[0]['theme']) ?></td>
-		</tr>
+		
 		<tr>
 			<th><?= __('Department') ?></th>
 			<td><?= h($deptdata[0]['Department']) ?></td>
@@ -43,6 +40,7 @@
 			</tr>
 		</thead>
 		<tbody>
+		<?php if(count($courses) > 0):?>
                 <?php foreach ($courses as $course): ?>
                 
                  <tr>
@@ -53,6 +51,10 @@
 				<td><?= $this->Html->link(__('View'), ['controller'=>'courses','action' => 'view', $course->Courses_ID])?></td>
 			</tr>
                 <?php endforeach; ?>
+     <?php else: ?>
+      			<tr><td><b>No matching records found.</b></td></tr>
+ 
+               <?php endif; ?>
         
 		</tbody>
 	</table>
@@ -71,6 +73,7 @@
 			</tr>
 		</thead>
 		<tbody>       
+		<?php if(count($degrees) > 0):?>
                 <?php foreach ( $degrees as $field => $value ) :?>
                              <tr>
 				<td><?= h($value['Degree_Level']) ?></td>
@@ -79,9 +82,10 @@
 			</tr>
 						
                <?php endforeach; ?>
+               <?php else: ?>
+      			<tr><td><b>No matching records found.</b></td></tr> 
+               <?php endif; ?>
                 </tbody>
-
-
 	</table>
      <?php endif; ?>
      
@@ -119,7 +123,7 @@
 	</table>
      <?php endif; ?>
      
-     <!--  Show equipment data  -->
+     <!--  Show centers data  -->
      	<?php if (!empty($centers)): ?>
    <table data-toggle="table" data-sort-name="center_name"
 		data-sort-order="asc">
@@ -154,26 +158,36 @@
    <table data-toggle="table"   class="table table-bordered" data-sort-name="fac_name" data-sort-order="asc" >
 		<thead>
 			<tr>
-
 				<th data-field="fac_name" data-sortable="true"><?= __('Faculty') ?></th>
 				<th><?= __('Center Name') ?></th>
-				<th><?= __('Center Type') ?></th>			
-
+				<th><?= __('Center Type') ?></th>	
+				<th><?= __('Theme') ?></th>			
 				<th class="actions"><?= __('Actions') ?></th>
-
 			</tr>
 		</thead>
-		<tbody>       
+		<tbody>  
+		<?php if(count($faculties) > 0):?>     
                 <?php foreach ( $faculties as $faculty ) :?>
+                <?php if(!(empty($faculty['Faculty_ID']) )):?>
                              <tr>
-                             <td><?= h($faculty['Faculty_Lname']) ?>,<?= h($faculty['Faculty_Fname']) ?>,<?= h($faculty['Faculty_MInitial']) ?></td>
+               <td>
+                              
+               <?= h($this->String->  lnameFirst($faculty['Faculty_Lname'],$faculty['Faculty_MInitial'],$faculty['Faculty_Fname']) )?></td>
+                
+               </td>
 				<td><?= h($faculty['Center_Name']) ?></td>
 				<td><?= h($faculty['Center_Type']) ?></td>
-				
-				<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> </td>
+				<td><?= h($faculty['Theme']) ?></td>
+				   				 
+				           <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> </td>
+				 
 			</tr>
-						
+						<?php endif; ?>
                <?php endforeach; ?>
+                
+               <?php else: ?>
+      			<tr><td><b>No matching records found.</b></td></tr> 
+               <?php endif; ?>
             </tbody>
 
 

@@ -366,7 +366,7 @@ class LabsCentersController extends AppController {
 					  lc.Center_Name, 
 					  lc.Labs_Centers_ID, 
 					  lc.Center_Type, 
-					  thm.Theme, 
+					   GROUP_CONCAT(DISTINCT  thm.Theme SEPARATOR ",") Theme, 
 					  dept.Department, 
 					  u.University, 
 					  c.College, 
@@ -385,7 +385,8 @@ class LabsCentersController extends AppController {
 					  LEFT JOIN faculty f ON cfj.Faculty_ID=f.Faculty_ID
 					where 
 					  lc.university_id = :univ
-					  and lc.labs_centers_id = :lab ', [ 
+					  and lc.labs_centers_id = :lab  GROUP BY   lc.Center_Name,f.Faculty_Lname ,
+					  f.Faculty_Fname', [ 
 						'univ' => $university_id,
 						'lab' => $center_id 
 				] )->fetchAll ( 'assoc' );

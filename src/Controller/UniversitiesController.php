@@ -481,11 +481,11 @@ class UniversitiesController extends AppController {
 				
 				
 				// Get faculty Data
-				$deptdata = $conn->execute ( 'select 
+				$deptdata = $conn->execute ( 'SELECT 
 					  lc.Center_Name, 
 					  lc.Labs_Centers_ID, 
 					  lc.Center_Type, 
-					  thm.theme, 
+					 GROUP_CONCAT(DISTINCT  thm.Theme SEPARATOR ",") Theme, 
 					  dept.Department, 
 					  u.University, 
 					  c.College, 
@@ -493,29 +493,34 @@ class UniversitiesController extends AppController {
 					 f.Faculty_Lname ,
 					  f.Faculty_Fname,
 					  f.Faculty_MInitial
-					from 
-					  faculty f 
-            		  LEFT JOIN centers_faculty_junction cfj ON cfj.Faculty_ID=f.Faculty_ID
-            		  LEFT JOIN labs_centers lc ON cfj.Labs_Centers_ID=lc.Labs_Centers_ID
-					  left join themes_centers_junction tcj on lc.Labs_Centers_ID = tcj.Labs_Centers_ID 
-					  left join themes thm on thm.themes_ID = tcj.Themes_ID 
-					  left join departments dept on lc.departments_ID = dept.departments_id 
-					  left join universities u on lc.university_id = u.university_id 
-					  left join colleges c on lc.colleges_id = c.colleges_id 
+					from colleges c 
+        left join universities u on c.university_id = u.University_ID
+         left join departments dept on c.Colleges_ID = dept.Colleges_ID 
+         left join labs_centers lc on  lc.colleges_id = c.colleges_id           
+           left join themes_centers_junction tcj on lc.Labs_Centers_ID = tcj.Labs_Centers_ID 
+            left join themes thm on thm.themes_ID = tcj.Themes_ID 
+            LEFT JOIN centers_faculty_junction cfj on  cfj.Labs_Centers_ID=lc.Labs_Centers_ID
+					  left join faculty f on  cfj.Faculty_ID=f.Faculty_ID           
 					where 
-					  dept.Departments_ID=:dept', [ 
+					  dept.Departments_ID=:dept  GROUP BY f.Faculty_Lname ,lc.Center_Name', [ 
 						'dept' => $department_id 
 				] )->fetchAll ( 'assoc' );
 				
+				
+					  $this->set ( 'faculties', $deptdata );
+					  $this->set ( '_serialize', [
+					  		'faculties'
+					  ] );
+				
+				$this->log ( 'Empty::' .empty($deptdata).'<>'.count($deptdata),'debug');
+				
+				
+				
 				$this->set ( 'deptdata', $deptdata );
-				$this->set ( '_serialize', [ 
-						'deptdata' 
+				$this->set ( '_serialize', [
+						'deptdata'
 				] );
 				
-				$this->set ( 'faculties', $deptdata );
-				$this->set ( '_serialize', [
-						'faculties'
-				] );
 			}else if ($data_component == 'universities') {
 				
 				
