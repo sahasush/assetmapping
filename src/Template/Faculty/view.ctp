@@ -2,17 +2,7 @@
 <div class="container">
 	  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 		<?php if ($role == $Admin): ?>
-<nav class="posright">
-	<ul class="side-nav">
-		<li class="heading"><?= __('Actions') ?></li>
-	
-		<li><?= $this->Html->link(__('Edit Faculty'), ['action' => 'edit', $faculty->Faculty_ID]) ?> </li>
-		<li><?= $this->Form->postLink(__('Delete Faculty'), ['action' => 'delete', $faculty->Faculty_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $faculty->Faculty_ID)]) ?> </li>
-		<li><?= $this->Html->link(__('List Faculty'), ['action' => 'index']) ?> </li>
-		<li><?= $this->Html->link(__('New Faculty'), ['action' => 'add']) ?> </li>
-	</ul>
 
-</nav>
 	 <?php endif; ?>
 
 	<h3>Faculty Details</h3>
@@ -46,7 +36,7 @@
 		</tr>
 		<tr>
 			<th><?= __('Address') ?></th>
-			<td><?= h($faculty->Address_Line_1) ?>,<?= h($faculty->Building_Room) ?><br><?= h($faculty->Address_Line_2) ?></td>
+			<td><?= h($this->String->addressFormat($faculty->Address_Line_1 ,$faculty->Building_Room)) ?><br><?= h($faculty->Address_Line_2) ?></td>
 		</tr>
 		<tr>
 			<th><?= __('Phone Number') ?></th>

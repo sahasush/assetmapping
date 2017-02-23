@@ -17,21 +17,13 @@
    
      <thead>
         <tr>
-            <?php if ($role == $Admin): ?>
-			 <th data-field="university_id"  data-sortable="true"><?= __('University_ID') ?></th>    
- 			<?php endif; ?>
+           
             <th data-field="university"  data-sortable="true"><?= __('University') ?></th>    
-             <?php if ($role == $Admin): ?>
-			 <th data-field="university_id"  data-sortable="true"><?= __('Colleges_ID') ?></th>    
- 			<?php endif; ?>
+             
             <th data-field="college"  data-sortable="true"><?= __('College') ?></th>    
-             <?php if ($role == $Admin): ?>
-			 <th data-field="university_id"  data-sortable="true"><?= __('Departments_ID') ?></th>    
- 			<?php endif; ?>
+            
              <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
-               <?php if ($role == $Admin): ?>
-			 <th data-field="deree_id"  data-sortable="true"><?= __('Degrees_ID') ?></th>    
- 			<?php endif; ?>
+               
                 <th data-field="degree_level"  data-sortable="true"><?= __('Degree Level') ?></th>   
               <th data-field="program_name"  data-sortable="true"><?= __('Program Name') ?></th>   
               </tr> 
@@ -40,21 +32,13 @@
 
                 <?php foreach ($degrees as $key=>$values): ?>
                  <tr>
-                   <?php if ($role == $Admin): ?>
-			   <td><?= h($values['University_ID']) ?></td>     
- 			<?php endif; ?>
+                  
                  <td><?= h($values['University']) ?></td>    
-                  <?php if ($role == $Admin): ?>
-			   <td><?= h($values['Colleges_ID']) ?></td>     
- 			<?php endif; ?>
+                  
                  <td><?= h($values['College']) ?></td>  
-                  <?php if ($role == $Admin): ?>
-			   <td><?= h($values['Departments_ID']) ?></td>     
- 			<?php endif; ?>
+                 
                  <td><?= h($values['Department']) ?></td>  
-                 <?php if ($role == $Admin): ?>
-			   <td><?= h($values['Degrees_ID']) ?></td>     
- 			<?php endif; ?>
+                
                   <td><?= h($values['Degree_Level']) ?></td>
                  <td><?= h($values['Program_Name']) ?></td>               
                   

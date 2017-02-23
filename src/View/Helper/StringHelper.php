@@ -18,7 +18,7 @@ class StringHelper extends Helper {
 			$output=$output.','.$fname;
 		}
 		if(strlen(trim($mname)) > 0){
-			$output=$output.','.$mname;
+			$output=$output.' '.$mname;
 		}
 		return $output;
 	}

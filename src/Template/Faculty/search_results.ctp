@@ -20,8 +20,8 @@
 				<th><?= __('University') ?></th>
 				<th><?= __('College') ?></th>
 				<th><?= __('Department') ?></th>
-				
-					<th class="actions"><?= __('Actions') ?></th>
+				<th class="actions"><?= __('Additional Details') ?></th>
+					<th class="actions"><?= __('View Publications') ?></th>
 				
 			</tr>
 		</thead>
@@ -30,14 +30,14 @@
                 <?php foreach ( $facdata as $faculty ) :?>
           
                              <tr>
-                                <td><?= h($faculty['Faculty_Lname']) ?>,<?= h($faculty['Faculty_Fname']) ?>,<?= h($faculty['Faculty_MInitial']) ?></td>			
+                                <td><?= h($this->String->  lnameFirst($faculty['Faculty_Lname'] ,$faculty['Faculty_MInitial'],$faculty['Faculty_Fname'])) ?></td>			
 								<td><?= h($faculty['Center_Name']) ?></td>
 								<td><?= h($faculty['Center_Type']) ?></td>
 								<td><?= h($faculty['Theme']) ?></td>
 								<td><?= h($faculty['University']) ?></td>
 								<td><?= h($faculty['College']) ?></td>
 								<td><?= h($faculty['Department']) ?></td>
-													
+								<td class="actions"> <?= $this->Html->link(__('View Faculty'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> </td>		
 								<td class="actions"> <?= $this->Html->link(__('View Publications'), ['controller'=>'faculty','action' => 'viewpublications', $faculty['Faculty_ID']])?> </td>
 							</tr>
 						
