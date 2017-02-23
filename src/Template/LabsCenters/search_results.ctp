@@ -8,7 +8,7 @@
     
     
     <!-- Show Grants data-->    
-      	<?php if (!empty($grants)): ?>
+      	<?php if ($component =='grants'): ?>
    <table data-toggle="table"  data-sort-name="center_name" data-sort-order="asc">
 		<thead>
 			<tr>
@@ -18,7 +18,7 @@
 				<th><?= __('College') ?></th>
 				<th><?= __('Department') ?></th>
 				<th><?= __('Project Title') ?></th>
-				<th class="actions"><?= __('Actions') ?></th>				
+				<th class="actions"><?= __('Additional Details') ?></th>				
 			</tr>
 		</thead>
 		<tbody>       
@@ -49,7 +49,7 @@
      <?php endif; ?>
      <!-- Display Faculty -->
      
-     <?php if (!empty($faculties)): ?>
+     <?php if ($component =='faculty'): ?>
    <table data-toggle="table"  data-sort-name="fac_name" data-sort-order="asc">
 		<thead>
 			<tr>
@@ -99,7 +99,7 @@
      <?php endif; ?>
      
      	<!--  Show equipment data  -->
-     	<?php if (!empty($equipments)): ?>
+     	<?php if ($component =='equipment'): ?>
    <table data-toggle="table"  data-sort-name="center_name" data-sort-order="asc">
 		<thead>
 			<tr>

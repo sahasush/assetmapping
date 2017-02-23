@@ -320,17 +320,28 @@ class LabsCentersController extends AppController {
 				//Grants
 			}else if ($data_component == 'grants') {
 				// Get dept Data
-				$results = $conn->execute ( 'select lc.Center_Name,lc.Labs_Centers_ID,lc.Center_Type,lc.Research_Area,thm.Theme,dept.Department,u.University,c.College,g.Grant_Project_Title,g.Grants_ID from 
-					 labs_centers lc 
-					  left join themes_centers_junction tcj  on lc.Labs_Centers_ID=tcj.Labs_Centers_ID 
-					  left join themes thm on thm.themes_ID=tcj.Themes_ID
-					  left join departments dept on lc.departments_ID=dept.departments_id
-					  left join  universities u on lc.university_id=u.university_id
-					  left join colleges c on lc.colleges_id=c.Colleges_ID
-					  LEFT JOIN centers_grants_junction cgj ON cgj.Labs_Centers_ID=lc.Labs_Centers_ID
-					  LEFT JOIN grants g ON g.Grants_ID=cgj.grants_id
-					  where  lc.university_id=:univ and lc.Labs_Centers_ID =:labs
-					  ORDER BY lc.center_name', [ 
+				$results = $conn->execute ( 'SELECT
+  lc.Center_Name,
+  lc.Labs_Centers_ID,
+  lc.Center_Type,
+  lc.Research_Area,
+  GROUP_CONCAT(DISTINCT thm.Theme SEPARATOR ",") Theme,
+  dept.Department,
+  u.University,
+  c.College,
+  g.Grant_Project_Title,
+  g.Grants_ID
+FROM labs_centers lc,themes_centers_junction tcj,themes thm,departments dept,universities u,colleges c, grants g,centers_grants_junction cgj
+WHERE  lc.University_ID = :univ
+    AND lc.Labs_Centers_ID = tcj.Labs_Centers_ID
+  and   thm.Themes_ID = tcj.Themes_ID
+  and    lc.Departments_ID = dept.Departments_ID
+  and     lc.University_ID = u.University_ID
+  and    lc.Colleges_ID = c.Colleges_ID
+  and   cgj.Labs_Centers_ID = lc.Labs_Centers_ID
+ and     g.Grants_ID = cgj.Grants_ID
+AND lc.Labs_Centers_ID = :labs
+GROUP BY lc.Center_Name', [ 
 						'univ' => $university_id,
 						'labs' => $center_id 
 				] )->fetchAll ( 'assoc' );
@@ -341,15 +352,15 @@ class LabsCentersController extends AppController {
 				] );
 			} else if ($data_component == 'equipment') {
 				
-				$results = $conn->execute ( 'select lc.Center_Name,lc.Labs_Centers_ID,lc.Center_Type,lc.Research_Area,e.Equipment_ID,thm.Theme,dept.Department,u.University,c.College,e.Brand,e.Model,e.Type from 
-				 labs_centers lc 
-				  left join themes_centers_junction tcj  on lc.Labs_Centers_ID=tcj.Labs_Centers_ID 
-				  left join themes thm on thm.themes_ID=tcj.Themes_ID
-				  left join departments dept on lc.departments_ID=dept.departments_id
-				  left join  universities u on lc.university_id=u.university_id
-				  left join colleges c on lc.colleges_id=c.colleges_id
-				  left join equipment e on lc.labs_centers_id=e.lab_centers_id
-				  where  lc.university_id=:univ and lc.labs_centers_id=:lab
+				$results = $conn->execute ( 'select lc.Center_Name,lc.Labs_Centers_ID,lc.Center_Type,lc.Research_Area,e.Equipment_ID,GROUP_CONCAT(DISTINCT thm.Theme SEPARATOR ",") Theme,dept.Department,u.University,c.College,e.Brand,e.Model,e.Type from 
+				 labs_centers lc , themes_centers_junction tcj,themes thm ,departments dept,universities u,colleges c, equipment e
+				  where lc.Labs_Centers_ID=tcj.Labs_Centers_ID 
+				  and thm.themes_ID=tcj.Themes_ID
+				 and lc.departments_ID=dept.departments_id
+				 and lc.university_id=u.university_id
+				 and lc.colleges_id=c.colleges_id
+				 and lc.labs_centers_id=e.lab_centers_id
+				  and  lc.university_id=:univ and lc.labs_centers_id=:lab   GROUP BY lc.Center_Name
 				  ', [ 
 						'univ' => $university_id,
 						'lab' => $center_id 
@@ -362,31 +373,38 @@ class LabsCentersController extends AppController {
 			} else if ($data_component == 'faculty') {
 				// Faculty
 				
-									$results = $conn->execute ( 'select 
-					  lc.Center_Name, 
-					  lc.Labs_Centers_ID, 
-					  lc.Center_Type, 
-					   GROUP_CONCAT(DISTINCT  thm.Theme SEPARATOR ",") Theme, 
-					  dept.Department, 
-					  u.University, 
-					  c.College, 
-					  f.Faculty_ID,
-					 f.Faculty_Lname ,
-					  f.Faculty_Fname,
-					  f.Faculty_MInitial
-					from 
-					  labs_centers lc 
-					  left join themes_centers_junction tcj on lc.Labs_Centers_ID = tcj.Labs_Centers_ID 
-					  left join themes thm on thm.themes_ID = tcj.Themes_ID 
-					  left join departments dept on lc.departments_ID = dept.departments_id 
-					  left join universities u on lc.university_id = u.university_id 
-					  left join colleges c on lc.colleges_id = c.colleges_id 
-					  LEFT join centers_faculty_junction cfj on cfj.Labs_Centers_ID=lc.Labs_Centers_ID
-					  LEFT JOIN faculty f ON cfj.Faculty_ID=f.Faculty_ID
-					where 
-					  lc.university_id = :univ
-					  and lc.labs_centers_id = :lab  GROUP BY   lc.Center_Name,f.Faculty_Lname ,
-					  f.Faculty_Fname', [ 
+									$results = $conn->execute ( 'SELECT
+  lc.Center_Name,
+  lc.Labs_Centers_ID,
+  lc.Center_Type,
+  GROUP_CONCAT(DISTINCT thm.Theme SEPARATOR ",") Theme,
+  dept.Department,
+  u.University,
+  c.College,
+  f.Faculty_ID,
+  f.Faculty_Lname,
+  f.Faculty_Fname,
+  f.Faculty_MInitial
+FROM labs_centers lc,
+     themes_centers_junction tcj,
+     themes thm,
+     departments dept,
+     universities u,
+     colleges c,
+     centers_faculty_junction cfj,
+     faculty f
+WHERE lc.University_ID = :univ
+AND lc.Labs_Centers_ID = :lab
+AND lc.Labs_Centers_ID = tcj.Labs_Centers_ID
+AND thm.Themes_ID = tcj.Themes_ID
+AND lc.Departments_ID = dept.Departments_ID
+AND lc.University_ID = u.University_ID
+AND lc.Colleges_ID = c.Colleges_ID
+AND cfj.Labs_Centers_ID = lc.Labs_Centers_ID
+AND cfj.Faculty_ID = f.Faculty_ID
+GROUP BY lc.Center_Name,
+         f.Faculty_Lname,
+         f.Faculty_Fname', [ 
 						'univ' => $university_id,
 						'lab' => $center_id 
 				] )->fetchAll ( 'assoc' );

@@ -40,7 +40,7 @@
             <th><?= __('Principal Investigator') ?></th>
             <td>
             <?php if (!empty($grant->PI_Fname)): ?>
-            <?= h($grant->PI_Fname) ?>,<?= h($grant->PI_Lname) ?>,<?= h($grant->PI_MInitial) ?>
+            <?= h($this->String->  lnameFirst($grant->PI_Fname,$grant->PI_MInitial,$grant->PI_Lname)) ?>
             <?php endif; ?>		
             </td>
         </tr>
