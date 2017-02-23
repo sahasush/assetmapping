@@ -61,7 +61,7 @@
 					<option value="equipment">Equipment</option>
 					<option value="faculty">Faculty</option>						
 					<option value="centers">Labs/Centers</option>
-					<option value="universities">Universities</option>
+					
 				</select>
 			
 
