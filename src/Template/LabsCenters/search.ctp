@@ -2,7 +2,7 @@
 <div class="container">
 
 		<h3><?= __('Lab/Center Search') ?></h3>
-<?= $this->Form->create(null, ['url' => ['controller' => 'LabsCenters', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get','id' => 'searchform']); ?>
+<?= $this->Form->create(null, ['url' => ['controller' => 'LabsCenters', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get','id' => 'form1']); ?>
 
 
          <div class="form-group">              
@@ -27,7 +27,7 @@
 								
 		 <label class="control-label col-sm-2" for="university">University</label>
 			<div class="col-sm-10">	
-			<?=  $this->Form->input('university_id', array('label' => false,'type' => 'select','options'=> $universities,'class' => 'selectpicker','data-live-search'=>'true','id' => 'universities', 'rel' => $url,'empty'=>'Select'));?>
+			<?=  $this->Form->input('university_id', array('label' => false,'type' => 'select','options'=> $universities,'id' => 'universities', 'rel' => $url,'empty'=>'Please Select'));?>
 			
 			
 			</div>
@@ -35,7 +35,7 @@
      <div class="form-group">    
             <label class="control-label col-sm-2" for="centers">Centers</label>
             <div class="col-sm-10">	          
-				<?= $this->Form->input('labs_center_id', ['label' => false,'id' => 'centers', 'empty' => $empty]); ?>  
+				<?= $this->Form->input('labs_center_id', ['label' => false,'id' => 'centers', 'empty' => $empty,'required'=>'true']); ?>  
 			</div>
      </div>
        
@@ -51,7 +51,6 @@
 					<option value="equipment">Equipment</option>
 					<option value="faculty">Faculty</option>		
 					<option value="grants">Grants</option>				
-					<option value="centers">Labs/Centers</option>
 					
 				</select>
 
@@ -111,7 +110,7 @@ $(function() {
 		});
 	});
 });
-$('#searchform').validate({
+$('#form1').validate({
     rules: {
         'labs_center_id': {
             required: true,
@@ -121,17 +120,15 @@ $('#searchform').validate({
     messages: {
         'labs_center_id': {
             required: "Please select a Center",
-        },
-        
+        },        
     },
 });
 
-('#searchform').on('reset', function() {
+$('#form1').on('reset', function() {
 	  var _this = this;	
-	  $('#colleges').empty();
-	  $('#colleges').append('<option value="0" selected="selected">Not Available</option>');
-	  $('#departments').empty();
-	  $('#departments').append('<option value="0" selected="selected">Not Available</option>');
+	  $('#centers').empty();
+	  $('#centers').append('<option value="0" selected="selected">Not Available</option>');
+	  
 	  setTimeout(function() {
 		  $('.selectpicker').selectpicker('refresh');
 		  

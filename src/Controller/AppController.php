@@ -111,10 +111,10 @@ class AppController extends Controller {
 	public function beforeFilter(Event $event) {
 		if ($this->Auth->user ()) {
 			$this->Auth->authorize = 'Controller';
-			$this->log ( "11", 'debug' );
+			
 		}else{
 			$this->Auth->deny ();
-			$this->log ( "22", 'debug' );
+			
 		}
 	}
 }
