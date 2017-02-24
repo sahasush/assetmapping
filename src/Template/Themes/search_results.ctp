@@ -1,17 +1,10 @@
-
-
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
-  <?php if ($role == $Admin): ?>
-
- <?php endif; ?>
 <br>
 
-    <h3><?= __('Search Results') ?></h3>
-     <br><?=ucfirst($component) ?> by <?= h($theme->Theme) ?> Theme
-    
+    <h4><?= __('Search Results') ?>:<b><?=ucfirst($component) ?></b> by <?= h($theme->Theme) ?> Theme</h3>
      
      <!--  Theme dept degree data -->
-     <?php if (!empty($degrees)): ?>
+     <?php if ($component=='degree'): ?>
     
   <table data-toggle="table"  data-sort-name="theme" data-sort-order="asc">
    
@@ -50,7 +43,7 @@
     </table>
      <?php endif; ?>
     
-    <?php if (!empty($courses)): ?>
+    <?php if ($component=='courses'): ?>
     <table data-toggle="table"  data-sort-name="theme" data-sort-order="asc">
    
      <thead>
@@ -82,7 +75,7 @@
     </table>
      <?php endif; ?>
      <!-- Display Labs Centers -->
-     <?php if (!empty($centers)): ?>
+     <?php if ($component=='centers'): ?>
     <table data-toggle="table"  data-sort-name="theme" data-sort-order="asc">
    
      <thead>
@@ -118,7 +111,7 @@
     </table>
      <?php endif; ?>
      <!--  Display Faculty -->
-    <?php if (!empty($faculties)): ?>
+    <?php if ($component=='faculty'): ?>
     <table data-toggle="table"  data-sort-name="theme" data-sort-order="asc">
    
      <thead>
@@ -130,8 +123,8 @@
                 <th data-field="faculty_name"  data-sortable="true"><?= __('Faculty Name') ?></th>   
               <th data-field="position"  data-sortable="true"><?= __('Position') ?></th>   
               <th data-field="center_name"  data-sortable="true"><?= __('Center Name') ?></th>   
-                <th class="actions"><?= __('More Info') ?></th>
-                <th class="actions"><?= __('Publications') ?></th>
+                <th class="actions"><?= __('Addiitional Info') ?></th>
+                <th class="actions"><?= __('View Publications') ?></th>
    
                
               </tr> 
