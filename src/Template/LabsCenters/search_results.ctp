@@ -1,9 +1,6 @@
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
-
 <br>
-<br>
-	<h3><?= __('Search Results') ?></h3>
-	<br>Showing Resutls for component <b><?=$component  ?> </b>
+	<h4><?= __('Search Results') ?> for <b><?=ucfirst($component) ?></b> </h3>
 	
     
     
@@ -61,7 +58,8 @@
 				<th><?= __('College') ?></th>
 				<th><?= __('Department') ?></th>
 			
-					<th class="actions"><?= __('Actions') ?></th>
+					<th class="actions"><?= __('Additional Details') ?></th>
+					<th class="actions"><?= __('View Publications') ?></th>
 				
 			</tr>
 		</thead>
@@ -87,6 +85,11 @@
 								<?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> 
 								 <?php endif; ?>	
 								</td>
+								<td class="actions"> 
+								<?php if (!empty($faculty['Faculty_ID'])): ?>
+								<?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'viewpublications', $faculty['Faculty_ID']])?> 
+								 <?php endif; ?>	
+								</td>
 										
 							</tr>
 						
@@ -110,7 +113,7 @@
 				<th><?= __('Department') ?></th>
 				<th><?= __('Brand') ?></th>
 				<th><?= __('Type') ?></th>
-				<th class="actions"><?= __('Actions') ?></th>				
+				<th class="actions"><?= __('Additional Details') ?></th>				
 			</tr>
 		</thead>
 		<tbody>       

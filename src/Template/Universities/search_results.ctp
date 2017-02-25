@@ -1,7 +1,7 @@
 
 <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
-	<h3><?= __('Search Results') ?></h3>
-	<br>Showing Resutls for component <b><?=$component  ?> </b>
+
+	<h4><?= __('Search Results') ?> for <b><?=ucfirst($component) ?></b> </h3>
 
 	<!--  Show department data  -->
 	
@@ -26,7 +26,7 @@
 	</table>
 
      <?php endif; ?>
-    <?php if (!empty($courses)): ?>   
+    <?php if ($component=='courses'): ?>   
 
    <table data-toggle="table" data-sort-name="Course_Title"  data-sort-order="asc">
 
@@ -36,7 +36,7 @@
 				<th><?= __('Course Number') ?></th>
 				<th><?= __('Course Abbr') ?></th>
 				<th><?= __('Units') ?></th>
-				<th class="actions"><?= __('Actions') ?></th>
+				<th class="actions"><?= __('Additional Info') ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -69,7 +69,7 @@
 			<tr>
 				<th data-field="degree_level" data-sortable="true"><?= __('Degree Level') ?></th>
 				<th><?= __('Program Name') ?></th>
-				<th class="actions"><?= __('Actions') ?></th>
+				<th class="actions"><?= __('Additional Info') ?></th>
 			</tr>
 		</thead>
 		<tbody>       
@@ -101,7 +101,7 @@
 				<th><?= __('Type') ?></th>
 				<th><?= __('Serial_Number') ?></th>
 				<th><?= __('Condition') ?></th>
-				<th class="actions"><?= __('Actions') ?></th>
+				<th class="actions"><?= __('Additional Info') ?></th>
 			</tr>
 		</thead>
 		<tbody>       
@@ -133,7 +133,7 @@
 				<th data-field="center_name" data-sortable="true"><?= __('Center Name') ?></th>
 				<th><?= __('Center Type') ?></th>
 
-				<th class="actions"><?= __('Actions') ?></th>
+				<th class="actions"><?= __('Additional Info') ?></th>
 
 			</tr>
 		</thead>
@@ -162,7 +162,8 @@
 				<th><?= __('Center Name') ?></th>
 				<th><?= __('Center Type') ?></th>	
 				<th><?= __('Theme') ?></th>			
-				<th class="actions"><?= __('Actions') ?></th>
+				<th class="actions"><?= __('Additional Info') ?></th>
+				<th class="actions"><?= __('View Publications') ?></th>
 			</tr>
 		</thead>
 		<tbody>  
@@ -180,6 +181,7 @@
 				<td><?= h($faculty['Theme']) ?></td>
 				   				 
 				           <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> </td>
+				            <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'viewpublications',$faculty['Faculty_ID']])?> </td>
 				 
 			</tr>
 						<?php endif; ?>

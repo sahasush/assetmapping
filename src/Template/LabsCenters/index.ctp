@@ -1,19 +1,12 @@
 <div class="container-fluid">
 
  <?php if (!empty($labsCenters)): ?>
-<div class="posright">
-    <ul>
-        <li ><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Labs Center'), ['action' => 'add']) ?></li>
-    </ul>
-</div>
-<br>
 <br>
 <br>
 
     
     <h3><?= __('Labs Centers') ?></h3>
-   <table class = "table table-bordered">
+   <table class = "table table-responsive table-bordered">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('Labs_Centers_ID') ?></th>
@@ -86,8 +79,8 @@
                 <td><?= $this->Number->format($labsCenter->Departments_ID) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $labsCenter->Labs_Centers_ID]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $labsCenter->Labs_Centers_ID]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $labsCenter->Labs_Centers_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $labsCenter->Labs_Centers_ID)]) ?>
+                   <!--  <?= $this->Html->link(__('Edit'), ['action' => 'edit', $labsCenter->Labs_Centers_ID]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $labsCenter->Labs_Centers_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $labsCenter->Labs_Centers_ID)]) ?>-->
                 </td>
             </tr>
             <?php endforeach; ?>

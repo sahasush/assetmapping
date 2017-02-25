@@ -1,7 +1,7 @@
 
 <div class="container">
 
-		<h3><?= __('Universities') ?></h3>
+		<h3><?= __('Search by Faculty') ?></h3>
 <?= $this->Form->create(null, ['url' => ['controller' => 'Faculty', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get','id' => 'form1']); ?>
 
 
@@ -112,6 +112,8 @@ $(function() {
 					 $('#faclnames').attr('data-live-search', 'true');
 					 $('#faclnames').attr('data-width','100%');
 					 $('#faclnames').selectpicker('refresh').selectpicker('refresh');
+					  $('#facfnames').empty();
+					  $('#facfnames').selectpicker('refresh').selectpicker('refresh');
 				
 					
 				}

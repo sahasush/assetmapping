@@ -1,7 +1,7 @@
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <br>
 
-    <h4><?= __('Search Results') ?>:<b><?=ucfirst($component) ?></b> by <?= h($theme->Theme) ?> Theme</h3>
+    <h4><?= __('Search Results') ?> by <b><?=ucfirst($component) ?></b> by <?= h($theme->Theme) ?> Theme</h3>
      
      <!--  Theme dept degree data -->
      <?php if ($component=='degree'): ?>
@@ -123,8 +123,8 @@
                 <th data-field="faculty_name"  data-sortable="true"><?= __('Faculty Name') ?></th>   
               <th data-field="position"  data-sortable="true"><?= __('Position') ?></th>   
               <th data-field="center_name"  data-sortable="true"><?= __('Center Name') ?></th>   
-                <th class="actions"><?= __('Addiitional Info') ?></th>
-                <th class="actions"><?= __('View Publications') ?></th>
+                <th class="actions"><?= __('Additional Info') ?></th>
+                <th class="actions"><?= __('Publications') ?></th>
    
                
               </tr> 
@@ -140,7 +140,7 @@
                  <td><?= h($this->String->  lnameFirst($values['Faculty_Lname']   ,$values['Faculty_MInitial'],$values['Faculty_Fname']) )?></td>                 
                    <td><?= h($values['Position']) ?></td>
                   <td><?= h($values['Center_Name']) ?></td>
-                  <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $values['Faculty_ID']])?> </td>
+                  <td class="actions"> <?= $this->Html->link(__('View Faculty'), ['controller'=>'faculty','action' => 'view', $values['Faculty_ID']])?> </td>
                    <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'viewpublications', $values['Faculty_ID']])?> </td>
                   
                    </tr>

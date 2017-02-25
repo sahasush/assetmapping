@@ -18,6 +18,7 @@ $cakeDescription = '';
         echo $this->Html->css('bootstrap-select.css');
         echo $this->Html->css('bootstrap-select.min.css');
         echo $this->Html->css('tableformat.css');
+        echo $this->Html->css('bootstrap-responsive.css');
         //Csun Formatting
         echo $this->Html->css('csun-components.css');
         echo $this->Html->css('csun-apps.css');
@@ -38,6 +39,10 @@ $cakeDescription = '';
         
     ?>
     
+    <?php $user = $this->request->session()->read('Auth.User');
+               $role = $this->request->session()->read ( 'User.role' );
+        
+          ?> 
   </head>
   <body>
 <div class="header">
@@ -82,12 +87,22 @@ $cakeDescription = '';
 							<li><a href="/users/home">Home</a></li>
 							<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Search by<span class="caret"></span></a>
 							 <ul class="dropdown-menu">
-        <li><a href="/universities/search">CSU/College/Department</a></li>
-        <li><a href="/faculty/search">Faculty</a></li>        
-          <li><a href="/labsCenters/search">Lab/Center</a></li>        
-          <li><a href="/themes/search">Theme</a></li>
-        </ul>
-      </li>
+					        <li><a href="/universities/search">CSU/College/Department</a></li>
+					        <li><a href="/faculty/search">Faculty</a></li>        
+					          <li><a href="/labsCenters/search">Lab/Center</a></li>        
+					          <li><a href="/themes/search">Theme</a></li>
+					         
+					        </ul>
+					      </li>
+					        <?php if ($role == 'Admin'): ?>
+											<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Data Tables<span class="caret"></span></a>
+															 <ul class="dropdown-menu">
+															    <li><a href="/colleges/index">Colleges</a></li> 	
+													             <li><a href="/faculty/index">Faculty</a></li>        		
+													              <li><a href="/labscenters/index">Lab/Centers</a></li> 										      
+					        </ul>
+					      </li>
+	 					<?php endif; ?>
 							<li class=""><a href="/users/logout">Logout</a></li>
 						
 								</ul>

@@ -1,12 +1,7 @@
 
 <div class="container-fluid">
  <?php if (!empty($faculties)): ?>
-	<nav class="posright">
-		<ul>
-			<li class="list-inline"><?= __('Actions') ?></li>
-			<li><?= $this->Html->link(__('New Faculty'), ['action' => 'add']) ?> </li>
-		</ul>
-	</nav>
+	
 	<br>
 	<div class="form-group row">
     
@@ -89,8 +84,8 @@
 			<td><?= h($faculty->Valid_Exist) ?></td>
 			<td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $faculty->Faculty_ID])?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $faculty->Faculty_ID])?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $faculty->Faculty_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $faculty->Faculty_ID)])?>
+                    <!--<?= $this->Html->link(__('Edit'), ['action' => 'edit', $faculty->Faculty_ID])?> -->
+                   <!--  <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $faculty->Faculty_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $faculty->Faculty_ID)])?>  -->
                 </td>
 		</tr>
             <?php endforeach; ?>

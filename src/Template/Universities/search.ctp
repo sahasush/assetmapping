@@ -1,5 +1,5 @@
 <div class="container">
-		<h3><?= __('Saerch by CSU/College/Department') ?></h3>
+		<h3><?= __('Search by CSU/College/Department') ?></h3>
 <?= $this->Form->create(null, ['url' => ['controller' => 'Universities', 'action' => 'searchResults' ], 'class' =>'form-horizontal','type' => 'get','id' => 'form1']); ?>
 
  <?php
@@ -70,7 +70,7 @@
  </div>
  
     <?= $this->Form->button('Search', ['type' => 'submit'])?>
-  <?= $this->Form->button('Reset the Form', ['type' => 'reset']);?>
+  <?= $this->Form->button('Reset', ['type' => 'reset']);?>
   </td>
    <?= $this->Form->end()?>
    
@@ -107,7 +107,8 @@ $(function() {
 					 $('#colleges').attr('data-live-search', 'true');
 					 $('#colleges').attr('data-width','100%');
 					 $('#colleges').selectpicker('refresh').selectpicker('refresh');
-					
+					  $('#departments').empty();
+					  $('#departments').selectpicker('refresh').selectpicker('refresh');			
 				
 					
 				}

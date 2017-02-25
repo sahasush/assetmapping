@@ -1,10 +1,6 @@
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <br>
-	<h3><?= __('Search Results') ?></h3>
-	<br>Showing Resutls for component <b><?=$component  ?> </b>
-	
-    
-    
+		<h4><?= __('Search Results') ?> for <b><?=ucfirst($component) ?></b> </h3>
     
      <!-- Display Faculty -->
      
@@ -38,7 +34,7 @@
 								<td><?= h($faculty['College']) ?></td>
 								<td><?= h($faculty['Department']) ?></td>
 								<td class="actions"> <?= $this->Html->link(__('View Faculty'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> </td>		
-								<td class="actions"> <?= $this->Html->link(__('View Publications'), ['controller'=>'faculty','action' => 'viewpublications', $faculty['Faculty_ID']])?> </td>
+								<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'viewpublications', $faculty['Faculty_ID']])?> </td>
 							</tr>
 						
                <?php endforeach; ?>

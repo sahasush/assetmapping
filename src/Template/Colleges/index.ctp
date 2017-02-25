@@ -1,15 +1,10 @@
 
 <div class="container-fluid">
-<nav class="posright">
-    <ul class="side-nav">
-        <li ><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New College'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
+
 <br>
 <br>
     <h3><?= __('Colleges') ?></h3>
-    <table class="table table-bordered">
+      <table class = "table table-responsive table-bordered">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('Colleges_ID') ?></th>
@@ -26,8 +21,8 @@
                 <td><?= $this->Number->format($college->University_ID) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $college->Colleges_ID]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $college->Colleges_ID]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $college->Colleges_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $college->Colleges_ID)]) ?>
+                   <!--  <?= $this->Html->link(__('Edit'), ['action' => 'edit', $college->Colleges_ID]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $college->Colleges_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $college->Colleges_ID)]) ?> -->
                 </td>
             </tr>
             <?php endforeach; ?>
