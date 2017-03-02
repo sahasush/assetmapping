@@ -1,10 +1,4 @@
-<div class="posright">
-    <ul >
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New University'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('Search Universities'), ['action' => 'search']) ?> </li>
-    </ul>
-</div>
+
 <div class="container">
     <h3><?= __('Universities') ?></h3>
    <table class = "table table-bordered">
@@ -26,8 +20,7 @@
                 <td><?= h($university->Addrss_Line_2) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $university->University_ID]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $university->University_ID]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $university->University_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $university->University_ID)]) ?>
+                    
                 </td>
             </tr>
             <?php endforeach; ?>

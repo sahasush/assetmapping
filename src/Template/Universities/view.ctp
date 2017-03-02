@@ -1,14 +1,7 @@
-<nav class="posleft">
-    <ul >
-        <li ><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit University'), ['action' => 'edit', $university->University_ID]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete University'), ['action' => 'delete', $university->University_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $university->University_ID)]) ?> </li>
-        <li><?= $this->Html->link(__('List Universities'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New University'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
+
 <div class="container">
-    <h3>University ID: <?= h($university->University_ID) ?></h3>
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+    <h3>University Details</h3>
          <table class="table table-reflow">
         <tr>
             <th><?= __('University') ?></th>

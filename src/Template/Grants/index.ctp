@@ -1,11 +1,6 @@
 
 <div class="container-fluid">
-<nav class="posright">
-    <ul class="side-nav">
-        <li ><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Grant'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
+
 <br>
 <br>
     <h3><?= __('Grants') ?></h3>
@@ -52,8 +47,7 @@
                 <td><?= h($grant->Valid_Exist) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $grant->Grants_ID]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $grant->Grants_ID]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $grant->Grants_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $grant->Grants_ID)]) ?>
+                   
                 </td>
             </tr>
             <?php endforeach; ?>

@@ -1,11 +1,6 @@
 
 <div class="container-fluid">
-<nav class="posright">
-    <ul class="side-nav">
-        <li><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Publication'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
+
 <br>
     <h3><?= __('Publications') ?></h3>
    <table class="table table-bordered">
@@ -53,8 +48,7 @@
                 <td><?= h($publication->Valid_Exist) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $publication->Publications_ID]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $publication->Publications_ID]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $publication->Publications_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $publication->Publications_ID)]) ?>
+                    
                 </td>
             </tr>
             <?php endforeach; ?>

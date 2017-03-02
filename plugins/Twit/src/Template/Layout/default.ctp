@@ -100,13 +100,16 @@ $cakeDescription = '';
 															    <li><a href="/colleges/index">Colleges</a></li> 	
 															     <li><a href="/courses/index">Courses</a></li> 	
 															    <li><a href="/departments/index">Departments</a></li> 
-															     <li><a href="equipments/index">Equipments</a></li> 		
+															     <li><a href="/equipment/index">Equipments</a></li> 		
 													             <li><a href="/faculty/index">Faculty</a></li>   
-													              <li><a href="grants/index">Grants</a></li> 		     		
-													             <li><a href="/labscenters/index">Lab/Centers</a></li> 		
+													              <li><a href="/grants/index">Grants</a></li> 		     		
+													             <li><a href="/labscenters/index">Lab/Centers</a></li> 
+													             <li><a href="/publications/index">Publications</a></li> 	
+													               <li><a href="/universities/index">University</a></li> 				
 													                								      
 					        </ul>
 					      </li>
+					      <li><a href="/users/index">Users</a></li>
 	 					<?php endif; ?>
 							<li class=""><a href="/users/logout">Logout</a></li>
 						

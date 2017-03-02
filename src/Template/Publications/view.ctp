@@ -1,15 +1,9 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Publication'), ['action' => 'edit', $publication->Publications_ID]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Publication'), ['action' => 'delete', $publication->Publications_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $publication->Publications_ID)]) ?> </li>
-        <li><?= $this->Html->link(__('List Publications'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Publication'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="publications view large-9 medium-8 columns content">
-    <h3><?= h($publication->Publications_ID) ?></h3>
-    <table class="vertical-table">
+
+<div class="container">
+  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+
+    <h3><?= h('Publications Detail') ?></h3>
+       <table class="table table-reflow">
         <tr>
             <th><?= __('Publication Name') ?></th>
             <td><?= h($publication->Publication_Name) ?></td>
