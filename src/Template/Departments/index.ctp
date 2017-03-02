@@ -1,11 +1,6 @@
 
 <div class="container-fluid">
-<nav class="posright">
-    <ul class="side-nav">
-        <li ><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Department'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
+
 <br>
 <br>
     <h3><?= __('Departments') ?></h3>
@@ -26,8 +21,7 @@
                 <td><?= $this->Number->format($department->Colleges_ID) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $department->Departments_ID]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $department->Departments_ID]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $department->Departments_ID], ['confirm' => __('Are you sure you want to delete # {0}?', $department->Departments_ID)]) ?>
+                    
                 </td>
             </tr>
             <?php endforeach; ?>

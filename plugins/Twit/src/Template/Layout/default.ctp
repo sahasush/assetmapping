@@ -98,8 +98,13 @@ $cakeDescription = '';
 											<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Data Tables<span class="caret"></span></a>
 															 <ul class="dropdown-menu">
 															    <li><a href="/colleges/index">Colleges</a></li> 	
-													             <li><a href="/faculty/index">Faculty</a></li>        		
-													              <li><a href="/labscenters/index">Lab/Centers</a></li> 										      
+															     <li><a href="/courses/index">Courses</a></li> 	
+															    <li><a href="/departments/index">Departments</a></li> 
+															     <li><a href="equipments/index">Equipments</a></li> 		
+													             <li><a href="/faculty/index">Faculty</a></li>   
+													              <li><a href="grants/index">Grants</a></li> 		     		
+													             <li><a href="/labscenters/index">Lab/Centers</a></li> 		
+													                								      
 					        </ul>
 					      </li>
 	 					<?php endif; ?>
