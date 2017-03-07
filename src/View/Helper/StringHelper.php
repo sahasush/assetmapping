@@ -41,4 +41,23 @@ class StringHelper extends Helper {
 	}
 	
 	
+	public function moYearFormat($mon, $year)
+	{
+		// Logic to create specially formatted link goes here...
+	
+		$output='';
+	
+		if(strlen(trim($mon)) > 0){
+			$output=$mon;
+		}
+	
+		if(strlen(trim($year)) > 0){
+			$output=$output.','.$year;
+		}
+	
+	
+		return $output;
+	}
+	
+	
 }
