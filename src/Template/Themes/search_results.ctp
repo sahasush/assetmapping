@@ -4,7 +4,7 @@
 <br>
 
     <h4><?= __('Search Results') ?> by <b><?=ucfirst($component) ?></b> by <?= h($theme->Theme) ?> Theme</h3>
-     
+    
      <!--  Theme dept degree data -->
      <?php if ($component=='degree'): ?>
     
@@ -100,6 +100,9 @@
             <th data-field="university"  data-sortable="true"><?= __('University') ?></th>    
             <th data-field="college"  data-sortable="true"><?= __('College') ?></th>    
              <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
+              <?php if (in_array("Labs_Centers_ID", $colnames)): ?>                 
+                     <th><?= __('Labs Centers ID') ?></th>  
+                       <?php endif; ?>
                 <th data-field="center_name"  data-sortable="true"><?= __('Center Name') ?></th>   
               <th data-field="center_type"  data-sortable="true"><?= __('Center Type') ?></th>   
                <th class="actions"><?= __('Additional Details') ?></th>
@@ -114,6 +117,9 @@
                  <td><?= h($values['University']) ?></td>    
                  <td><?= h($values['College']) ?></td>  
                  <td><?= h($values['Department']) ?></td>  
+                 <?php if (in_array("Labs_Centers_ID", $colnames)): ?>                 
+                     <td><?=h($values['labs_centers_id'])?></td>  
+                       <?php endif; ?>
                   <td><?= h($values['center_name']) ?></td>
                  <td><?= h($values['center_type']) ?></td>
                  <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'labsCenters','action' => 'view', $values['labs_centers_id']])?> </td>               
@@ -136,8 +142,11 @@
             <th data-field="university"  data-sortable="true"><?= __('University') ?></th>    
             <th data-field="college"  data-sortable="true"><?= __('College') ?></th>    
              <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
+              <?php if (in_array("Faculty_ID", $colnames)): ?>                 
+                     <th><?= __('Faculty ID') ?></th>  
+                       <?php endif; ?>
                 <th data-field="faculty_name"  data-sortable="true"><?= __('Faculty Name') ?></th>   
-              <th data-field="position"  data-sortable="true"><?= __('Position') ?></th>   
+                 
               <th data-field="center_name"  data-sortable="true"><?= __('Center Name') ?></th>   
                 <th class="actions"><?= __('Additional Info') ?></th>
                 <th class="actions"><?= __('Publications') ?></th>
@@ -153,8 +162,11 @@
                  <td><?= h($values['University']) ?></td>    
                  <td><?= h($values['College']) ?></td>  
                  <td><?= h($values['Department']) ?></td>  
+                 <?php if (in_array("Faculty_ID", $colnames)): ?>                 
+                     <td><?=h($values['Faculty_ID'])?></td>  
+                       <?php endif; ?>
                  <td><?= h($this->String->  lnameFirst($values['Faculty_Lname']   ,$values['Faculty_MInitial'],$values['Faculty_Fname']) )?></td>                 
-                   <td><?= h($values['Position']) ?></td>
+                
                   <td><?= h($values['Center_Name']) ?></td>
                   <td class="actions"> <?= $this->Html->link(__('View Faculty'), ['controller'=>'faculty','action' => 'view', $values['Faculty_ID']])?> </td>
                    <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'viewpublications', $values['Faculty_ID']])?> </td>

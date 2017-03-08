@@ -25,20 +25,17 @@ class ThemesController extends AppController {
 	 *
 	 * @return \Cake\Network\Response|null
 	 */
-	
-	public function initialize()
-	{
-		parent::initialize();
-		$this->loadComponent('Paginator');
-		$this ->loadComponent('Global')	;
+	public function initialize() {
+		parent::initialize ();
+		$this->loadComponent ( 'Paginator' );
+		$this->loadComponent ( 'Global' );
 	}
-	
 	public function index() {
 		$themes = $this->paginate ( $this->Themes );
 		
 		$this->set ( compact ( 'themes' ) );
 		
-		$colnames = $this->loadTablePermission ($this->request->session ());
+		$colnames = $this->loadTablePermission ( $this->request->session () );
 		
 		$this->set ( '_serialize', [ 
 				'themes' 
@@ -78,29 +75,27 @@ class ThemesController extends AppController {
 			
 			// Find relative themes
 			
-			
-			//Get Role
+			// Get Role
 			$session = $this->request->session ();
-			$username= $session->read ( 'User.name' );
+			$username = $session->read ( 'User.name' );
 			// GET ROLE
 			
 			$role = $session->read ( 'User.role' );
 			$admin = Configure::read ( 'Role.Admin' );
 			
-			$this->set('role',$role);
-			$this->set('Admin',$admin);
-			
+			$this->set ( 'role', $role );
+			$this->set ( 'Admin', $admin );
 			
 			$conn = ConnectionManager::get ( 'default' );
 			
-			//get the theme
+			// get the theme
 			
-			$theme = $this->Themes->find ()->where ( [
-					'Themes_ID' => $theme_id
+			$theme = $this->Themes->find ()->where ( [ 
+					'Themes_ID' => $theme_id 
 			] );
 			
-			$theme=$theme->first();
-			$this->log ( "theme::" .$theme, 'debug' );
+			$theme = $theme->first ();
+			$this->log ( "theme::" . $theme, 'debug' );
 			$this->set ( 'theme', $theme );
 			
 			if ($data_component == 'degree') {
@@ -114,9 +109,8 @@ class ThemesController extends AppController {
 						'degrees' 
 				] );
 				
-				$colnames = $this->Global->loadTablePermission ( $session,'degrees' );
-				$this->set('colnames', $colnames);
-					
+				$colnames = $this->Global->loadTablePermission ( $session, 'degrees' );
+				$this->set ( 'colnames', $colnames );
 			} else if ($data_component == 'courses') {
 				
 				// Get dept Data
@@ -125,19 +119,16 @@ class ThemesController extends AppController {
 				] )->fetchAll ( 'assoc' );
 				
 				$this->set ( 'courses', $courses );
-				$this->set ( '_serialize', [ 'courses' 
+				$this->set ( '_serialize', [ 
+						'courses' 
 				] );
 				
-				$colnames = $this->Global->loadTablePermission ( $session,'courses' );
-				$this->set('colnames', $colnames);
+				$colnames = $this->Global->loadTablePermission ( $session, 'courses' );
+				$this->set ( 'colnames', $colnames );
 			} else if ($data_component == 'centers') {
 				
 				// Get dept Data
-				$centers = $conn->execute ( 'select  lc.center_name,lc.labs_centers_id,lc.center_type,lc.research_area, thm.theme as theme,'.
-  '  dept.Department,u.University,c.College  from themes thm  left join themes_centers_junction tcj on  thm.themes_ID=tcj.themes_id '.
-   'left join labs_centers lc on tcj.labs_centers_id=lc.labs_centers_id  left join departments dept on lc.departments_id=dept.departments_id'.
-'  left join universities u on lc.university_id=u.university_id  left join colleges c on c.Colleges_ID= lc.Colleges_ID    where thm.themes_ID=:thm'.
- ' order by thm.theme,u.University,c.College,dept.Department', [ 
+				$centers = $conn->execute ( 'select  lc.center_name,lc.labs_centers_id,lc.center_type,lc.research_area, thm.theme as theme,' . '  dept.Department,u.University,c.College  from themes thm  left join themes_centers_junction tcj on  thm.themes_ID=tcj.themes_id ' . 'left join labs_centers lc on tcj.labs_centers_id=lc.labs_centers_id  left join departments dept on lc.departments_id=dept.departments_id' . '  left join universities u on lc.university_id=u.university_id  left join colleges c on c.Colleges_ID= lc.Colleges_ID    where thm.themes_ID=:thm' . ' order by thm.theme,u.University,c.College,dept.Department', [ 
 						'thm' => $theme_id 
 				] )->fetchAll ( 'assoc' );
 				
@@ -145,34 +136,37 @@ class ThemesController extends AppController {
 				$this->set ( '_serialize', [ 
 						'centers' 
 				] );
+				
+				$colnames = $this->Global->loadTablePermission ( $session, 'labs_centers' );
+				$this->set ( 'colnames', $colnames );
 			} else if ($data_component == 'faculty') {
 				
 				// Get dept Data
 				$faculties = $conn->execute ( 'SELECT f.Faculty_Fname,  f.Faculty_ID,f.Faculty_Lname ,  f.Faculty_MInitial,  f.Position,  lc.Center_Name,
-  thm.theme AS theme,
-  dept.Department,
-  u.University,
-  c.College
-FROM themes thm,
-     departments dept,
-     universities u,
-     colleges c,
-     labs_centers lc,
-     themes_centers_junction tcj,
-     centers_faculty_junction cfj,
-     faculty f
-WHERE thm.Themes_ID = :thm
-AND tcj.Labs_Centers_ID = lc.Labs_Centers_ID
-AND thm.Themes_ID = tcj.Themes_ID
-AND u.University_ID = c.University_ID
-AND c.Colleges_ID = dept.Colleges_ID
-AND lc.Departments_ID = dept.Departments_ID
-AND lc.University_ID = u.University_ID
-AND lc.Colleges_ID = c.Colleges_ID
-  AND f.Faculty_ID=cfj.Faculty_ID
-  AND cfj.Labs_Centers_ID=lc.Labs_Centers_ID
-  AND tcj.Labs_Centers_ID=lc.Labs_Centers_ID
-ORDER BY thm.theme, u.University, c.College, dept.Department', [ 
+										  thm.theme AS theme,
+										  dept.Department,
+										  u.University,
+										  c.College
+										FROM themes thm,
+										     departments dept,
+										     universities u,
+										     colleges c,
+										     labs_centers lc,
+										     themes_centers_junction tcj,
+										     centers_faculty_junction cfj,
+										     faculty f
+										WHERE thm.Themes_ID = :thm
+										AND tcj.Labs_Centers_ID = lc.Labs_Centers_ID
+										AND thm.Themes_ID = tcj.Themes_ID
+										AND u.University_ID = c.University_ID
+										AND c.Colleges_ID = dept.Colleges_ID
+										AND lc.Departments_ID = dept.Departments_ID
+										AND lc.University_ID = u.University_ID
+										AND lc.Colleges_ID = c.Colleges_ID
+										  AND f.Faculty_ID=cfj.Faculty_ID
+										  AND cfj.Labs_Centers_ID=lc.Labs_Centers_ID
+										  AND tcj.Labs_Centers_ID=lc.Labs_Centers_ID
+										ORDER BY thm.theme, u.University, c.College, dept.Department', [ 
 						'thm' => $theme_id 
 				] )->fetchAll ( 'assoc' );
 				
@@ -180,10 +174,15 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 				$this->set ( '_serialize', [ 
 						'faculties' 
 				] );
+				
+				$colnames = $this->Global->loadTablePermission ( $session, 'faculty' );
+				$this->set ( 'colnames', $colnames );
 			}
-			$this->set ( 'colnames', $colnames );
+			
 			$this->set ( 'component', $data_component );
-			$this->set ( '_serialize', ['theme'] );
+			$this->set ( '_serialize', [ 
+					'theme' 
+			] );
 		}
 	}
 	
@@ -198,20 +197,22 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 	public function view($id = null) {
 		
 		// Custom start
-		/**$theme = $this->Themes->find ()->where ( [ 
+		/**
+		 * $theme = $this->Themes->find ()->where ( [
+		 * 'Themes_ID' => $id
+		 * ] )->contain ( 'degrees' )->first ();
+		 */
+		$theme = $this->Themes->find ()->where ( [ 
 				'Themes_ID' => $id 
-		] )->contain ( 'degrees' )->first ();*/
-		
-		
-		$theme = $this->Themes->find ()->where ( [
-				'Themes_ID' => $id
 		] );
-		$theme=$theme->contain([
-    'degrees' => [
-        'sort' => ['degrees.Degree_Level' => 'ASC']
-    ]
-]);
-		$theme=$theme->first();
+		$theme = $theme->contain ( [ 
+				'degrees' => [ 
+						'sort' => [ 
+								'degrees.Degree_Level' => 'ASC' 
+						] 
+				] 
+		] );
+		$theme = $theme->first ();
 		$this->set ( 'theme', $theme );
 		$this->set ( '_serialize', [ 
 				'theme' 
@@ -301,7 +302,6 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 				'action' => 'index' 
 		] );
 	}
-	
 	public function beforeFilter(Event $event) {
 		$session = $this->request->session ();
 		$role = $session->read ( 'User.role' );
@@ -336,24 +336,23 @@ ORDER BY thm.theme, u.University, c.College, dept.Department', [
 	public function isAuthorized($user) {
 		$session = $this->request->session ();
 		$role = $session->read ( 'User.role' );
-	
+		
 		$admin = Configure::read ( 'Role.Admin' );
-		if ($role != $admin) {$this->log ( "Test:Not admin::" . $role."--action".$this->request->action , 'debug' );
-			if ($this->request->action == 'view' || $this->request->action == 'search' || $this->request->action == 'searchResults' ) {
+		if ($role != $admin) {
+			$this->log ( "Test:Not admin::" . $role . "--action" . $this->request->action, 'debug' );
+			if ($this->request->action == 'view' || $this->request->action == 'search' || $this->request->action == 'searchResults') {
 				$this->log ( "Test:Not admin--1::" . $role, 'debug' );
 				return true;
-			}else{
-				$this->Flash->error(__('Page not authorized'));
+			} else {
+				$this->Flash->error ( __ ( 'Page not authorized' ) );
 				return false;
 			}
-				
-				
-		}else{
-				
+		} else {
+			
 			$this->log ( "Test: admin::" . $role, 'debug' );
 			return true;
 		}
-	
-		return parent::isAuthorized($user);
+		
+		return parent::isAuthorized ( $user );
 	}
 }

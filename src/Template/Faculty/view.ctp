@@ -95,6 +95,13 @@
 			<td><?= $this->Text->autoParagraph(h($faculty->Other)); ?></td>
 		</tr>
 		<tr>
+		<tr>
+			<th><?= __('Publications') ?></th>
+				 <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'viewpublications', $faculty->Faculty_ID])?> </td>
+		</tr>
+		<tr>
+		
+	
 	
 	</table>
        <?php if (in_array("Sources", $colnames)): ?>

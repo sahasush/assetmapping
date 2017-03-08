@@ -1,6 +1,7 @@
 
 <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 
+
 <h4><?= __('Search Results') ?> for <b><?=ucfirst($component) ?></b>
 	</h3>
 

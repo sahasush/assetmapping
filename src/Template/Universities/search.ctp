@@ -69,7 +69,7 @@
 		</div>
  </div>
  
-    <?= $this->Form->button('Search', ['type' => 'submit'])?>
+    <?= $this->Form->button('Search', ['type' => 'submit','id' => 'save'])?>
   <?= $this->Form->button('Reset', ['type' => 'reset']);?>
   </td>
    <?= $this->Form->end()?>
@@ -192,6 +192,7 @@ $('#form1').on('reset', function() {
 		  
 	  });
 	});
+
 
 </script>
         

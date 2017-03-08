@@ -195,5 +195,6 @@ $('#form1').on('reset', function() {
 	  });
 	});
 
+
 </script>
 
