@@ -30,6 +30,7 @@ class ThemesController extends AppController {
 	{
 		parent::initialize();
 		$this->loadComponent('Paginator');
+		$this ->loadComponent('Global')	;
 	}
 	
 	public function index() {
@@ -89,6 +90,7 @@ class ThemesController extends AppController {
 			$this->set('role',$role);
 			$this->set('Admin',$admin);
 			
+			
 			$conn = ConnectionManager::get ( 'default' );
 			
 			//get the theme
@@ -103,7 +105,7 @@ class ThemesController extends AppController {
 			
 			if ($data_component == 'degree') {
 				
-				$degrees = $conn->execute ( 'select thm.theme as theme,u.University_ID,u.University,c.Colleges_ID,dept.Departments_ID,c.College ,dept.Department,d.Degree_Level,d.Degrees_ID,d.Program_Name from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and thm.themes_id=:theme', [ 
+				$degrees = $conn->execute ( 'select thm.theme as theme,u.University_ID,u.University,c.Colleges_ID,dept.Departments_ID,c.College ,dept.Department,d.Degree_Level,d.Degrees_ID,d.Description,d.Sources,d.Program_Name from themes thm,themes_degrees_junction dj ,dept_degrees_junction ddj,degrees d,departments dept,universities u,colleges c where thm.themes_ID=dj.themes_id and dj.degrees_id=ddj.degrees_id and d.degrees_id=ddj.degrees_id  and dept.Departments_ID=ddj.deptartments_id and u.University_ID=c.University_ID and c.Colleges_ID=dept.Colleges_ID and thm.themes_id=:theme', [ 
 						'theme' => $theme_id 
 				] )->fetchAll ( 'assoc' );
 				
@@ -111,16 +113,23 @@ class ThemesController extends AppController {
 				$this->set ( '_serialize', [ 
 						'degrees' 
 				] );
+				
+				$colnames = $this->Global->loadTablePermission ( $session,'degrees' );
+				$this->set('colnames', $colnames);
+					
 			} else if ($data_component == 'courses') {
 				
 				// Get dept Data
-				$courses = $conn->execute ( 'SELECT DISTINCT' . '(co.Course_Title),  co.Course_Number,  thm.theme,  dept.Department,' . ' u.University,  c.College FROM themes thm, themes_courses_junction dc,' . ' courses co, departments dept, universities u,colleges c WHERE thm.Themes_ID = dc.Themes_ID' . ' AND co.Departments_ID = dept.Departments_ID AND thm.Themes_ID=:th' . ' AND u.University_ID = c.University_ID AND c.Colleges_ID = dept.Colleges_ID ORDER BY thm.Theme,u.University', [ 
+				$courses = $conn->execute ( 'SELECT DISTINCT' . '(co.Course_Title), co.Courses_ID,co.Course_Abbr,co.Course_Number,co.Units,co.Catalog_Link,co.Sources,co.Course_Number,  thm.theme,  dept.Department,' . ' u.University,  c.College FROM themes thm, themes_courses_junction dc,' . ' courses co, departments dept, universities u,colleges c WHERE thm.Themes_ID = dc.Themes_ID' . ' AND co.Departments_ID = dept.Departments_ID AND thm.Themes_ID=:th' . ' AND u.University_ID = c.University_ID AND c.Colleges_ID = dept.Colleges_ID ORDER BY thm.Theme,u.University', [ 
 						'th' => $theme_id 
 				] )->fetchAll ( 'assoc' );
 				
 				$this->set ( 'courses', $courses );
 				$this->set ( '_serialize', [ 'courses' 
 				] );
+				
+				$colnames = $this->Global->loadTablePermission ( $session,'courses' );
+				$this->set('colnames', $colnames);
 			} else if ($data_component == 'centers') {
 				
 				// Get dept Data

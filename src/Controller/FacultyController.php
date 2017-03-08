@@ -397,6 +397,10 @@ class FacultyController extends AppController
 			$data_component = $this->request->query['Datacomponent'];
 			$this->log("Univ ID--".$university_id ."--Fac ID--".$fac_id."--Comp--".$data_component, 'debug');
 			$this->set ( 'component', $data_component );
+			
+			$session = $this->request->session ();
+			
+			
 			// Find relative themes
 			$conn = ConnectionManager::get ( 'default' );
 			if ($data_component == 'faculty') {
@@ -437,6 +441,9 @@ class FacultyController extends AppController
 				$this->set ( '_serialize', [
 						'facdata'
 				] );
+				
+				$colnames = $this->Global->loadTablePermission ( $session, 'faculty' );
+				$this->set ( 'colnames', $colnames );
 			
 			}else if ($data_component == 'publication') {
 				return $this->redirect(['action' => 'viewpublications', $fac_id]);

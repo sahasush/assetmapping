@@ -1,3 +1,5 @@
+
+<div class="container">
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <br>
 
@@ -7,18 +9,22 @@
      <?php if ($component=='degree'): ?>
     
   <table data-toggle="table"  data-sort-name="theme" data-sort-order="asc">
-   
+ 
      <thead>
         <tr>
            
-            <th data-field="university"  data-sortable="true"><?= __('University') ?></th>    
+            <th data-field="university"  data-sortable="true"><?= __('University') ?></th>                
+            <th data-field="college"  data-sortable="true"><?= __('College') ?></th>                
+             <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>        
+              <?php if (in_array("Degrees_ID", $colnames)): ?> 
+                <th data-field="degree_id"  data-sortable="true"><?= __('Degrees ID') ?></th> 
+                  <?php endif; ?>            
+                 <th data-field="program_name"  data-sortable="true"><?= __('Program Name') ?></th>   
+                 
+                <th data-field="degree_level"  data-sortable="true"><?= __('Degree Level') ?></th> 
+                  <th data-field="action"  ><?= __('View Additional Details') ?></th>   
+                 
              
-            <th data-field="college"  data-sortable="true"><?= __('College') ?></th>    
-            
-             <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
-               
-                <th data-field="degree_level"  data-sortable="true"><?= __('Degree Level') ?></th>   
-              <th data-field="program_name"  data-sortable="true"><?= __('Program Name') ?></th>   
               </tr> 
         </thead>
         <tbody>
@@ -26,14 +32,15 @@
                 <?php foreach ($degrees as $key=>$values): ?>
                  <tr>
                   
-                 <td><?= h($values['University']) ?></td>    
-                  
-                 <td><?= h($values['College']) ?></td>  
-                 
-                 <td><?= h($values['Department']) ?></td>  
-                
+                 <td><?= h($values['University']) ?> </td>  
+                 <td><?= h($values['College']) ?></td>                   
+                 <td><?= h($values['Department']) ?></td>      
+                  <?php if (in_array("Degrees_ID", $colnames)): ?> 
+                		<td><?= h($values['Degrees_ID']) ?></td>      
+                  <?php endif; ?>                 
+                  <td><?= h($values['Program_Name']) ?></td>            
                   <td><?= h($values['Degree_Level']) ?></td>
-                 <td><?= h($values['Program_Name']) ?></td>               
+                   <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'degrees','action' => 'view', $values['Degrees_ID']])?> </td>
                   
                    
                    </tr>
@@ -51,9 +58,14 @@
             <th data-field="theme"  data-sortable="true"><?= __('Theme') ?></th>    
             <th data-field="university"  data-sortable="true"><?= __('University') ?></th>    
             <th data-field="college"  data-sortable="true"><?= __('College') ?></th>    
-             <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>    
+             <th data-field="department"  data-sortable="true"><?= __('Department') ?></th>  
+              <?php if (in_array("Courses_ID", $colnames)): ?> 
+                <th data-field="course_id"  data-sortable="true"><?= __('Course ID') ?></th> 
+                  <?php endif; ?>   
                 <th data-field="course_title"  data-sortable="true"><?= __('Course Title') ?></th>   
+                <th data-field="course_abbr"  data-sortable="true"><?= __('Course Abbr') ?></th>   
               <th data-field="course_number"  data-sortable="true"><?= __('Course Number') ?></th>   
+              <th data-field="action"  ><?= __('View Additional Details') ?></th>   
               </tr> 
         </thead>
         <tbody>
@@ -64,9 +76,13 @@
                  <td><?= h($values['University']) ?></td>    
                  <td><?= h($values['College']) ?></td>  
                  <td><?= h($values['Department']) ?></td>  
+                 <?php if (in_array("Courses_ID", $colnames)): ?>                 
+                     <td><?=h($values['Courses_ID'])?></td>  
+                       <?php endif; ?>
                   <td><?= h($values['Course_Title']) ?></td>
+                  <td><?= h($values['Course_Abbr']) ?></td>
                  <td><?= h($values['Course_Number']) ?></td>               
-                  
+                  <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'courses','action' => 'view', $values['Courses_ID']])?> </td>
                    
                    </tr>
                 <?php endforeach; ?>
@@ -145,11 +161,13 @@
                   
                    </tr>
                 <?php endforeach; ?>
-            </td>
+            
             </tbody>
     </table>
      <?php endif; ?>
      
      
 </div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>

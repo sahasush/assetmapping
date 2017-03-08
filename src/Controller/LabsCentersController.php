@@ -22,6 +22,12 @@ class LabsCentersController extends AppController {
 	// Custom start
 	
 	// end
+	public function initialize() {
+		parent::initialize ();
+		$this->loadComponent ( 'Paginator' );
+		$this->loadComponent ( 'Global' );
+	}
+	
 	/**
 	 * Index method
 	 *
@@ -285,7 +291,7 @@ class LabsCentersController extends AppController {
 			$this->log ( "entered get::", 'debug' );
 			// Get the request ids
 			$university_id = $this->request->query ['university_id'];
-			$center_id = $this->request->query['labs_center_id'];
+			$center_id = $this->request->query ['labs_center_id'];
 			$data_component = $this->request->query ['Datacomponent'];
 			$this->log ( "Debug university_id --center_id--datacomponent::" . $university_id . '<>' . $center_id . '<>' . $data_component, 'debug' );
 			
@@ -296,6 +302,7 @@ class LabsCentersController extends AppController {
 			
 			// Find relative themes
 			$conn = ConnectionManager::get ( 'default' );
+			$session = $this->request->session ();
 			
 			// Labs centers
 			if ($data_component == 'centers') {
@@ -317,8 +324,8 @@ class LabsCentersController extends AppController {
 				$this->set ( '_serialize', [ 
 						'centers' 
 				] );
-				//Grants
-			}else if ($data_component == 'grants') {
+				// Grants
+			} else if ($data_component == 'grants') {
 				// Get dept Data
 				$results = $conn->execute ( 'SELECT
   lc.Center_Name,
@@ -330,7 +337,22 @@ class LabsCentersController extends AppController {
   u.University,
   c.College,
   g.Grant_Project_Title,
-  g.Grants_ID
+  g.Grants_ID,
+						g.Research_Obj,
+						g.Grantor,
+						g.Grant_Amount,
+						g.Effective_Yr,
+						g.Effective_Mo,
+						g.Expiration_Yr,
+						g.Expiration_Mo,
+						g.PI_LName,
+						g.PI_FName,
+						g.PI_Minitial,
+						g.Other,
+						g.Sources,
+						g.Validation,
+						g.Validation_Source,
+						g.Valid_Exist
 FROM labs_centers lc,themes_centers_junction tcj,themes thm,departments dept,universities u,colleges c, grants g,centers_grants_junction cgj
 WHERE  lc.University_ID = :univ
     AND lc.Labs_Centers_ID = tcj.Labs_Centers_ID
@@ -348,11 +370,16 @@ GROUP BY lc.Center_Name', [
 				
 				$this->set ( 'grants', $results );
 				$this->set ( '_serialize', [ 
-						'grants'
+						'grants' 
 				] );
+				
+				
+				$colnames = $this->Global->loadTablePermission ( $session, 'grants' );
+				$this->set ( 'colnames', $colnames );
 			} else if ($data_component == 'equipment') {
 				
-				$results = $conn->execute ( 'select lc.Center_Name,lc.Labs_Centers_ID,lc.Center_Type,lc.Research_Area,e.Equipment_ID,GROUP_CONCAT(DISTINCT thm.Theme SEPARATOR ",") Theme,dept.Department,u.University,c.College,e.Brand,e.Model,e.Type from 
+				$results = $conn->execute ( 'select lc.Center_Name,lc.Labs_Centers_ID,lc.Center_Type,lc.Research_Area,e.Equipment_ID,GROUP_CONCAT(DISTINCT thm.Theme SEPARATOR ",") Theme,dept.Department,u.University,c.College,e.Brand,e.Model,e.Type,e.Serial_Number,e.Condition,e.Public_Access,e.Ownrshp_Status,e.Other,
+						e. Validation,e.Validation_Source,e.Valid_Exist,e.Sources from 
 				 labs_centers lc , themes_centers_junction tcj,themes thm ,departments dept,universities u,colleges c, equipment e
 				  where lc.Labs_Centers_ID=tcj.Labs_Centers_ID 
 				  and thm.themes_ID=tcj.Themes_ID
@@ -370,51 +397,60 @@ GROUP BY lc.Center_Name', [
 				$this->set ( '_serialize', [ 
 						'equipments' 
 				] );
+				
+				$colnames = $this->Global->loadTablePermission ( $session, 'equipment' );
+				$this->set ( 'colnames', $colnames );
+							
+				
 			} else if ($data_component == 'faculty') {
-				// Faculty
+				// Faculty				
+																$results = $conn->execute ( 'SELECT
+												  lc.Center_Name,
+												  lc.Labs_Centers_ID,
+												  lc.Center_Type,
+												  GROUP_CONCAT(DISTINCT thm.Theme SEPARATOR ",") Theme,
+												  dept.Department,
+												  u.University,
+												  c.College,
+												  f.Faculty_ID,
+												  f.Faculty_Lname,
+												  f.Faculty_Fname,
+												  f.Faculty_MInitial
+												FROM labs_centers lc,
+												     themes_centers_junction tcj,
+												     themes thm,
+												     departments dept,
+												     universities u,
+												     colleges c,
+												     centers_faculty_junction cfj,
+												     faculty f
+												WHERE lc.University_ID = :univ
+												AND lc.Labs_Centers_ID = :lab
+												AND lc.Labs_Centers_ID = tcj.Labs_Centers_ID
+												AND thm.Themes_ID = tcj.Themes_ID
+												AND lc.Departments_ID = dept.Departments_ID
+												AND lc.University_ID = u.University_ID
+												AND lc.Colleges_ID = c.Colleges_ID
+												AND cfj.Labs_Centers_ID = lc.Labs_Centers_ID
+												AND cfj.Faculty_ID = f.Faculty_ID
+												GROUP BY lc.Center_Name,
+												         f.Faculty_Lname,
+												         f.Faculty_Fname', [ 
+																		'univ' => $university_id,
+																		'lab' => $center_id 
+																] )->fetchAll ( 'assoc' );
 				
-									$results = $conn->execute ( 'SELECT
-  lc.Center_Name,
-  lc.Labs_Centers_ID,
-  lc.Center_Type,
-  GROUP_CONCAT(DISTINCT thm.Theme SEPARATOR ",") Theme,
-  dept.Department,
-  u.University,
-  c.College,
-  f.Faculty_ID,
-  f.Faculty_Lname,
-  f.Faculty_Fname,
-  f.Faculty_MInitial
-FROM labs_centers lc,
-     themes_centers_junction tcj,
-     themes thm,
-     departments dept,
-     universities u,
-     colleges c,
-     centers_faculty_junction cfj,
-     faculty f
-WHERE lc.University_ID = :univ
-AND lc.Labs_Centers_ID = :lab
-AND lc.Labs_Centers_ID = tcj.Labs_Centers_ID
-AND thm.Themes_ID = tcj.Themes_ID
-AND lc.Departments_ID = dept.Departments_ID
-AND lc.University_ID = u.University_ID
-AND lc.Colleges_ID = c.Colleges_ID
-AND cfj.Labs_Centers_ID = lc.Labs_Centers_ID
-AND cfj.Faculty_ID = f.Faculty_ID
-GROUP BY lc.Center_Name,
-         f.Faculty_Lname,
-         f.Faculty_Fname', [ 
-						'univ' => $university_id,
-						'lab' => $center_id 
-				] )->fetchAll ( 'assoc' );
-				
-				$this->set ( 'faculties', $results );
-				$this->set ( '_serialize', [ 
-						'faculties' 
-				] );
+										$this->set ( 'faculties', $results );
+										$this->set ( '_serialize', [ 
+												'faculties' 
+										] );
+										
+										$colnames = $this->Global->loadTablePermission ( $session, 'faculty' );
+										$this->set ( 'colnames', $colnames );
 			}
 			$this->set ( 'component', $data_component );
+			
+			
 		}
 	}
 	
@@ -424,24 +460,23 @@ GROUP BY lc.Center_Name,
 	public function isAuthorized($user) {
 		$session = $this->request->session ();
 		$role = $session->read ( 'User.role' );
-	
+		
 		$admin = Configure::read ( 'Role.Admin' );
-		if ($role != $admin) {$this->log ( "Test:Not admin::" . $role."--action".$this->request->action , 'debug' );
-		if ($this->request->action == 'view' || $this->request->action == 'search' || $this->request->action == 'searchResults' || $this->request->action == 'univCentersAjax') {
-			$this->log ( "Test:Not admin--1::" . $role, 'debug' );
-			return true;
-		}else{
-			$this->Flash->error(__('Page not authorized'));
-			return false;
-		}
-	
-	
-		}else{
-	
+		if ($role != $admin) {
+			$this->log ( "Test:Not admin::" . $role . "--action" . $this->request->action, 'debug' );
+			if ($this->request->action == 'view' || $this->request->action == 'search' || $this->request->action == 'searchResults' || $this->request->action == 'univCentersAjax') {
+				
+				return true;
+			} else {
+				$this->Flash->error ( __ ( 'Page not authorized' ) );
+				return false;
+			}
+		} else {
+			
 			$this->log ( "Test: admin::" . $role, 'debug' );
 			return true;
 		}
-	
-		return parent::isAuthorized($user);
+		
+		return parent::isAuthorized ( $user );
 	}
 }

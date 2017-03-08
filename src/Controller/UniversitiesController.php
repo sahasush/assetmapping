@@ -34,6 +34,7 @@ class UniversitiesController extends AppController {
 			];
 		}
 		parent::initialize ();
+		$this->loadComponent ( 'Global' );
 	}
 	
 	/**
@@ -204,20 +205,17 @@ class UniversitiesController extends AppController {
 		$colleges = $values->find ( 'list', [ 
 				'keyField' => 'College_ID',
 				'valueField' => 'College' 
-				] )->where ( [ 
+		] )->where ( [ 
 				'Colleges.Colleges_ID = ' => '0' 
-				] )->order ( [ 
-						'College' => 'ASC' 
-				] );
+		] )->order ( [ 
+				'College' => 'ASC' 
+		] );
 		
 		$colleges->distinct ( [ 
 				'College' 
 		] );
 		
-		
-		$colleges=$colleges->cleanCopy();
-		
-
+		$colleges = $colleges->cleanCopy ();
 		
 		// Find Colleges
 		$values = TableRegistry::get ( 'Departments' );
@@ -225,7 +223,7 @@ class UniversitiesController extends AppController {
 		$departments = $values->find ( 'list', [ 
 				'keyField' => 'Departments_ID',
 				'valueField' => 'Department' 
-				] )->where ( [ 
+		] )->where ( [ 
 				'Departments.Departments_ID = ' => '0' 
 		] )->order ( [ 
 				'Department' => 'ASC' 
@@ -233,7 +231,6 @@ class UniversitiesController extends AppController {
 		$departments->distinct ( [ 
 				'Department' 
 		] );
-		
 		
 		$this->set ( compact ( 'universities' ) );
 		$this->set ( '_serialize', [ 
@@ -366,14 +363,13 @@ class UniversitiesController extends AppController {
 			
 			// Find relative themes
 			$conn = ConnectionManager::get ( 'default' );
+			$session = $this->request->session ();
 			if ($data_component == 'degrees') {
 				
 				$tbl = TableRegistry::get ( 'Degrees' );
 				
-		
-				
 				$data = $tbl->find ( 'all' )->leftJoin ( 'dept_degrees_junction', 'dept_degrees_junction.degrees_id=Degrees.Degrees_ID' )->where ( [ 
-						'dept_degrees_junction.deptartments_ID IN(' . $department_id .')'
+						'dept_degrees_junction.deptartments_ID IN(' . $department_id . ')' 
 				] );
 				
 				$total = $data->count ();
@@ -396,6 +392,9 @@ class UniversitiesController extends AppController {
 				] );
 				
 				$this->set ( 'component', $data_component );
+				
+				$colnames = $this->Global->loadTablePermission ( $session, 'degrees' );
+				$this->set ( 'colnames', $colnames );
 			} else if ($data_component == 'courses') {
 				
 				$values = TableRegistry::get ( 'Courses' );
@@ -419,17 +418,20 @@ class UniversitiesController extends AppController {
 				$this->set ( '_serialize', [ 
 						'deptdata' 
 				] );
+				
+				$colnames = $this->Global->loadTablePermission ( $session, 'courses' );
+				$this->set ( 'colnames', $colnames );
 				// Equpment
 			} else if ($data_component == 'equipment') {
-				//$tbl = TableRegistry::get ( 'LabsCenters' );
+				// $tbl = TableRegistry::get ( 'LabsCenters' );
 				
-				//$data = $tbl->find ( 'all' )->leftJoin ( 'labs_centers', 'labs_centers.labs_centers_id=LabsCenters.labs_centers_id' )->where ( [ 
-					//	'LabsCenters.departments_ID' => $department_id 
-				//] );
+				// $data = $tbl->find ( 'all' )->leftJoin ( 'labs_centers', 'labs_centers.labs_centers_id=LabsCenters.labs_centers_id' )->where ( [
+				// 'LabsCenters.departments_ID' => $department_id
+				// ] );
 				$tbl = TableRegistry::get ( 'Equipment' );
-				$data = $tbl->find ( 'all' )->leftJoin ( 'labs_centers', 'labs_centers.labs_centers_id=equipment.lab_centers_id' )->where ( [
-							'labs_centers.departments_ID' => $department_id
-						] );
+				$data = $tbl->find ( 'all' )->leftJoin ( 'labs_centers', 'labs_centers.labs_centers_id=equipment.lab_centers_id' )->where ( [ 
+						'labs_centers.departments_ID' => $department_id 
+				] );
 				
 				$this->log ( "query::" . $data, 'debug' );
 				;
@@ -447,6 +449,9 @@ class UniversitiesController extends AppController {
 				$this->set ( '_serialize', [ 
 						'deptdata' 
 				] );
+				
+				$colnames = $this->Global->loadTablePermission ( $session, 'equipment' );
+				$this->set ( 'colnames', $colnames );
 				// Labs centers
 			} else if ($data_component == 'centers') {
 				$values = TableRegistry::get ( 'LabsCenters' );
@@ -470,22 +475,24 @@ class UniversitiesController extends AppController {
 				  AND lc.departments_ID=dept.departments_id AND lc.colleges_id=c.Colleges_ID and lc.university_id=u.University_ID
 				  AND lc.Labs_Centers_ID=tcj.Labs_Centers_ID
 				  ORDER BY lc.center_name', [ 
-										'dept' => $department_id 
+						'dept' => $department_id 
 				] )->fetchAll ( 'assoc' );
 				
 				$this->set ( 'deptdata', $deptdata );
 				$this->set ( '_serialize', [ 
 						'deptdata' 
 				] );
-			}else if ($data_component == 'faculty') {
 				
+				$colnames = $this->Global->loadTablePermission ( $session, 'labs_centers' );
+				$this->set ( 'colnames', $colnames );
+			} else if ($data_component == 'faculty') {
 				
 				// Get faculty Data
 				$deptdata = $conn->execute ( 'SELECT 
 					  lc.Center_Name, 
 					  lc.Labs_Centers_ID, 
 					  lc.Center_Type, 
-					 GROUP_CONCAT(DISTINCT  thm.Theme SEPARATOR ",") Theme, 
+					 GROUP_CONCAT(DISTINCT  thm.Theme SEPARATOR ",") theme, 
 					  dept.Department, 
 					  u.University, 
 					  c.College, 
@@ -506,23 +513,21 @@ class UniversitiesController extends AppController {
 						'dept' => $department_id 
 				] )->fetchAll ( 'assoc' );
 				
-				
-					  $this->set ( 'faculties', $deptdata );
-					  $this->set ( '_serialize', [
-					  		'faculties'
-					  ] );
-				
-				$this->log ( 'Empty::' .empty($deptdata).'<>'.count($deptdata),'debug');
-				
-				
-				
-				$this->set ( 'deptdata', $deptdata );
-				$this->set ( '_serialize', [
-						'deptdata'
+				$this->set ( 'faculties', $deptdata );
+				$this->set ( '_serialize', [ 
+						'faculties' 
 				] );
 				
-			}else if ($data_component == 'universities') {
+				$this->log ( 'Empty::' . empty ( $deptdata ) . '<>' . count ( $deptdata ), 'debug' );
 				
+				$this->set ( 'deptdata', $deptdata );
+				$this->set ( '_serialize', [ 
+						'deptdata' 
+				] );
+				
+				$colnames = $this->Global->loadTablePermission ( $session, 'faculty' );
+				$this->set ( 'colnames', $colnames );
+			} else if ($data_component == 'universities') {
 				
 				// Get faculty Data
 				$deptdata = $conn->execute ( '  SELECT
@@ -547,8 +552,8 @@ class UniversitiesController extends AppController {
 				] );
 				
 				$this->set ( 'universities', $deptdata );
-				$this->set ( '_serialize', [
-						'universities'
+				$this->set ( '_serialize', [ 
+						'universities' 
 				] );
 			}
 			
@@ -556,32 +561,28 @@ class UniversitiesController extends AppController {
 		}
 	}
 	
-	
 	/**
 	 * Authorize users
 	 */
 	public function isAuthorized($user) {
 		$session = $this->request->session ();
 		$role = $session->read ( 'User.role' );
-	
+		
 		$admin = Configure::read ( 'Role.Admin' );
 		if ($role != $admin) {
-	
-			if ($this->request->action == 'view' || $this->request->action == 'search' || $this->request->action == 'searchResults' || $this->request->action == 'univCollegesAjax' || $this->request->action == 'collegeDeptAjax'    ) {
-	
+			
+			if ($this->request->action == 'view' || $this->request->action == 'search' || $this->request->action == 'searchResults' || $this->request->action == 'univCollegesAjax' || $this->request->action == 'collegeDeptAjax') {
+				
 				return true;
-			}else{
-				$this->Flash->error(__('Page not authorized'));
+			} else {
+				$this->Flash->error ( __ ( 'Page not authorized' ) );
 				return false;
 			}
-			 
-			 
-		}else{
-			 
-	
+		} else {
+			
 			return true;
 		}
-	
-		return parent::isAuthorized($user);
+		
+		return parent::isAuthorized ( $user );
 	}
 }
