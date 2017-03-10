@@ -149,6 +149,42 @@ class FacultyController extends AppController
 		
 		
 		$faculty = $this->Faculty->get($id, ['contain' => ['Publications'=>['sort'=>['Publications.Publication_Name' => 'ASC']]]]);
+		
+		//Get theme and other faculty info
+		$conn = ConnectionManager::get ( 'default' );
+		$facdata =$conn->execute ( 'select
+					  lc.Center_Name,
+					  lc.Labs_Centers_ID,
+					  lc.Center_Type,
+					  thm.Theme,
+					  dept.Department,
+					  u.University,
+					  c.College,
+					  f.Faculty_ID,
+					 f.Faculty_Lname ,
+					  f.Faculty_Fname,
+					  f.Faculty_MInitial
+					from
+					  faculty f
+            		  LEFT JOIN centers_faculty_junction cfj ON cfj.Faculty_ID=f.Faculty_ID
+            		  LEFT JOIN labs_centers lc ON cfj.Labs_Centers_ID=lc.Labs_Centers_ID
+					  left join themes_centers_junction tcj on lc.Labs_Centers_ID = tcj.Labs_Centers_ID
+					  left join themes thm on thm.themes_ID = tcj.Themes_ID
+					  left join departments dept on lc.departments_ID = dept.departments_id
+					  left join universities u on lc.university_id = u.university_id
+					  left join colleges c on lc.colleges_id = c.colleges_id
+					where
+					  f.Faculty_ID=:fac_id ', ['fac_id' => $id
+							  ] )->fetchAll ( 'assoc' );
+		
+							  	
+		
+							  // $this->log("raw sql::".(Text::toList($sql)),'debug');
+							  	
+							  $this->set ( 'facdata', $facdata );
+							  $this->set ( '_serialize', [
+							  		'facdata'
+							  ] );
 
 		//Get the permission
         $session = $this->request->session ();
@@ -160,10 +196,12 @@ class FacultyController extends AppController
         
         
         $colnames = $this->Global->loadTablePermission ( $session,'publications' );
-        
-        $this->log ( $this->name."_".$this->request->action." ::Colnames::" . implode("--",$colnames), 'debug' );
+               
         $this->set ( 'colnames', $colnames );
-
+        
+        //For faculty
+        $faccolnames = $this->Global->loadTablePermission ( $session,'faculty' );
+        $this->set ( 'faccolnames', $faccolnames );
 		// End permission
 
 		$this->set('faculty', $faculty);

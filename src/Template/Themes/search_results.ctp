@@ -22,6 +22,10 @@
                  <th data-field="program_name"  data-sortable="true"><?= __('Program Name') ?></th>   
                  
                 <th data-field="degree_level"  data-sortable="true"><?= __('Degree Level') ?></th> 
+                 <?php if (in_array("Sources", $colnames)): ?>   
+                 <th data-field="source" ><?= __('Sources') ?></th> 
+                   <?php endif; ?>      
+                 
                   <th data-field="action"  ><?= __('View Additional Details') ?></th>   
                  
              
@@ -40,6 +44,9 @@
                   <?php endif; ?>                 
                   <td><?= h($values['Program_Name']) ?></td>            
                   <td><?= h($values['Degree_Level']) ?></td>
+                     <?php if (in_array("Sources", $colnames)): ?>                 
+                     <td><?=h($values['Sources'])?></td>  
+                       <?php endif; ?>
                    <td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'degrees','action' => 'view', $values['Degrees_ID']])?> </td>
                   
                    

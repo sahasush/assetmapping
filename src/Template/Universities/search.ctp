@@ -38,13 +38,13 @@
      <div class="form-group">    
             <label class="control-label col-sm-2" for="college">College</label>
             <div class="col-sm-10">	          
-				<?= $this->Form->input('college_id', ['label' => false,'id' => 'colleges','empty' => $empty,'collrel' => $collurl ]); ?>  
+				<?= $this->Form->input('college_id', ['label' => false,'id' => 'colleges','empty' => $empty,'collrel' => $collurl , 'required' => true]); ?>  
 			</div>
      </div>
        <div class="form-group">    
             <label class="control-label col-sm-2" for="department">Department</label>
             <div class="col-sm-10">	 
-          <?= $this->Form->input('department_id', ['label' => false,'id' => 'departments', 'empty' => $deptempty]); ?>
+          <?= $this->Form->input('department_id', ['label' => false,'id' => 'departments', 'empty' => $deptempty, 'required' => true,'data-width'=>'fit']); ?>
             
 		</div>
 		</div>
@@ -71,14 +71,9 @@
  
     <?= $this->Form->button('Search', ['type' => 'submit','id' => 'save'])?>
   <?= $this->Form->button('Reset', ['type' => 'reset']);?>
-  </td>
    <?= $this->Form->end()?>
    
   
-   
-   </tr>
-		</tbody>
-		</table>
 	</form>
 </div>
 <!--<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>   -->
@@ -105,7 +100,7 @@ $(function() {
 					console.log($('#colleges').html());
 					 $('#colleges').addClass('selectpicker');
 					 $('#colleges').attr('data-live-search', 'true');
-					 $('#colleges').attr('data-width','100%');
+					 $('#colleges').attr('data-width','fit');
 					 $('#colleges').selectpicker('refresh').selectpicker('refresh');
 					  $('#departments').empty();
 					  $('#departments').selectpicker('refresh').selectpicker('refresh');			

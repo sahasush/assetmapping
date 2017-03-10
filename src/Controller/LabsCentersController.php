@@ -378,7 +378,7 @@ GROUP BY lc.Center_Name', [
 				$this->set ( 'colnames', $colnames );
 			} else if ($data_component == 'equipment') {
 				
-				$results = $conn->execute ( 'select lc.Center_Name,lc.Labs_Centers_ID,lc.Center_Type,lc.Research_Area,e.Equipment_ID,GROUP_CONCAT(DISTINCT thm.Theme SEPARATOR ",") Theme,dept.Department,u.University,c.College,e.Brand,e.Model,e.Type,e.Serial_Number,e.Condition,e.Public_Access,e.Ownrshp_Status,e.Other,
+				$results = $conn->execute ( 'select lc.Center_Name,lc.Labs_Centers_ID,lc.Center_Type,lc.Research_Area,e.Equipment_ID,GROUP_CONCAT(DISTINCT thm.Theme SEPARATOR ",") Theme,dept.Department,u.University,c.College,e.Description,e.Brand,e.Model,e.Type,e.Serial_Number,e.Condition,e.Public_Access,e.Ownrshp_Status,e.Other,
 						e. Validation,e.Validation_Source,e.Valid_Exist,e.Sources from 
 				 labs_centers lc , themes_centers_junction tcj,themes thm ,departments dept,universities u,colleges c, equipment e
 				  where lc.Labs_Centers_ID=tcj.Labs_Centers_ID 

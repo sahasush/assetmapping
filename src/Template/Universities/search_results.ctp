@@ -1,5 +1,5 @@
 
-<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+<button onclick="window.location.href='/universities/search'">Back</button>
 
 
 <h4><?= __('Search Results') ?> for <b><?=ucfirst($component) ?></b>
@@ -242,7 +242,7 @@
 				<th data-field="fac_name" data-sortable="true"><?= __('Faculty') ?></th>
 				<th><?= __('Center Name') ?></th>
 				<th><?= __('Center Type') ?></th>
-				<th><?= __('Theme') ?></th>
+				
 				<th class="actions"><?= __('View More Details') ?></th>
 				<th class="actions"><?= __('View Publications') ?></th>
 			</tr>
@@ -259,7 +259,7 @@
 				</td>
 				<td><?= h($faculty['Center_Name']) ?></td>
 				<td><?= h($faculty['Center_Type']) ?></td>
-				<td><?= h($faculty['theme']) ?></td>
+			
 
 				<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'view', $faculty['Faculty_ID']])?> </td>
 				<td class="actions"> <?= $this->Html->link(__('View'), ['controller'=>'faculty','action' => 'viewpublications',$faculty['Faculty_ID']])?> </td>

@@ -1,4 +1,3 @@
-
 <div class="container">
 
 		<h3><?= __('Search by Faculty') ?></h3>
@@ -45,14 +44,14 @@
      <div class="form-group">    
             <label class="control-label col-sm-2" for="faclname">Faculty Last Name</label>
             <div class="col-sm-10">	          
-				<?= $this->Form->input('fname_id', ['label' => false,'id' => 'faclnames', 'empty' => $empty,'flanmerel' => $flnameurl ]); ?>  
+				<?= $this->Form->input('fname_id', ['label' => false,'id' => 'faclnames', 'empty' => $empty,'flanmerel' => $flnameurl]); ?>  
 				
 			</div>
      </div>
        <div class="form-group">    
             <label class="control-label col-sm-2" for="department">Faculty First Name</label>
             <div class="col-sm-10">	 
-          <?= $this->Form->input('lname_id', ['label' => false,'id' => 'facfnames', 'empty' => $facfnamempty ]); ?>
+          <?= $this->Form->input('lname_id', ['label' => false,'id' => 'facfnames', 'empty' => $facfnamempty,'data-width'=>'fit']); ?>
 		</div>
 		</div>
 		 <div class="form-group">    
@@ -61,9 +60,7 @@
 
 			<div class="input select">
 				 <select
-					class="selectpicker" data-live-search="true" name="Datacomponent"
-					id="Datacomponent">
-					
+					class="selectpicker" data-live-search="true" name="Datacomponent"	id="Datacomponent" data-width="fit">					
 					<option value="faculty">Faculty</option>						
 					<option value="publication">Publication</option>
 					
@@ -76,20 +73,13 @@
       
              
    <?= $this->Form->button('Reset', ['type' => 'reset']); ?>
-   
-  </td>
+
    <?= $this->Form->end()?>
-   
-  
-   
-   </tr>
-		</tbody>
-		</table>
-	</form>
+
 </div>
 
 
- <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
 
 <script>
 $(function() {
@@ -110,7 +100,7 @@ $(function() {
 					$('#faclnames').html(response.content);
 					$('#faclnames').addClass('selectpicker');
 					 $('#faclnames').attr('data-live-search', 'true');
-					 $('#faclnames').attr('data-width','100%');
+					 $('#faclnames').attr('data-width','fit');
 					 $('#faclnames').selectpicker('refresh').selectpicker('refresh');
 					  $('#facfnames').empty();
 					  $('#facfnames').selectpicker('refresh').selectpicker('refresh');
@@ -149,7 +139,7 @@ $(function() {
 					$('#facfnames').html(response.content);
 					$('#facfnames').addClass('selectpicker');
 					 $('#facfnames').attr('data-live-search', 'true');
-					 $('#facfnames').attr('data-width','100%');
+					 $('#facfnames').attr('data-width','fit');
 					 $('#facfnames').selectpicker('refresh').selectpicker('refresh');
 				
 					

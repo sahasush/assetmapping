@@ -1,5 +1,6 @@
   <div class='container-fluid'>
-  <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+  
+<button onclick="window.location.href='/labsCenters/search'">Back</button>
 <br>
 	<h4><?= __('Search Results') ?> for <b><?=ucfirst($component) ?></b> </h4>
 	
@@ -91,10 +92,10 @@
    <table data-toggle="table"  data-sort-name="fac_name" data-sort-order="asc">
 		<thead>
 			<tr>
+				<th data-field="fac_name" data-sortable="true"><?= __('Faculty Name') ?></th>
 				 <?php if (in_array("Faculty_ID", $colnames)): ?> 
                 <th data-field="faculty_id"  data-sortable="true"><?= __('Faculty ID') ?></th> 
-                  <?php endif; ?>            
-				<th data-field="fac_name" data-sortable="true"><?= __('Faculty Name') ?></th>
+                  <?php endif; ?>         
 				<th><?= __('Center Name') ?></th>				
 				<th><?= __('Theme') ?></th>
 				<th><?= __('University') ?></th>
@@ -110,15 +111,17 @@
                 <?php foreach ( $faculties as $faculty ) :?>
     
                              <tr>
-                              <?php if (in_array("Faculty_ID", $colnames)): ?> 
-                							<td><?= h($faculty['Faculty_ID']) ?></td>
-                 		 <?php endif; ?>     
+                              
                              	<td>								
 								<?php if (!empty($faculty['Faculty_ID'])): ?>
 								<?= h($this->String->  lnameFirst($faculty['Faculty_Lname'],$faculty['Faculty_MInitial'],$faculty['Faculty_Fname']) )?>						
 								<?php else :?>
 								--
 								 <?php endif; ?>	</td>	
+								 
+								 <?php if (in_array("Faculty_ID", $colnames)): ?> 
+                							<td><?= h($faculty['Faculty_ID']) ?></td>
+                 		 <?php endif; ?>     
 								<td><?= h($faculty['Center_Name']) ?></td>
 								
 								<td><?= h($faculty['Theme']) ?></td>
@@ -163,6 +166,7 @@
 				<th><?= __('Model') ?></th>
 				<th><?= __('Type') ?></th>
 				<th><?= __('Serial Number') ?></th>
+				<th><?= __('Description') ?></th>
 				<?php if (in_array("Condition", $colnames)): ?> 		
 				<th><?= __('Condition') ?></th>
 				<?php endif; ?> 
@@ -200,6 +204,7 @@
 								<td><?= h($equipment['Model']) ?></td>
 								<td><?= h($equipment['Type']) ?></td>	
 								<td><?= h($equipment['Serial_Number']) ?></td>
+								<td><?= h($equipment['Description']) ?></td>
 								<?php if (in_array("Condition", $colnames)): ?> 							
 								<td><?= h($equipment['Condition']) ?></td>	
 								 <?php endif; ?>    

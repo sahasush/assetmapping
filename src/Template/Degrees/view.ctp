@@ -28,8 +28,10 @@
         <h4><?= __('Description') ?></h4>
         <?= $this->Text->autoParagraph(h($degree->Description)); ?>
     </div>
+    <?php if (in_array("Sources", $colnames)): ?>
     <div class="row">
         <h4><?= __('Sources') ?></h4>
         <?= $this->Text->autoParagraph(h($degree->Sources)); ?>
     </div>
+        <?php endif; ?>
 </div>
