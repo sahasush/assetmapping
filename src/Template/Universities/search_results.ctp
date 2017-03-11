@@ -13,7 +13,7 @@
    <table class="table table-reflow">
 		<tr>
 			<th><?= __('Theme') ?></th>
-			<td><?= h($deptdata[0]['theme']) ?></td>
+			<td><?= h($this->String->  concatenateThemes($deptdata,'theme') )?></td>
 		</tr>
 		<tr>
 			<th><?= __('Department') ?></th>

@@ -3,7 +3,7 @@
   <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <br>
 
-    <h4><?= __('Search Results') ?> by <b><?=ucfirst($component) ?></b> by <?= h($theme->Theme) ?> Theme</h3>
+    <h4><?= __('Search Results') ?> : <b><?=ucfirst($component) ?>s</b> by <?= h($theme->Theme) ?> Theme</h3>
     
      <!--  Theme dept degree data -->
      <?php if ($component=='degree'): ?>
@@ -24,9 +24,8 @@
                 <th data-field="degree_level"  data-sortable="true"><?= __('Degree Level') ?></th> 
                  <?php if (in_array("Sources", $colnames)): ?>   
                  <th data-field="source" ><?= __('Sources') ?></th> 
-                   <?php endif; ?>      
-                 
-                  <th data-field="action"  ><?= __('View Additional Details') ?></th>   
+                   <?php endif; ?>                       
+                  <th  ><?= __('Additional Details') ?></th>   
                  
              
               </tr> 
@@ -57,7 +56,7 @@
     </table>
      <?php endif; ?>
     
-    <?php if ($component=='courses'): ?>
+    <?php if ($component=='course'): ?>
     <table data-toggle="table"  data-sort-name="theme" data-sort-order="asc">
    
      <thead>
@@ -98,7 +97,7 @@
     </table>
      <?php endif; ?>
      <!-- Display Labs Centers -->
-     <?php if ($component=='centers'): ?>
+     <?php if ($component=='center'): ?>
     <table data-toggle="table"  data-sort-name="theme" data-sort-order="asc">
    
      <thead>

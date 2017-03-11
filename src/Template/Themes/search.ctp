@@ -20,8 +20,8 @@
            
             <select  class="selectpicker" data-live-search="true" name="Datacomponent" id="Datacomponent">
                <option value="degree">Degrees</option>
-               <option value="courses">Courses</option>
-               <option value="centers">Labs/Centers</option>
+               <option value="course">Courses</option>
+               <option value="center">Labs/Centers</option>
                <option value="faculty">Faculty</option>
             </select>
            
@@ -46,8 +46,8 @@
      <div class="input select">
              <select  class="selectpicker" data-live-search="true" name="Datacomponent" id="Datacomponent">
                <option value="degree">Degrees</option>
-               <option value="courses">Courses</option>
-               <option value="centers">Labs/Centers</option>
+               <option value="course">Courses</option>
+               <option value="center">Labs/Centers</option>
                <option value="faculty">Faculty</option>
             </select>
            

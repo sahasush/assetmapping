@@ -60,20 +60,20 @@ class StringHelper extends Helper {
 	 */
 	public function concatenateThemes($values, $str) {
 		$cnt = 1;
+		$temp=array();
 		$output = "";
 		foreach ( $values as $val ) {
 			
 			if (strlen ( trim (  $val [$str] ) ) > 0) {
-				// Check if first else prefix comma
-				if ($cnt == 1) {
-					$output = $val [$str];
-				} else {
-					$output = $output . ',' . $val [$str];
-				}
+				$temp[]= $val [$str];				
 			}
-			$cnt = $cnt + 1;
 		}
-		
+		$val=array_unique($temp);
+		if(sizeof($val)>1){
+		$output=implode(",",$val);
+		}else{
+			$output=implode("",$val);
+		}
 		return $output;
 	}
 }

@@ -111,7 +111,7 @@ class ThemesController extends AppController {
 				
 				$colnames = $this->Global->loadTablePermission ( $session, 'degrees' );
 				$this->set ( 'colnames', $colnames );
-			} else if ($data_component == 'courses') {
+			} else if ($data_component == 'course') {
 				
 				// Get dept Data
 				$courses = $conn->execute ( 'SELECT DISTINCT' . '(co.Course_Title), co.Courses_ID,co.Course_Abbr,co.Course_Number,co.Units,co.Catalog_Link,co.Sources,co.Course_Number,  thm.theme,  dept.Department,' . ' u.University,  c.College FROM themes thm, themes_courses_junction dc,' . ' courses co, departments dept, universities u,colleges c WHERE thm.Themes_ID = dc.Themes_ID' . ' AND co.Departments_ID = dept.Departments_ID AND thm.Themes_ID=:th' . ' AND u.University_ID = c.University_ID AND c.Colleges_ID = dept.Colleges_ID ORDER BY thm.Theme,u.University', [ 
@@ -125,7 +125,7 @@ class ThemesController extends AppController {
 				
 				$colnames = $this->Global->loadTablePermission ( $session, 'courses' );
 				$this->set ( 'colnames', $colnames );
-			} else if ($data_component == 'centers') {
+			} else if ($data_component == 'center') {
 				
 				// Get dept Data
 				$centers = $conn->execute ( 'select  lc.center_name,lc.labs_centers_id,lc.center_type,lc.research_area, thm.theme as theme,' . '  dept.Department,u.University,c.College  from themes thm  left join themes_centers_junction tcj on  thm.themes_ID=tcj.themes_id ' . 'left join labs_centers lc on tcj.labs_centers_id=lc.labs_centers_id  left join departments dept on lc.departments_id=dept.departments_id' . '  left join universities u on lc.university_id=u.university_id  left join colleges c on c.Colleges_ID= lc.Colleges_ID    where thm.themes_ID=:thm' . ' order by thm.theme,u.University,c.College,dept.Department', [ 
