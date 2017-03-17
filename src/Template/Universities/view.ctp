@@ -23,7 +23,7 @@
         <tr>
         <th><?= _('Labs Centers')?></th>
         <td>
-        <?php if (!empty($university->labscenters)): ?>
+        <?php if (!empty($university->labs_centers)): ?>
          <table class = "table table-bordered">
         <thead >
   		 <tr>
@@ -36,7 +36,7 @@
   </thead>
   <tbody>
     
-                <?php foreach ($university->labscenters as $lab): ?>
+                <?php foreach ($university->labs_centers as $lab): ?>
                 <tr>
                  <td> <?= h($lab->Center_Name) ?>  </td>
                <td><?= h($lab->Email) ?></td>

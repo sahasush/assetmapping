@@ -34,7 +34,7 @@ class UniversitiesTable extends Table
         $this->displayField('University_ID');
         $this->primaryKey('University_ID');
         
-        $this->hasMany('labscenters', [
+        $this->hasMany('labs_centers', [
         		'alias' => 'LabsCenters',
         		'foreignKey' => 'University_ID',
         		

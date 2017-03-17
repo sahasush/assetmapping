@@ -103,7 +103,7 @@ $cakeDescription = '';
 															     <li><a href="/equipment/index">Equipments</a></li> 		
 													             <li><a href="/faculty/index">Faculty</a></li>   
 													              <li><a href="/grants/index">Grants</a></li> 		     		
-													             <li><a href="/labscenters/index">Lab/Centers</a></li> 
+													             <li><a href="/labs-centers/index">Lab/Centers</a></li> 
 													             <li><a href="/publications/index">Publications</a></li> 	
 													               <li><a href="/universities/index">University</a></li> 				
 													                								      

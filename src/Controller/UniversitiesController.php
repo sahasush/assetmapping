@@ -95,7 +95,7 @@ class UniversitiesController extends AppController {
 	public function view($id = null) {
 		$university = $this->Universities->get ( $id, [ 
 				'contain' => [ 
-						'labscenters' 
+						'labs_centers' 
 				] 
 		] );
 		
