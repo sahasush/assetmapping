@@ -91,7 +91,11 @@
         </tr>
         <tr>
             <th><?= __('URL') ?></th>
-            <td><?= h($labsCenter->Web_URL) ?></td>
+            <td>
+            <?php if (strlen ( trim ( $labsCenter->Web_URL ) ) > 0):?>
+            <a href='<?= h($labsCenter->Web_URL) ?>' target="_blank"><?= h($labsCenter->Web_URL) ?>
+               <?php endif; ?>
+            </td>
         </tr>
         
          <?php if (in_array("Validation", $colnames)): ?>
