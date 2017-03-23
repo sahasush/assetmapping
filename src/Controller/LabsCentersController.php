@@ -68,7 +68,7 @@ class LabsCentersController extends AppController {
 	 * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
 	 */
 	public function view($id = null) {
-		$colnames = $this->loadTablePermission ( $this->request->session () );
+		
 		$this->loadModel ( "LabsCenters" );
 		// $labsCenter = $this->LabsCenters->get($id, [
 		// 'contain' => []
@@ -79,7 +79,7 @@ class LabsCentersController extends AppController {
 		// get user name
 		$session = $this->request->session ();
 		$username = $session->read ( 'User.name' );
-		$colnames = $this->loadTablePermission ( $session );
+		$colnames = $this->Global->loadTablePermission ( $session,'labs_centers' );
 		$labsCenter1 = $this->LabsCenters->find ( 'all' )->where ( [ 
 				'Labs_Centers_ID' => $id 
 		] )->contain ( [ 
@@ -184,29 +184,7 @@ class LabsCentersController extends AppController {
 				'action' => 'index' 
 		] );
 	}
-	public function loadTablePermission($session) {
-		$tblcolPer = TableRegistry::get ( 'TblColPermission' );
-		$colnames = array ();
-		
-		$session = $this->request->session ();
-		$role = $session->read ( 'User.roleID' );
-		// Start a new query.
-		$results = $tblcolPer->find ()->select ( [ 
-				'col_name' 
-		] )->where ( [ 
-				'table_name ' => 'labs_centers' 
-		] )->where ( [ 
-				'role_id' => $role 
-		] );
-		
-		foreach ( $results as $result ) {
-			
-			$this->log ( "colname::" . $result->col_name, 'debug' );
-			$colnames [] = $result->col_name;
-		}
-		
-		return $colnames;
-	}
+	
 	/**
 	 * Search by University,labs center
 	 */
