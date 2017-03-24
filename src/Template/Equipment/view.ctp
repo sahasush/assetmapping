@@ -85,8 +85,10 @@
         <h4><?= __('Other') ?></h4>
         <?= $this->Text->autoParagraph(h($equipment->Other)); ?>
     </div>
+      <?php if (in_array("Sources", $colnames)): ?>
     <div class="row">
         <h4><?= __('Sources') ?></h4>
         <?= $this->Text->autoParagraph(h($equipment->Sources)); ?>
     </div>
+     <?php endif; ?>
 </div>
