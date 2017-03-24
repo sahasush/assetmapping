@@ -25,7 +25,7 @@
           
     </table>
     <div class="row">
-        <h4><?= __('Description') ?></h4>
+        <h4><?= __('Program Description') ?></h4>
         <?= $this->Text->autoParagraph(h($degree->Description)); ?>
     </div>
     <?php if (in_array("Sources", $colnames)): ?>
