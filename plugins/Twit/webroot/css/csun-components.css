@@ -2177,4 +2177,18 @@ button.jcrop-box {
   background: none;
 }
 
+.selectWrapper{
+  border-radius:26px;
+  display:inline-block;
+  overflow:hidden;
+  background:#cccccc;
+  border:1px solid #cccccc;
+}
+.selectCSunBox{
+ width:350px;
+  height:40px;
+  border:0px;
+  outline:none;
+}
+
 /*# sourceMappingURL=components.css.map */

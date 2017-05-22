@@ -50,18 +50,11 @@ $cakeDescription = 'CSU Asset Mapping';
 					<a class="navbar-brand hidden-xs" href="http://www.csun.edu">
 						<img src="https://www.csun.edu/faculty/imgs/csun-logo.png" alt="California State University, Northridge - CSUN">
 					</a>
-					<a class="navbar-brandname hidden-xs" href="https://www.csun.edu/faculty">
-						<img src="/img/geoglogo.JPG" alt="META Lab Faculty Application">
+					<a class="navbar-brandname hidden-xs" href="">
+						<img src="/img/geoglogo.JPG" alt="Asset Database Application">
 					</a>
 				</div>
-				<ul class="list-inline mini-nav pull-right">
-					<li><a href="#main-content">Skip to content</a></li>|
-					<li><a href="http://www.csun.edu/universaldesigncenter">Accessibility</a></li>|
-					<li><a href="https://mynorthridge.csun.edu/psc/PANRPRD/EMPLOYEE/EMPL/c/NRPA_CSUN_APPS.NR_PEOPLESRCH_CMP.GBL">Directory</a></li>|
-					<li><a href="http://www.csun.edu/calendar">Calendar</a></li>|
-					<li><a href="http://www.csun.edu/atoz/">A to Z</a></li>|
-					<li><a href="http://www.csun.edu/it/webmail">Webmail</a></li>
-				</ul>
+				
 			</div>
 		</div>
 				<div class="navbar-bg">
@@ -72,14 +65,10 @@ $cakeDescription = 'CSU Asset Mapping';
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand hidden-sm hidden-md hidden-lg"
-							style="margin-top: 10px;" href="https://www.csun.edu/faculty"><img
-							src="https://www.csun.edu/faculty/imgs/csun-logo.png"
-							alt="CSUN Faculty Logo"></a> <a
-							class="navbar-brand hidden-sm hidden-md hidden-lg"
-							style="margin-top: 1px;" href="https://www.csun.edu/faculty"><img
-							src="https://www.csun.edu/faculty/imgs/faculty-logo-sm.png"
-							alt="CSUN Faculty Logo"></a>
+						<a class="navbar-brand hidden-sm hidden-md hidden-lg"		style="margin-top: 10px;" href="https://www.csun.edu/faculty"><img
+							src="https://www.csun.edu/faculty/imgs/csun-logo.png"	alt="CSUN Faculty Logo"></a> 
+							<a	class="navbar-brand hidden-sm hidden-md hidden-lg"	style="margin-top: 1px;" href="">
+							<img	src="/img/geoglogo.JPG"		alt="CSUN Asset Database"></a>
 					</div>
 					<div class="navbar-body">
 						<div class="container">
@@ -118,7 +107,7 @@ $cakeDescription = 'CSU Asset Mapping';
 			<div class="col-sm-5">
 				<div class="row">
 					<div class="col-sm-3 footer-seal">
-						<img src="https://www.csun.edu/faculty/imgs/footer-seal.png"
+						<img src="/img/cgs_red_basic.png"
 							alt="Seal for California State University, Northridge">
 					</div>
 					<div class="col-sm-9">

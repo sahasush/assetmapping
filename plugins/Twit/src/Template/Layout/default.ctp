@@ -54,18 +54,11 @@ $cakeDescription = '';
 					<a class="navbar-brand hidden-xs" href="http://www.csun.edu">
 						<img src="https://www.csun.edu/faculty/imgs/csun-logo.png" alt="California State University, Northridge - CSUN">
 					</a>
-					<a class="navbar-brandname hidden-xs" href="https://www.csun.edu/faculty">
-						<img src="https://www.csun.edu/faculty/imgs/faculty-logo.png" alt="META Lab Faculty Application">
+					<a class="navbar-brandname hidden-xs" >
+						<img src="/img/geoglogo.JPG" alt="META Lab Faculty Application">
 					</a>
 				</div>
-				<ul class="list-inline mini-nav pull-right">
-					<li><a href="#main-content">Skip to content</a></li>|
-					<li><a href="http://www.csun.edu/universaldesigncenter">Accessibility</a></li>|
-					<li><a href="https://mynorthridge.csun.edu/psc/PANRPRD/EMPLOYEE/EMPL/c/NRPA_CSUN_APPS.NR_PEOPLESRCH_CMP.GBL">Directory</a></li>|
-					<li><a href="http://www.csun.edu/calendar">Calendar</a></li>|
-					<li><a href="http://www.csun.edu/atoz/">A to Z</a></li>|
-					<li><a href="http://www.csun.edu/it/webmail">Webmail</a></li>
-				</ul>
+				
 			</div>
 		</div>
 		<div class="navbar-bg">
@@ -135,13 +128,13 @@ $cakeDescription = '';
 			<div class="col-sm-5">
 				<div class="row">
 					<div class="col-sm-3 footer-seal">
-						<img src="https://www.csun.edu/faculty/imgs/footer-seal.png" alt="Seal for California State University, Northridge">						
+						<img src="/img/cgs_red_basic.png" alt="Seal for California State University, Northridge">						
 					</div>
 					<div class="col-sm-9">
 						<ul class="list-unstyled">
-							<li><strong>Geography</strong> <br>&copy; California State University, Northridge</li>
+							<li><strong>Center for Geographical Studies</strong> <br>&copy; California State University, Northridge</li>
 							<li>18111 Nordhoff Street, Northridge, CA 91330</li>
-							<li>Phone: (818) 677-1200 / <a href="http://www.csun.edu/contact/" target="_blank">Contact Us</a></li>
+							
 						</ul>
 					</div>
 				</div>

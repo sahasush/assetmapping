@@ -5,6 +5,6 @@
         <a href="/users/query" class="btn btn-primary-outline btn-lg" role="button">Explore Asset Data</a>
 <br>
 <br>
-          <a href="#" class="btn btn-primary-outline btn-lg" role="button">Map of CSUS Campuses</a>
+          <a href="#" class="btn btn-primary-outline btn-lg" role="button">Map of CSU Campuses</a>
   
 </div>

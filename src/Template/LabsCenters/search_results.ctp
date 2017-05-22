@@ -114,7 +114,7 @@
                               
                              	<td>								
 								<?php if (!empty($faculty['Faculty_ID'])): ?>
-								<?= h($this->String->  lnameFirst($faculty['Faculty_Lname'],$faculty['Faculty_MInitial'],$faculty['Faculty_Fname']) )?>						
+								<?= h($this->String->  lnameFirst($faculty['Faculty_Fname'],$faculty['Faculty_MInitial'],$faculty['Faculty_Lname']) )?>						
 								<?php else :?>
 								--
 								 <?php endif; ?>	</td>	
@@ -243,13 +243,14 @@
    <table data-toggle="table"  data-sort-name="center_name" data-sort-order="asc">
 		<thead>
 			<tr>
+			    <th data-field="center_id" data-sortable="true"><?= __('Labs Centers ID') ?></th>
 				<th data-field="center_name" data-sortable="true"><?= __('Center Name') ?></th>
 				<th><?= __('Center Type') ?></th>
 				<th><?= __('Theme') ?></th>
 				<th><?= __('University') ?></th>
 				<th><?= __('College') ?></th>
 				<th><?= __('Department') ?></th>
-					<th class="actions"><?= __('Actions') ?></th>
+					<th class="actions"><?= __('View More Details') ?></th>
 				
 			</tr>
 		</thead>
@@ -258,6 +259,7 @@
                 <?php foreach ( $centers as $center ) :?>
           
                              <tr>
+                              <td><?= h($center['Labs_Centers_ID']) ?></td>
 								<td><?= h($center['Center_Name']) ?></td>
 								<td><?= h($center['Center_Type']) ?></td>
 								<td><?= h($center['Theme']) ?></td>

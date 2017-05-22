@@ -28,17 +28,23 @@
 								
 								
 								?>
+								
+								
 
          <div class="form-group">        
          <label class="control-label col-sm-2" for="universities">University</label>
-			<div class="col-sm-1">				
+			<div class="col-sm-1">	
+					
 			<?=  $this->Form->input('university_id', ['label' => false,'type' => 'select','options'=> $universities,'id' => 'universities', 'rel' => $url,'empty'=>'Please Select', 'required' => true]);?>
+			
 			</div>
 		</div>
      <div class="form-group">    
             <label class="control-label col-sm-2" for="college">College</label>
-            <div class="col-sm-10">	          
-				<?= $this->Form->input('college_id', ['label' => false,'id' => 'colleges','empty' => $empty,'collrel' => $collurl , 'required' => true]); ?>  
+            <div class="col-sm-10">	  
+                 
+				<?= $this->Form->input('college_id', ['label' => false,'id' => 'colleges','empty' => $empty,'collrel' => $collurl , 'required' => true]); ?> 		
+			
 			</div>
      </div>
        <div class="form-group">    

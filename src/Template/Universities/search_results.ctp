@@ -254,7 +254,7 @@
                              <tr>
 				<td>
                               
-               <?= h($this->String->  lnameFirst($faculty['Faculty_Lname'],$faculty['Faculty_MInitial'],$faculty['Faculty_Fname']) )?></td>
+               <?= h($this->String->  lnameFirst($faculty['Faculty_Fname'],$faculty['Faculty_MInitial'],$faculty['Faculty_Lname']) )?></td>
 
 				</td>
 				<td><?= h($faculty['Center_Name']) ?></td>

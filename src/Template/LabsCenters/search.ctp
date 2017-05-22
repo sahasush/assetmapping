@@ -50,7 +50,8 @@
 					id="Datacomponent">					
 					<option value="equipment">Equipment</option>
 					<option value="faculty">Faculty</option>		
-					<option value="grants">Grants</option>				
+					<option value="grants">Grants</option>			
+					<option value="centers">Lab/Center</option>
 					
 				</select>
 

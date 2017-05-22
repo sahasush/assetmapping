@@ -14,7 +14,7 @@ class StringHelper extends Helper {
 		}
 		
 		if (strlen ( trim ( $fname ) ) > 0) {
-			$output = $output . ',' . $fname;
+			$output = $output . ',  ' . $fname;
 		}
 		if (strlen ( trim ( $mname ) ) > 0) {
 			$output = $output . ' ' . $mname;

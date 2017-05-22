@@ -171,7 +171,7 @@
                  <?php if (in_array("Faculty_ID", $colnames)): ?>                 
                      <td><?=h($values['Faculty_ID'])?></td>  
                        <?php endif; ?>
-                 <td><?= h($this->String->  lnameFirst($values['Faculty_Lname']   ,$values['Faculty_MInitial'],$values['Faculty_Fname']) )?></td>                 
+                 <td><?= h($this->String->  lnameFirst($values['Faculty_Fname']   ,$values['Faculty_MInitial'],$values['Faculty_Lname']) )?></td>                 
                 
                   <td><?= h($values['Center_Name']) ?></td>
                   <td class="actions"> <?= $this->Html->link(__('View Faculty'), ['controller'=>'faculty','action' => 'view', $values['Faculty_ID']])?> </td>
