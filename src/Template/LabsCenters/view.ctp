@@ -34,6 +34,7 @@
         <?php endif; ?>
         <tr>
             <th><?= __('Primary Contact Name') ?></th>
+           
             <td><?= h($this->String->  lnameFirst($labsCenter->Contact_1_Fname   ,$labsCenter->Contact_1_Minitial,$labsCenter->Contact_1_Lname) )?></td>
         </tr>
         <tr>
@@ -163,11 +164,12 @@
 		 <td>
         <?php if (!empty($labsCenter->faculty)): ?>
 		
-           
+           <ul style="list-style: none;">
                 <?php foreach ($labsCenter->faculty as $user): ?>
-                    <li><?= h($user->Faculty_Fname) ?> <?= h($user->Faculty_Lname) ?></li>
+                   
+                    <li><?= h($this->String->  lnameFirst($user->Faculty_Fname ,$user->Faculty_MInitial,$user->Faculty_Lname)) ?></li>
                 <?php endforeach; ?>
-            
+         </ul>   
         <?php else: ?>
             <p>-</p>
         <?php endif; ?>

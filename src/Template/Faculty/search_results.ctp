@@ -32,7 +32,7 @@
                              <?php if (in_array("Faculty_ID", $colnames)): ?>
 								  <td><?= h($faculty['Faculty_ID']) ?></td>			
 							<?php endif; ?>		
-                                <td><?= h($this->String->  lnameFirst($faculty['Faculty_Lname'] ,$faculty['Faculty_MInitial'],$faculty['Faculty_Fname'])) ?></td>			
+                                <td><?= h($this->String->  lnameFirst($faculty['Faculty_Fname'] ,$faculty['Faculty_MInitial'],$faculty['Faculty_Lname'])) ?></td>			
 								<td><?= h($faculty['Center_Name']) ?></td>
 								<td><?= h($faculty['Center_Type']) ?></td>
 								<td><?= h($faculty['Theme']) ?></td>
