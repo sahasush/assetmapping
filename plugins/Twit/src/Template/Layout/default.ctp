@@ -128,11 +128,11 @@ $cakeDescription = '';
 			<div class="col-sm-5">
 				<div class="row">
 					<div class="col-sm-3 footer-seal">
-						<img src="/img/cgs_red_basic.png" alt="Seal for California State University, Northridge">						
+						<a href="https://www.csun.edu/center-for-geographical-studies"><img src="/img/cgs_red_basic.png" alt="Seal for California State University, Northridge"></a>				
 					</div>
 					<div class="col-sm-9">
 						<ul class="list-unstyled">
-							<li><strong>Center for Geographical Studies</strong> <br>&copy; California State University, Northridge</li>
+							<li><strong><a href="https://www.csun.edu/center-for-geographical-studies">Center for Geographical Studies</a></strong> <br>&copy; California State University, Northridge</li>
 							<li>18111 Nordhoff Street, Northridge, CA 91330</li>
 							
 						</ul>

@@ -50,9 +50,9 @@ $cakeDescription = 'CSU Asset Mapping';
 					<a class="navbar-brand hidden-xs" href="http://www.csun.edu">
 						<img src="https://www.csun.edu/faculty/imgs/csun-logo.png" alt="California State University, Northridge - CSUN">
 					</a>
-					<a class="navbar-brandname hidden-xs" href="">
+					<div class="navbar-brandname hidden-xs">
 						<img src="/img/geoglogo.JPG" alt="Asset Database Application">
-					</a>
+					</div>
 				</div>
 				
 			</div>
@@ -107,16 +107,15 @@ $cakeDescription = 'CSU Asset Mapping';
 			<div class="col-sm-5">
 				<div class="row">
 					<div class="col-sm-3 footer-seal">
-						<img src="/img/cgs_red_basic.png"
-							alt="Seal for California State University, Northridge">
+						<a href="https://www.csun.edu/center-for-geographical-studies"><img src="/img/cgs_red_basic.png"
+							alt="Seal for California State University, Northridge"></a>
 					</div>
 					<div class="col-sm-9">
 						<ul class="list-unstyled">
-							<li><strong>Geography</strong> <br>&copy; California State
+							<li><strong><a href="https://www.csun.edu/center-for-geographical-studies">Center for Geographical Studies</a></strong> <br>&copy; California State
 								University, Northridge</li>
 							<li>18111 Nordhoff Street, Northridge, CA 91330</li>
-							<li>Phone: (818) 677-1200 / <a
-								href="http://www.csun.edu/contact/" target="_blank">Contact Us</a></li>
+							
 						</ul>
 					</div>
 				</div>
